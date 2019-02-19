@@ -1,6 +1,28 @@
+# Modify Date
+# 2019.02.19
+
+# By Salt
+
 # enables color in the terminal bash shell
 export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
 # enables color for iTerm
 export TERM=xterm-color
 export TERM="xterm-color"
-PS1="\[\e[35m\]\u: \W \\$ \[\e[32m\]"
+export PS1="\[\e[1;31m\]\u: \W \[\e[1;31m\]\$ \[\e[m\]"
+
+# Alias
+
+alias ll='ls -ahlF'
+alias cp='cp -iv'
+alias mv='mv -iv'
+
+# Shortcut command
+alias f='open -a Finder ./'
+alias c='clear'
+
+# Replace "rm" command to trash for safety
+alias rm='echo "Please use the command: \"junk\" for safety."'
+junk() {
+    mv "$1" ~/.Trash/
+}
