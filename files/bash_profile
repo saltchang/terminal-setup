@@ -1,0 +1,6 @@
+# enables color in the terminal bash shell
+export CLICOLOR=1
+# enables color for iTerm
+export TERM=xterm-color
+export TERM="xterm-color"
+PS1="\[\e[35m\]\u: \W \\$ \[\e[32m\]"
