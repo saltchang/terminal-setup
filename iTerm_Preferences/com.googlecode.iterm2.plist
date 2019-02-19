@@ -783,7 +783,7 @@
 	<key>NSFontPanelAttributes</key>
 	<string>1, 4</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/myGitHub/my_BashProfile/iTerm_Prefrences</string>
+	<string>~/myGitHub/my_BashProfile/iTerm_Preferences</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{799, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
@@ -820,7 +820,7 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>916 365 705 323 0 0 1920 1080 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>878 410 796 486 0 0 1920 1080 </string>
+	<string>878 384 796 486 0 0 1920 1080 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>226 135 1345 907 0 0 1920 1080 </string>
 	<key>New Bookmarks</key>
@@ -2348,7 +2348,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/Salt/myGitHub/my_BashProfile/iTerm_Prefrences</string>
+	<string>/Users/Salt/myGitHub/my_BashProfile/iTerm_Preferences</string>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedAlternateAppNameKey</key>
