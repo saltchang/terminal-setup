@@ -17,6 +17,7 @@ alias ll='ls -ahlF'
 alias cp='cp -iv'
 alias mv='mv -iv'
 
+
 # Shortcut command
 alias f='open -a Finder ./'
 alias c='clear'
@@ -25,4 +26,8 @@ alias c='clear'
 alias rm='echo "Please use the command: \"junk\" for safety."'
 junk() {
     mv "$1" ~/.Trash/
+}
+
+cl() {
+    cd "$1" && ll
 }
