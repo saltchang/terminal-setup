@@ -16,6 +16,7 @@ export PS1="\[\e[1;31m\]\u: \W \[\e[1;31m\]\$ \[\e[m\]"
 alias ll='ls -ahlF'
 alias cp='cp -iv'
 alias mv='mv -iv'
+alias python='python3'
 
 
 # Shortcut command
@@ -30,4 +31,8 @@ junk() {
 
 cl() {
     cd "$1" && ll
+}
+
+clearTrash() {
+    \rm -rf ~/.Trash/*
 }
