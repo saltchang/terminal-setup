@@ -1,7 +1,5 @@
-# Modify Date
-# 2019.02.19
-
-# By Salt
+# .bash_profile
+# By Salt Chang
 
 # enables color in the terminal bash shell
 export CLICOLOR=1
@@ -13,7 +11,8 @@ export PS1="\[\e[1;31m\]\u: \W \[\e[1;31m\]\$ \[\e[m\]"
 
 # Alias
 
-alias ll='ls -ahlF'
+alias ll='ls -hlF'
+alias la='ls -ahlF'
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias python='python3'
@@ -30,7 +29,7 @@ junk() {
 }
 
 cl() {
-    cd "$1" && ll
+    cd "$1" && la
 }
 
 clearTrash() {
