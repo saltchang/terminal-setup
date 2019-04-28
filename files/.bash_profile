@@ -16,7 +16,7 @@ alias la='ls -ahlF'
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias python='python3'
-alias codego='code $GOPATH'
+alias codego='cl $GOPATH && code .'
 
 
 # Shortcut command
