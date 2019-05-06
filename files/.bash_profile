@@ -16,7 +16,8 @@ alias la='ls -ahlF'
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias python='python3'
-alias codego='cl $GOPATH && code .'
+alias gogo='cl $GOPATH'
+alias codego='cl $GOPATH/src/github.com/saltchang && code .'
 
 
 # Shortcut command
