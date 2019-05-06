@@ -17,6 +17,7 @@ alias cp='cp -iv'
 alias mv='mv -iv'
 alias python='python3'
 alias gogo='cl $GOPATH'
+alias goco='cl ~/saltCode'
 alias codego='cl $GOPATH/src/github.com/saltchang && code .'
 
 
