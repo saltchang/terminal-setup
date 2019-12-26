@@ -1,0 +1,89 @@
+
+// To view the default settings, hold "alt" while clicking on the "Settings" button.
+// For documentation on these settings, see: https://aka.ms/terminal-documentation
+
+{
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+
+    "defaultProfile": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
+
+    "profiles":
+    [
+        {
+            // Make changes here to the powershell.exe profile
+            "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+            "name": "Windows PowerShell",
+            "commandline": "powershell.exe",
+            "hidden": false
+        },
+        {
+            // Make changes here to the cmd.exe profile
+            "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+            "name": "cmd",
+            "commandline": "cmd.exe",
+            "hidden": false
+        },
+        {
+            "guid": "{c6eaf9f4-32a7-5fdc-b5cf-066e8a4b1e40}",
+            "hidden": true,
+            "name": "Ubuntu-18.04",
+            "source": "Windows.Terminal.Wsl"
+        },
+        {
+            "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
+            "hidden": false,
+            "name": "Azure Cloud Shell",
+            "source": "Windows.Terminal.Azure"
+        },
+        {
+            "guid": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
+            "hidden": false,
+            "name": "Debian",
+            "source": "Windows.Terminal.Wsl",
+            // "fontFace" : "FuraCode NF",
+            "fontFace" : "MesloLGS NF",
+            "fontSize" : 17,
+            "startingDirectory" : "//wsl$/Debian/home/salt",
+            "colorScheme": "Nozo"
+        }
+    ],
+
+    // Add custom color schemes to this array
+    "schemes": [
+        {
+            "name" : "Nozo",
+
+            "background" : "#061923",
+            "foreground" : "#e5c49e",
+            "selectionBackground": "#265b75",
+
+            "black" : "#1d485f",
+            "brightBlack": "#008eab",
+
+            "white" : "#c6e8f1",
+            "brightWhite": "#ffffff",
+
+            "red" : "#db662d",
+            "brightRed": "#feaf3c",
+
+            "green" : "#84c47e",
+            "brightGreen": "#0be353",
+
+            "blue" : "#5fb1c2",
+            "brightBlue": "#77dbf4",
+            
+            "yellow" : "#e1d471",
+            "brightYellow": "#fedaae",
+            
+            "cyan": "#97b9c0",
+            "brightCyan": "#0bc7e3",
+            
+            "purple": "#221f2c",
+            "brightPurple": "#0bc7e3"
+        }
+    ],
+
+    // Add any keybinding overrides to this array.
+    // To unbind a default keybinding, set the command to "unbound"
+    "keybindings": []
+}
