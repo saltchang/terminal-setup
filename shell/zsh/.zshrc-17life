@@ -1,0 +1,74 @@
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+export PATH=${PATH}:/Development/android-sdk/platform-tools:/Development/android-sdk/tools
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home"
+export ANDROID_SDK_ROOT="/Users/david_chang/Library/Android/sdk"
+export MFP_DEV_KIT="$HOME/MobileFirst-8.0.0.0"
+
+# Alias
+
+alias ll='ls -hlF'
+alias la='ls -ahlF'
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias python='python3'
+alias gogo='cl $GOPATH'
+alias goco='cl ~/saltCode'
+alias life='cl ~/saltCode/works_of_17life/new_Cardaily'
+alias codego='cl $GOPATH/src/github.com/saltchang && code .'
+alias shrc="code ~/.zshrc || code ~/.bash_profile || code ~/.bashrc"
+
+# For work
+alias restart='sh $HOME/saltCode/shell_script/restart.sh'
+alias reapp='sh $HOME/saltCode/shell_script/recard.sh'
+alias reuat='sh $HOME/saltCode/shell_script/recard-uat.sh'
+alias redev='sh $HOME/saltCode/shell_script/recard-dev.sh'
+
+
+# Shortcut command
+alias f='open -a Finder ./'
+alias c='clear'
+
+# Replace "rm" command to trash for safety
+alias rm='echo "Please use the command: \"junk\" for safety."'
+junk() {
+    mv "$1" ~/.Trash/
+}
+
+cl() {
+    cd "$1" && la
+}
+
+clearTrash() {
+    \rm -rf ~/.Trash/*
+}
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+source /usr/local/opt/powerlevel9k/powerlevel9k.zsh-theme
+# source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
