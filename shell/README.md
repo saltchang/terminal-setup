@@ -2,9 +2,9 @@
 
 ## iTerm2
 
-[安裝 iTerm2](https://iterm2.com/)
-[下載並安裝 iTerm-color-scheme](https://iterm2colorschemes.com/)
-[iTerm Profile](https://raw.githubusercontent.com/saltchang/personal-configs/master/shell/iTerm/Salt_Profile.json)
+- [安裝 iTerm2](https://iterm2.com/)
+- [下載並安裝 iTerm-color-scheme](https://iterm2colorschemes.com/)
+- [iTerm Profile](https://raw.githubusercontent.com/saltchang/personal-configs/master/shell/iTerm/Salt_Profile.json)
 
 ## zsh
 
