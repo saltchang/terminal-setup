@@ -2,9 +2,9 @@
 
 ## iTerm2
 
-- [安裝 iTerm2](https://iterm2.com/)
-- [下載並安裝 iTerm-color-scheme](https://iterm2colorschemes.com/)
-- [iTerm Profile](https://raw.githubusercontent.com/saltchang/personal-configs/master/shell/iTerm/Salt_Profile.json)
+[安裝 iTerm2](https://iterm2.com/)
+[下載並安裝 iTerm-color-scheme](https://iterm2colorschemes.com/)
+[iTerm Profile](https://raw.githubusercontent.com/saltchang/personal-configs/master/shell/iTerm/Salt_Profile.json)
 
 ## zsh
 
@@ -72,6 +72,10 @@ sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools
 ```bash
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 ```
+
+### 顏色配置
+
+可使用[這個圖表](https://user-images.githubusercontent.com/704406/43988708-64c0fa52-9d4c-11e8-8cf9-c4d4b97a5200.png)當中的色碼來搭配 Powerlevel9k/10k 進行配置
 
 ## 安裝字型
 
