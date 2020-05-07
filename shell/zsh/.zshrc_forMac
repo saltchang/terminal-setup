@@ -43,4 +43,10 @@ cl() {
     cd "$1" && la
 }
 
+# GitKraken
+kraken () {
+    killall GitKraken
+    /Applications/GitKraken.app/Contents/MacOS/GitKraken -p "$(git rev-parse --show-toplevel)" &>/dev/null &
+}
+
 source $ZSH/oh-my-zsh.sh

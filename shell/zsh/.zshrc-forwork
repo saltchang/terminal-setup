@@ -137,6 +137,12 @@ clearTrash() {
     \rm -rf ~/.Trash/*
 }
 
+# GitKraken
+kraken () {
+    killall GitKraken
+    /Applications/GitKraken.app/Contents/MacOS/GitKraken -p "$(git rev-parse --show-toplevel)" &>/dev/null &
+}
+
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
