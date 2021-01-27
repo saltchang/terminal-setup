@@ -16,13 +16,12 @@ sudo apt update
 
 # 安裝 zsh
 sudo apt install zsh
+
 # 或者
 sudo apt-get install zsh
 ```
 
 ### 在 macOS 安裝 zsh
-
-- macOS
 
 ```bash
 # 使用 brew 安裝 zsh
@@ -40,16 +39,13 @@ chsh -s $(which zsh)
 
 ### 設定 .zshrc
 
-設定請參考這個檔案： [.zshrc_for_unix](https://github.com/saltchang/terminal-setup-notes/blob/master/shell/zsh/.zshrc_for_unix)
+設定請參考這個檔案： [.zshrc_for_unix](https://github.com/saltchang/terminal-setup-note/blob/main/terminal/zsh/.zshrc_for_unix)
 
 將其中的內容貼到 `~/.zshrc` 即可
 
 ## 安裝 oh-my-zsh
 
 ### 安裝需求
-
-- `curl` 或 `wget`
-- `git`
 
 ### 基本安裝
 
@@ -67,7 +63,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-選一種使用就好
+選一種可以使用的就好
 
 ## 安裝 powerlevel10k
 
@@ -105,13 +101,13 @@ brew install --cask font-fira-code
 
 ### FiraCode with nerdfont
 
-連結： [FuraCode](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraCode.zip)
+下載： [FuraCode](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraCode.zip)
 
 ### Menlo
 
 iTerm 使用 Menlo
 
-- [Menlo](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/Meslo.zip)
+下載： [Menlo](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/Meslo.zip)
 
 ### 其他 NerdFont
 
@@ -119,7 +115,7 @@ iTerm 使用 Menlo
 
 ### 設定 iTerm2
 
-1. 下載 [iTerm Profile](https://github.com/saltchang/terminal-setup-notes/blob/master/shell/iTerm/Salt_iTerm_Profile.json)
+1. 下載 [iTerm Profile](https://github.com/saltchang/terminal-setup-note/blob/main/terminal/iTerm/Salt_iTerm_Profile.json)
 2. 打開 iTerm > Preferences > Profiles > Other Actions > Import JSON Profiles > 選擇剛剛下載的 `Salt_iTerm_Profile.json`
 3. 匯入設定之後： Other Actions > Set as Default > Restart iTerm
 4. 完成
