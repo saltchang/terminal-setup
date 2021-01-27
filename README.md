@@ -40,7 +40,7 @@ chsh -s $(which zsh)
 
 ### 設定 .zshrc
 
-設定請參考這個檔案： [.zshrc_for_unix](https://github.com/saltchang/personal-configs/blob/master/shell/zsh/.zshrc_for_unix)
+設定請參考這個檔案： [.zshrc_for_unix](https://github.com/saltchang/terminal-setup-notes/blob/master/shell/zsh/.zshrc_for_unix)
 
 將其中的內容貼到 `~/.zshrc` 即可
 
@@ -119,7 +119,7 @@ iTerm 使用 Menlo
 
 ### 設定 iTerm2
 
-1. 下載 [iTerm Profile](https://github.com/saltchang/personal-configs/blob/master/shell/iTerm/Salt_iTerm_Profile.json)
+1. 下載 [iTerm Profile](https://github.com/saltchang/terminal-setup-notes/blob/master/shell/iTerm/Salt_iTerm_Profile.json)
 2. 打開 iTerm > Preferences > Profiles > Other Actions > Import JSON Profiles > 選擇剛剛下載的 `Salt_iTerm_Profile.json`
 3. 匯入設定之後： Other Actions > Set as Default > Restart iTerm
 4. 完成
