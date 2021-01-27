@@ -33,6 +33,7 @@
     "Alpha Component" : 1,
     "Green Component" : 0.35736742615699768
   },
+  "Blend" : 0.45615737757731961,
   "Mouse Reporting" : true,
   "Cursor Boost" : 0,
   "Ansi 4 Color" : {
@@ -282,7 +283,7 @@
   "Use Bold Font" : true,
   "Silence Bell" : false,
   "Ansi 12 Color" : {
-    "Red Component" : 0.046985700726509094,
+    "Red Component" : 0.046985700726509108,
     "Color Space" : "sRGB",
     "Blue Component" : 0.89346510171890259,
     "Alpha Component" : 1,
@@ -312,7 +313,7 @@
     "Alpha Component" : 1,
     "Green Component" : 0.40136903524398804
   },
-  "Name" : "Salt's Bash",
+  "Name" : "Salt_iTerm_Profile",
   "Blinking Cursor" : true,
   "Guid" : "F19D6379-4404-48B0-8FD0-BE29F5297E4A",
   "Idle Code" : 0,
@@ -339,7 +340,7 @@
   },
   "Smart Cursor Color" : false,
   "Ambiguous Double Width" : false,
-  "Blur Radius" : 6.7880789974619278,
+  "Blur Radius" : 3.7047648318527919,
   "Cursor Type" : 2,
   "Ansi 0 Color" : {
     "Red Component" : 0.11437240988016129,
@@ -350,7 +351,7 @@
   },
   "Blur" : true,
   "Vertical Spacing" : 1,
-  "Normal Font" : "FiraCode-Regular 20",
+  "Normal Font" : "MesloLGLNerdFontComplete-Regular 18",
   "Use Underline Color" : false,
   "Ansi 7 Color" : {
     "Red Component" : 0.89857113361358643,
@@ -363,7 +364,7 @@
   "Terminal Type" : "xterm-256color",
   "Horizontal Spacing" : 1,
   "Option Key Sends" : 0,
-  "Only The Default BG Color Uses Transparency" : false,
+  "Only The Default BG Color Uses Transparency" : true,
   "Blink Allowed" : false,
   "Minimum Contrast" : 0,
   "Ansi 15 Color" : {
@@ -380,7 +381,7 @@
     "Alpha Component" : 1,
     "Green Component" : 0.69693183898925781
   },
-  "Transparency" : 0.056178616751269034,
+  "Transparency" : 0.20308534263959391,
   "Background Color" : {
     "Red Component" : 0.027143325656652451,
     "Color Space" : "sRGB",
@@ -392,7 +393,7 @@
   "Bound Hosts" : [
 
   ],
-  "Non Ascii Font" : "FuraCodeNerdFontComplete-Bold 20",
+  "Non Ascii Font" : "MesloLGLNerdFontComplete-Regular 18",
   "Ansi 13 Color" : {
     "Red Component" : 0.7786296010017395,
     "Color Space" : "sRGB",

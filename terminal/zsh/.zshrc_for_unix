@@ -1,4 +1,6 @@
-# zsh configure
+# zsh configure for unix, *nix system
+# 2021-01-28 By Hikaru Chang
+
 POWERLEVEL9K_MODE="nerdfont-complete"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
@@ -18,35 +20,34 @@ POWERLEVEL9K_STATUS_OK=true
 
 plugins=(git)
 
-# export
+# Export
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export ZSH="$HOME/.oh-my-zsh"
+
+# Export for Golang
 # export GOPATH=$HOME/saltCode/go
 
-# Alias
+# Alias Basic
 alias ll="ls -hlF"
 alias la="ls -ahlF"
 alias cp="cp -iv"
 alias mv="mv -iv"
-alias python="python3"
 alias home="cl ~ && echo '\nWelcome home!'"
 alias goco="cl ~/saltCode && echo '\nOK, ready to code'"
 alias shrc="code ~/.zshrc || code ~/.bash_profile || code ~/.bashrc"
 
-# For Ubuntu (Gnome)
+# Alias for Python3
+# alias python="python3"
+
+# Alias for Ubuntu (Gnome)
 # alias n="nautilus"
 
-# Shortcut command
+# Alias for shortcut command
 alias c="clear"
 
+# Other alias
 cl() {
     cd "$1" && la
-}
-
-# GitKraken
-kraken () {
-    killall GitKraken
-    /Applications/GitKraken.app/Contents/MacOS/GitKraken -p "$(git rev-parse --show-toplevel)" &>/dev/null &
 }
 
 source $ZSH/oh-my-zsh.sh
