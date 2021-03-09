@@ -1,5 +1,5 @@
-# zsh configure for unix, *nix system
-# 2021-01-28 By Hikaru Chang
+# zsh configure for *nix system
+# 2021-03-09 By Salt Chang
 
 POWERLEVEL9K_MODE="nerdfont-complete"
 ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -90,6 +90,10 @@ alias gogo="cl $GOPATH && echo '\nOK, ready to Go :)'"
 alias gogg="cl $GOPATH/src/github.com/saltchang && echo '\nOK, ready to Go :)'"
 alias edit-rc="code ~/.zshrc || code ~/.bash_profile || code ~/.bashrc"
 alias source-rc="source ~/.zshrc"
+
+# Docker
+alias dpsa="docker ps -a --format \"{{.Names}} ({{.ID}}): {{.Image}} ({{.Ports}})\""
+alias dps="docker ps --format \"{{.Names}} ({{.ID}}): {{.Image}} ({{.Ports}})\""
 
 # Alias for vscode-insiders-version
 alias code="code-insiders"
