@@ -20,13 +20,16 @@ POWERLEVEL9K_STATUS_OK=true
 
 plugins=(git)
 
-# Export
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+# Export for Zsh
 export ZSH="$HOME/.oh-my-zsh"
-export PATH=$PATH:$HOME/.yarn/bin
 
 # Export for Golang
-# export GOPATH=$HOME/saltCode/go
+export GOPATH=$HOME/saltCode/go
+
+# PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$PATH:$HOME/.yarn/bin # for yarn
+export PATH=$PATH:$HOME/.composer/vendor/bin # for laravel
 
 # Alias Basic
 alias ll="ls -hlF"
