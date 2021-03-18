@@ -99,7 +99,9 @@ alias source-rc="source ~/.zshrc"
 alias dpsa="docker ps -a --format \"{{.Names}} ({{.ID}}): {{.Image}} ({{.Ports}})\""
 alias dps="docker ps --format \"{{.Names}} ({{.ID}}): {{.Image}} ({{.Ports}})\""
 
-# Alias for vscode-insiders-version
+# Alias for vscode & vscode-insiders
+# Only if you need to use "code" as "code-insiders"
+alias codes="/usr/local/bin/code"
 alias code="code-insiders"
 
 # Shortcut command
