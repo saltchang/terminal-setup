@@ -39,7 +39,7 @@ chsh -s $(which zsh)
 
 ### 設定 .zshrc
 
-設定請參考這個檔案： [.zshrc_for_unix](https://github.com/saltchang/terminal-setup-note/blob/main/terminal/zsh/.zshrc_for_unix)
+設定請參考這個檔案： [.zshrc_for_unix](https://raw.githubusercontent.com/saltchang/terminal-setup-note/main/terminal/zsh/.zshrc_for_xnix)
 
 將其中的內容貼到 `~/.zshrc` 即可
 
