@@ -99,19 +99,12 @@ brew tap homebrew/cask-fonts
 brew install --cask font-fira-code
 ```
 
-### FiraCode with nerdfont
+### NerdFont 字型下載
 
-下載： [FuraCode](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraCode.zip)
-
-### Menlo
-
-iTerm 使用 Menlo
-
-下載： [Menlo](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/Meslo.zip)
-
-### 其他 NerdFont
-
-[下載連結](https://www.nerdfonts.com/font-downloads)
+- [FuraCode](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip)
+- [SourceCodePro](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/SourceCodePro.zip)
+- [Menlo](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip)
+- [其他](https://www.nerdfonts.com/font-downloads)
 
 ### 設定 iTerm2
 
