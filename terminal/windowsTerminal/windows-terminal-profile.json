@@ -66,6 +66,14 @@
                 "hidden": false,
                 "startingDirectory": "//wsl$/Ubuntu/home/salt",
                 "icon": "C:/ubuntu.ico"
+            },
+            {
+                "guid": "{00000000-0000-0000-ba54-000000000002}",
+                "name": "GitBash",
+                "commandline": "\"%PROGRAMFILES%\\git\\bin\\bash.exe\" --login -i -l",
+                "hidden": false,
+                "startingDirectory": "%USERPROFILE%",
+                "icon": "%PROGRAMFILES%\\git\\mingw64\\share\\git\\git-for-windows.ico"
             }
         ]
     },
