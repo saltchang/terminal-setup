@@ -294,6 +294,19 @@ export NVM_DIR="$HOME/.nvm"
 # ===> Git (Optional) ==========================================================
 # --------> Change Default Initial Branch --------------------------------------
 git config --global init.defaultBranch main
+# --------> Quickly update Git (for Ubuntu) ------------------------------------
+update_git() {
+    printf "\nCurrent %s\n\n" "$(git --version)"
+
+    printf "Start to update Git...\n\n"
+
+    sudo add-apt-repository ppa:git-core/ppa -y &&
+        sudo apt-get update &&
+        sudo apt-get install git -y
+
+    printf "\nCurrent %s\n\n" "$(git --version)"
+    printf "Git updated successfully.\n"
+}
 # ==============================================================================
 
 # ===> SSH Agent (Optional) ====================================================
