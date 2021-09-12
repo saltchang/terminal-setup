@@ -164,16 +164,18 @@ addToPATH() {
 # --------> Basic Binary -------------------------------------------------------
 addToPATH "$HOME/bin"
 addToPATH "/usr/local/bin"
+# --------> For Go (Optional) --------------------------------------------------
+addToPATH "/usr/local/go/bin"
+# --------> For Yarn (Optional) ------------------------------------------------
+addToPATH "$HOME/.yarn/bin"
+# --------> For Laravel (Optional) ---------------------------------------------
+addToPATH "$HOME/.composer/vendor/bin"
 # --------> For Pyenv (Optional) -----------------------------------------------
 # export PYENV_ROOT="$HOME/.pyenv"
 # addToPATH "$PYENV_ROOT/bin:$PATH"
 # eval "$(pyenv init --path)"
 # eval "$(pyenv init -)"
 # eval "$(pyenv virtualenv-init -)"
-# --------> For Yarn (Optional) ------------------------------------------------
-addToPATH "$HOME/.yarn/bin"
-# --------> For Laravel (Optional) ---------------------------------------------
-addToPATH "$HOME/.composer/vendor/bin"
 # --------> Export PATH --------------------------------------------------------
 export PATH
 # ==============================================================================
