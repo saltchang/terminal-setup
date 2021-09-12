@@ -266,6 +266,7 @@ alias c='clear'
 alias edit-rc='edit $HOME/.zshrc'
 alias source-rc='source $HOME/.zshrc'
 alias paths='echo && echo -e ${PATH//:/\\n}'
+alias weather='curl wttr.in && echo && curl v2.wttr.in'
 # --------> List all ports -----------------------------------------------------
 # Run "sudo apt-get install net-tools" to install net-tools if needed
 alias ports='netstat -tulanp'
