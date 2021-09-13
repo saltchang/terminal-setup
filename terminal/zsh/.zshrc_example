@@ -11,7 +11,7 @@
 
 # ------------------------------------------------------------------------------
 
-# Last Changed at: 2021-09-01 07:35 (UTC+8)
+# Last Changed at: 2021-09-13 22:21 (UTC+8)
 
 # ------------------------------------------------------------------------------
 
@@ -149,8 +149,8 @@ PROJS_BASE=$HOME/projects
 # ==============================================================================
 
 # ===> Go Language (Optional) ==================================================
-export GOPATH=$PROJS_BASE/go
-[ ! -d "$GOPATH" ] && mkdir -p "$GOPATH"
+# export GOPATH=$PROJS_BASE/go
+# [ ! -d "$GOPATH" ] && mkdir -p "$GOPATH"
 # ==============================================================================
 
 # ===> Path ====================================================================
@@ -165,11 +165,11 @@ addToPATH() {
 addToPATH "$HOME/bin"
 addToPATH "/usr/local/bin"
 # --------> For Go (Optional) --------------------------------------------------
-addToPATH "/usr/local/go/bin"
+# addToPATH "/usr/local/go/bin"
 # --------> For Yarn (Optional) ------------------------------------------------
-addToPATH "$HOME/.yarn/bin"
+# addToPATH "$HOME/.yarn/bin"
 # --------> For Laravel (Optional) ---------------------------------------------
-addToPATH "$HOME/.composer/vendor/bin"
+# addToPATH "$HOME/.composer/vendor/bin"
 # --------> For Pyenv (Optional) -----------------------------------------------
 # export PYENV_ROOT="$HOME/.pyenv"
 # addToPATH "$PYENV_ROOT/bin:$PATH"
@@ -184,8 +184,8 @@ export PATH
 unalias code 2>/dev/null
 unalias codes 2>/dev/null
 # Only if you need to use insiders version of vscode as default
-# alias codes='/usr/local/bin/code' # for macOS or Linux
-VSCODE_PATH="/mnt/c/Users/saltc/AppData/Local/Programs/Microsoft\ VS\ Code/bin/code" # for WSL
+alias codes='/usr/local/bin/code' # for macOS or Linux
+# VSCODE_PATH="/mnt/c/Users/saltc/AppData/Local/Programs/Microsoft\ VS\ Code/bin/code" # for WSL
 # shellcheck disable=SC2139
 alias codes="$VSCODE_PATH" # for WSL
 alias code='code-insiders'
@@ -246,21 +246,21 @@ gol() {
     printf "\nHere are the third-party libraries :)\n"
 }
 
-gog() {
+gogo() {
     cl "$GOPATH"
     printf "\nOK, you are ready to Go :)\n"
 }
 
 # --------> Go to Windows Disk C (WSL Only) ------------------------------------
-win() {
-    cd "/mnt/c" || exit
-    printf "\nOK, you are now in disk: C!\n"
-}
+# win() {
+#     cd "/mnt/c" || exit
+#     printf "\nOK, you are now in disk: C!\n"
+# }
 
 # --------> Open with Windows Explorer (WSL Only) ------------------------------
-open() {
-    explorer.exe "$1"
-}
+# open() {
+#     explorer.exe "$1"
+# }
 # ==============================================================================
 
 # ===> Alias: Shortcut =========================================================
@@ -275,22 +275,22 @@ alias ports='netstat -tulanp'
 # ==============================================================================
 
 # ===> Python (Optional) =======================================================
-alias python='python3'
+# alias python='python3'
 # ==============================================================================
 
 # ===> Docker (Optional) =======================================================
-alias docker-ls='docker ps -a --format "{{.Names}} ({{.ID}}): {{.Image}} ({{.Ports}})"'
-alias docker-all='docker ps --format "{{.Names}} ({{.ID}}): {{.Image}} ({{.Ports}})"'
+# alias docker-ls='docker ps -a --format "{{.Names}} ({{.ID}}): {{.Image}} ({{.Ports}})"'
+# alias docker-all='docker ps --format "{{.Names}} ({{.ID}}): {{.Image}} ({{.Ports}})"'
 # ==============================================================================
 
 # ===> NVM (Optional) ==========================================================
-export NVM_DIR="$HOME/.nvm"
+# export NVM_DIR="$HOME/.nvm"
 # --------> Load NVM -----------------------------------------------------------
 # shellcheck disable=SC1091
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 # --------> Load NVM BASH_COMPLETION -------------------------------------------
 # shellcheck disable=SC1091
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 # ==============================================================================
 
 # ===> Git (Optional) ==========================================================
@@ -312,9 +312,22 @@ update_git() {
 # ==============================================================================
 
 # ===> SSH Agent (Optional) ====================================================
-SSH_KEY_FILE=$HOME/.ssh/id_rsa
+SSH_KEY_FILE=$HOME/.ssh/id_ed25519
 eval "$(ssh-agent -s)"
 ssh-add "$SSH_KEY_FILE"
+# ==============================================================================
+
+# ===> Docker Deamon (Optional for WSL) ========================================
+# DOCKER_DISTRO="Ubuntu" # Run `wsl -l -q` in Powershell to see all distros
+# DOCKER_DIR=/mnt/wsl/shared-docker
+# DOCKER_SOCK="$DOCKER_DIR/docker.sock"
+# export DOCKER_HOST="unix://$DOCKER_SOCK"
+# if [ ! -S "$DOCKER_SOCK" ]; then
+#     mkdir -p "$DOCKER_DIR"
+#     chmod o=,ug=rwx "$DOCKER_DIR"
+#     chgrp docker "$DOCKER_DIR"
+#     /mnt/c/Windows/System32/wsl.exe -d $DOCKER_DISTRO sh -c "nohup sudo -b dockerd < /dev/null > $DOCKER_DIR/dockerd.log 2>&1"
+# fi
 # ==============================================================================
 
 # ==============================================================================
