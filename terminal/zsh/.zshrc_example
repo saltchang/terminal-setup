@@ -214,6 +214,8 @@ alias chgrp='chgrp --preserve-root'
 alias mkdir='mkdir -pv'
 alias ssh='ssh -v -tt -A' # Use '-vvv' for top-level verbose
 alias ping='ping -c 5'
+alias mk='make'
+alias sudo='sudo '
 # ==============================================================================
 
 # ===> Functions: Shortcut =====================================================
