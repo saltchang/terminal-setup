@@ -11,7 +11,7 @@
 
 # ------------------------------------------------------------------------------
 
-# Last Changed at: 2021-09-13 22:38 (UTC+8)
+# Last Changed at: 2021-09-17 18:03 (UTC+8)
 
 # ------------------------------------------------------------------------------
 
@@ -56,29 +56,41 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs histor
 # ==============================================================================
 
 # ===> Powerlevel: Prompt Prefix (For macOS) ===================================
-# POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="\u2570\u2500\u27A4 "
+POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="\u2570\u2500\u27A4 "
 # ==============================================================================
 
 # ===> Powerlevel: Prompt Prefix (For Linux) ===================================
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="\u2570\u2500\u2B9E "
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="\u256D\u2500"
+# POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="\u2570\u2500\u2B9E "
+# POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="\u256D\u2500"
 # ==============================================================================
 
 # ===> Powerlevel (For Linux) ==================================================
 # -------> Segment -------------------------------------------------------------
-POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=$'\uE0B0'
-POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=$'\uE0B2'
+# POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=$'\uE0B0'
+# POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=$'\uE0B2'
 
 # -------> Icon ----------------------------------------------------------------
 # POWERLEVEL9K_LINUX_ICON="\uF316" # For RedHat
 
 # -------> Icon Color ----------------------------------------------------------
 # POWERLEVEL9K_OS_ICON_FOREGROUND="204" # For Debian
-POWERLEVEL9K_OS_ICON_FOREGROUND="202" # For Ubuntu
+# POWERLEVEL9K_OS_ICON_FOREGROUND="202" # For Ubuntu
 # POWERLEVEL9K_OS_ICON_FOREGROUND="197" # For Redhat
-POWERLEVEL9K_OS_ICON_BACKGROUND="233"
+# POWERLEVEL9K_OS_ICON_BACKGROUND="233"
 
 # -------> Other ---------------------------------------------------------------
+# POWERLEVEL9K_STATUS_BACKGROUND="059"
+# ==============================================================================
+
+# ===> Powerlevel (For macOS) ==================================================
+POWERLEVEL9K_OS_ICON_FOREGROUND="255"
+POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
+# ==============================================================================
+
+# ===> Powerlevel: Other Config (For All) ================================================
+POWERLEVEL9K_STATUS_CROSS=true
+POWERLEVEL9K_STATUS_OK=true
+
 POWERLEVEL9K_TIME_BACKGROUND="179"
 POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
 
@@ -90,22 +102,11 @@ POWERLEVEL9K_USER_BACKGROUND="229"
 
 POWERLEVEL9K_STATUS_OK_FOREGROUND="156"
 POWERLEVEL9K_STATUS_ERROR_FOREGROUND="160"
-POWERLEVEL9K_STATUS_BACKGROUND="059"
 POWERLEVEL9K_STATUS_HIDE_SIGNAME=true
 POWERLEVEL9K_STATUS_SHOW_PIPESTATUS=false
 
 POWERLEVEL9K_VCS_MODIFIED_BACKGROUND="208"
 POWERLEVEL9K_VCS_BACKGROUND="078"
-# ==============================================================================
-
-# ===> Powerlevel (For macOS) ==================================================
-# POWERLEVEL9K_OS_ICON_FOREGROUND="255"
-# POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
-# ==============================================================================
-
-# ===> Powerlevel: Other Config ================================================
-POWERLEVEL9K_STATUS_CROSS=true
-POWERLEVEL9K_STATUS_OK=true
 
 plugins=(git)
 # ==============================================================================
@@ -149,8 +150,8 @@ PROJS_BASE=$HOME/projects
 # ==============================================================================
 
 # ===> Go Language (Optional) ==================================================
-# export GOPATH=$PROJS_BASE/go
-# [ ! -d "$GOPATH" ] && mkdir -p "$GOPATH"
+export GOPATH=$PROJS_BASE/go
+[ ! -d "$GOPATH" ] && mkdir -p "$GOPATH"
 # ==============================================================================
 
 # ===> Path ====================================================================
@@ -165,11 +166,11 @@ addToPATH() {
 addToPATH "$HOME/bin"
 addToPATH "/usr/local/bin"
 # --------> For Go (Optional) --------------------------------------------------
-# addToPATH "/usr/local/go/bin"
+addToPATH "/usr/local/go/bin"
 # --------> For Yarn (Optional) ------------------------------------------------
-# addToPATH "$HOME/.yarn/bin"
+addToPATH "$HOME/.yarn/bin"
 # --------> For Laravel (Optional) ---------------------------------------------
-# addToPATH "$HOME/.composer/vendor/bin"
+addToPATH "$HOME/.composer/vendor/bin"
 # --------> For Pyenv (Optional) -----------------------------------------------
 # export PYENV_ROOT="$HOME/.pyenv"
 # addToPATH "$PYENV_ROOT/bin:$PATH"
@@ -187,7 +188,7 @@ unalias codes 2>/dev/null
 alias codes='/usr/local/bin/code' # for macOS or Linux
 # VSCODE_PATH="/mnt/c/Users/saltc/AppData/Local/Programs/Microsoft\ VS\ Code/bin/code" # for WSL
 # shellcheck disable=SC2139
-alias codes="$VSCODE_PATH" # for WSL
+# alias codes="$VSCODE_PATH" # for WSL
 alias code='code-insiders'
 # ==============================================================================
 
@@ -201,16 +202,24 @@ alias edit='code'
 # ==============================================================================
 
 # ===> Alias: Basic Command ====================================================
-alias ls='echo && ls -hF --color=always'
-alias ll='ls -l --time-style=long-iso --group-directories-first'
+# --------> For Linux Only -----------------------------------------------------
+# alias ls='echo && ls -hF --color=always'
+# alias ll='ls -l --time-style=long-iso --group-directories-first'
+# alias rm='rm -I -v --preserve-root'
+# alias chown='chown --preserve-root'
+# alias chmod='chmod --preserve-root'
+# alias chgrp='chgrp --preserve-root'
+
+# --------> For macOS Only -----------------------------------------------------
+alias ls='echo && ls -hF'
+alias ll='ls -l'
+alias rm='rm -iv'
+
+# --------> For All ------------------------------------------------------------
 alias la='ll -a'
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias ln='ln -iv'
-alias rm='rm -I -v --preserve-root'
-alias chown='chown --preserve-root'
-alias chmod='chmod --preserve-root'
-alias chgrp='chgrp --preserve-root'
 alias mkdir='mkdir -pv'
 alias ssh='ssh -v -tt -A' # Use '-vvv' for top-level verbose
 alias ping='ping -c 5'
@@ -220,7 +229,7 @@ alias sudo='sudo '
 
 # ===> Functions: Shortcut =====================================================
 cl() {
-    cd "$1" && echo && la
+    cd "$1" && la
 }
 
 home() {
@@ -273,7 +282,8 @@ alias paths='echo && echo -e ${PATH//:/\\n}'
 alias weather='curl wttr.in && echo && curl v2.wttr.in'
 # --------> List all ports -----------------------------------------------------
 # Run "sudo apt-get install net-tools" to install net-tools if needed
-alias ports='netstat -tulanp'
+# alias ports='netstat -tulanp' # For Linux
+alias ports='sudo lsof -iTCP -sTCP:LISTEN -n -P' # For macOS
 # ==============================================================================
 
 # ===> Python (Optional) =======================================================
@@ -281,32 +291,43 @@ alias ports='netstat -tulanp'
 # ==============================================================================
 
 # ===> Docker (Optional) =======================================================
-# alias docker-all='docker ps -a --format "{{.Names}} ({{.ID}}): {{.Image}} ({{.Ports}})"'
-# alias docker-ls='docker ps --format "{{.Names}} ({{.ID}}): {{.Image}} ({{.Ports}})"'
+alias docker-all='docker ps -a --format "{{.Names}} ({{.ID}}): {{.Image}} ({{.Ports}})"'
+alias docker-ls='docker ps --format "{{.Names}} ({{.ID}}): {{.Image}} ({{.Ports}})"'
 # ==============================================================================
 
 # ===> NVM (Optional) ==========================================================
-# export NVM_DIR="$HOME/.nvm"
+export NVM_DIR="$HOME/.nvm"
 # --------> Load NVM -----------------------------------------------------------
 # shellcheck disable=SC1091
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 # --------> Load NVM BASH_COMPLETION -------------------------------------------
 # shellcheck disable=SC1091
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 # ==============================================================================
 
 # ===> Git (Optional) ==========================================================
 # --------> Change Default Initial Branch --------------------------------------
 git config --global init.defaultBranch main
 # --------> Quickly update Git (for Ubuntu) ------------------------------------
+# update_git() {
+#     printf "\nCurrent %s\n\n" "$(git --version)"
+
+#     printf "Start to update Git...\n\n"
+
+#     sudo add-apt-repository ppa:git-core/ppa -y &&
+#         sudo apt-get update &&
+#         sudo apt-get install git -y
+
+#     printf "\nCurrent %s\n\n" "$(git --version)"
+#     printf "Git updated successfully.\n"
+# }
+# --------> Quickly update Git (for macOS) ------------------------------------
 update_git() {
     printf "\nCurrent %s\n\n" "$(git --version)"
 
     printf "Start to update Git...\n\n"
 
-    sudo add-apt-repository ppa:git-core/ppa -y &&
-        sudo apt-get update &&
-        sudo apt-get install git -y
+    brew update && brew upgrade git
 
     printf "\nCurrent %s\n\n" "$(git --version)"
     printf "Git updated successfully.\n"
