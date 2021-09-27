@@ -11,7 +11,7 @@
 
 # ------------------------------------------------------------------------------
 
-# Last Changed at: 2021-09-17 18:03 (UTC+8)
+# Last Changed at: 2021-09-27 22:52 (UTC+8)
 
 # ------------------------------------------------------------------------------
 
@@ -350,6 +350,11 @@ ssh-add "$SSH_KEY_FILE"
 #     chmod o=,ug=rwx "$DOCKER_DIR"
 #     chgrp docker "$DOCKER_DIR"
 #     /mnt/c/Windows/System32/wsl.exe -d $DOCKER_DISTRO sh -c "nohup sudo -b dockerd < /dev/null > $DOCKER_DIR/dockerd.log 2>&1"
+
+#     # An symbolink config for VSCode
+#     if [ ! -e "/run/docker.sock" ]; then
+#         sudo sh -c "ln -s $DOCKER_SOCK /run/docker.sock"
+#     fi
 # fi
 # ==============================================================================
 
