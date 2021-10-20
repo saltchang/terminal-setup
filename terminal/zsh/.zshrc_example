@@ -52,7 +52,10 @@ POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 
 # ===> Powerlevel: Prompt Elements =============================================
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user host dir dir_writable newline vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time os_icon)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
+    omzsh_prompt_node_version node_version go_version dotnet_version package newline
+    status history time os_icon
+)
 # ==============================================================================
 
 # ===> Powerlevel: Prompt Prefix (For macOS) ===================================
@@ -227,6 +230,14 @@ alias mk='make'
 alias sudo='sudo '
 # ==============================================================================
 
+# ===> Functions: Prompt =======================================================
+# omzsh_prompt_node_version() {
+#     if which node &> /dev/null; then
+#         echo "%{$fg_bold[blue]%}node(%{$fg[red]%}$(node -v)%{$fg[blue]%}) %{$reset_color%}"
+#     fi
+# }
+# ==============================================================================
+
 # ===> Functions: Shortcut =====================================================
 cl() {
     cd "$1" && la
@@ -280,6 +291,7 @@ alias edit-rc='edit $HOME/.zshrc'
 alias source-rc='source $HOME/.zshrc'
 alias paths='echo && echo -e ${PATH//:/\\n}'
 alias weather='curl wttr.in && echo && curl v2.wttr.in'
+alias monitor='gotop -r 1s -a -s' # https://github.com/xxxserxxx/gotop
 # --------> List all ports -----------------------------------------------------
 # Run "sudo apt-get install net-tools" to install net-tools if needed
 # alias ports='netstat -tulanp' # For Linux
