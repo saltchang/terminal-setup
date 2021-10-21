@@ -259,7 +259,8 @@ alias sudo='sudo '
 
 # ===> Functions: Shortcut =====================================================
 cl() {
-    cd "$1" && la
+    cd "$1"
+    la
 }
 
 home() {
