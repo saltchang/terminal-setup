@@ -259,7 +259,7 @@ alias sudo='sudo '
 
 # ===> Functions: Shortcut =====================================================
 cl() {
-    cd "$1"
+    cd "$1" || return
     la
 }
 
@@ -335,6 +335,33 @@ export NVM_DIR="$HOME/.nvm"
 # --------> Load NVM BASH_COMPLETION -------------------------------------------
 # shellcheck disable=SC1091
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+# --------> Fix NVM alias ------------------------------------------------------
+# function nvmalias {
+#   nvm_download -L -s "https://nodejs.org/dist/index.tab" -o - \
+#   | command sed "
+#       1d;
+#       s/^/${PREFIX}/;" \
+#   | command awk '{
+#     if ($10 ~ /^\-?$/) { next }
+#     if ($10 && !a[tolower($10)]++) {
+#       if (alias) { print alias, version }
+#       alias_name = "lts/" tolower($10)
+#       if (!alias) { print "lts/*", alias_name }
+#       alias = alias_name
+#       version = $1
+#     }
+#   }
+#   END {
+#     if (alias) {
+#       print alias, version
+#     }
+#   }' | while read -r LTS_ALIAS_LINE; do 
+#     LTS_ALIAS="${LTS_ALIAS_LINE%% *}"
+#     LTS_VERSION="${LTS_ALIAS_LINE#* }"
+#     nvm_make_alias "${LTS_ALIAS}" "${LTS_VERSION}" >/dev/null 2>&1
+#   done
+# }
+# nvmalias
 # ==============================================================================
 
 # ===> Git (Optional) ==========================================================
