@@ -11,10 +11,6 @@
 
 # ------------------------------------------------------------------------------
 
-# Last Changed at: 2021-09-27 22:52 (UTC+8)
-
-# ------------------------------------------------------------------------------
-
 # Author: Salt Chang
 
 # ------------------------------------------------------------------------------
@@ -39,9 +35,32 @@
 # export LC_ALL=zh_TW.UTF-8
 # ==============================================================================
 
+# ===> Proxy (Optional) ========================================================
+# PROXY="http://proxy-web.company.com:80"
+# NO_PROXY="localhost,127.0.0.1,.company.com"
+
+# export PROXY=$PROXY
+# export HTTP_PROXY=$PROXY
+# export HTTPS_PROXY=$PROXY
+# export ALL_PROXY=$PROXY
+# export NO_PROXY=$NO_PROXY
+# export proxy=$PROXY
+# export http_proxy=$PROXY
+# export https_proxy=$PROXY
+# export all_proxy=$PROXY
+# export no_proxy=$NO_PROXY
+# ==============================================================================
+
+# ===> CA Certificate (Optional) ===============================================
+# CA_FILE="/usr/local/share/ca-certificates/certnew.crt"
+# --------> For OpenSSL --------------------------------------------------------
+# export SSL_CERT_FILE=$CA_FILE
+# --------> For NodeJS ---------------------------------------------------------
+# export NODE_EXTRA_CA_CERTS=$CA_FILE
+# ==============================================================================
+
 # ===> Powerlevel: Profile =====================================================
 POWERLEVEL9K_MODE="nerdfont-complete"
-ZSH_THEME="powerlevel10k/powerlevel10k"
 # ==============================================================================
 
 # ===> Powerlevel: Prompt Newline ==============================================
@@ -110,38 +129,38 @@ POWERLEVEL9K_STATUS_SHOW_PIPESTATUS=false
 
 POWERLEVEL9K_VCS_MODIFIED_BACKGROUND="208"
 POWERLEVEL9K_VCS_BACKGROUND="078"
-
-plugins=(git)
 # ==============================================================================
 
-# ===> Proxy (Optional) ========================================================
-# PROXY="http://proxy-web.company.com:80"
-# NO_PROXY="localhost,127.0.0.1,.company.com"
+# ===> Antigen =================================================================
+# See: https://github.com/zsh-users
 
-# export PROXY=$PROXY
-# export HTTP_PROXY=$PROXY
-# export HTTPS_PROXY=$PROXY
-# export ALL_PROXY=$PROXY
-# export NO_PROXY=$NO_PROXY
-# export proxy=$PROXY
-# export http_proxy=$PROXY
-# export https_proxy=$PROXY
-# export all_proxy=$PROXY
-# export no_proxy=$NO_PROXY
-# ==============================================================================
+ADOTDIR="$HOME/.antigen"
+ANTIGEN_ZSH="$ADOTDIR/antigen.zsh"
+ANTIGEN_LOG="$ADOTDIR/antigen.log"
 
-# ===> CA Certificate (Optional) ===============================================
-# CA_FILE="/usr/local/share/ca-certificates/certnew.crt"
-# --------> For OpenSSL --------------------------------------------------------
-# export SSL_CERT_FILE=$CA_FILE
-# --------> For NodeJS ---------------------------------------------------------
-# export NODE_EXTRA_CA_CERTS=$CA_FILE
-# ==============================================================================
+[ ! -d "$ADOTDIR" ] && mkdir "$ADOTDIR"
+[ ! -f "$ANTIGEN_ZSH" ] && curl -L git.io/antigen > "$ANTIGEN_ZSH"
 
-# ===> Oh-my-zsh ===============================================================
-export ZSH="$HOME/.oh-my-zsh"
-# shellcheck disable=SC1091
-[ -s "$ZSH/oh-my-zsh.sh" ] && source "$ZSH/oh-my-zsh.sh"
+# shellcheck source=/dev/null
+[ -s "$ANTIGEN_ZSH" ] && source "$ANTIGEN_ZSH"
+
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+# Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundle git
+antigen bundle docker
+antigen bundle emoji
+antigen bundle gh
+
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-history-substring-search
+
+antigen theme romkatv/powerlevel10k
+
+antigen apply
 # ==============================================================================
 
 # ===> Base Directory of Projects ==============================================
