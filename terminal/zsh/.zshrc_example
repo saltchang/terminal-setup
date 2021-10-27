@@ -311,6 +311,8 @@ alias source-rc='source $HOME/.zshrc'
 alias paths='echo && echo -e ${PATH//:/\\n}'
 alias weather='curl wttr.in && echo && curl v2.wttr.in'
 alias monitor='gotop -r 1s -a -s' # https://github.com/xxxserxxx/gotop
+# alias tmux='TERM=xterm-256color tmux'
+# alias mand='sudo ncdu --exclude /mnt -e --color=dark /' # sudo apt-get -y ncdu
 # --------> List all ports -----------------------------------------------------
 # Run "sudo apt-get install net-tools" to install net-tools if needed
 # alias ports='netstat -tulanp' # For Linux
