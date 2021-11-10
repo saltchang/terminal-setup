@@ -171,11 +171,6 @@ PROJS_BASE=$HOME/projects
 [ ! -d "$PROJS_BASE/lib" ] && mkdir -p "$PROJS_BASE/lib"
 # ==============================================================================
 
-# ===> Go Language (Optional) ==================================================
-export GOPATH=$PROJS_BASE/go
-[ ! -d "$GOPATH" ] && mkdir -p "$GOPATH"
-# ==============================================================================
-
 # ===> Path ====================================================================
 # --------> Avoid repeated PATH statements -------------------------------------
 addToPATH() {
@@ -184,21 +179,32 @@ addToPATH() {
     *) PATH="$1:$PATH" ;; # or PATH="$PATH:$1"
     esac
 }
+
 # --------> Basic Binary -------------------------------------------------------
 addToPATH "$HOME/bin"
 addToPATH "/usr/local/bin"
+
 # --------> For Go (Optional) --------------------------------------------------
 addToPATH "/usr/local/go/bin"
+
 # --------> For Yarn (Optional) ------------------------------------------------
 addToPATH "$HOME/.yarn/bin"
+
 # --------> For Laravel (Optional) ---------------------------------------------
 addToPATH "$HOME/.composer/vendor/bin"
+
 # --------> For Pyenv (Optional) -----------------------------------------------
 # export PYENV_ROOT="$HOME/.pyenv"
 # addToPATH "$PYENV_ROOT/bin:$PATH"
 # eval "$(pyenv init --path)"
 # eval "$(pyenv init -)"
 # eval "$(pyenv virtualenv-init -)"
+
+# --------> Go Language (Optional) ---------------------------------------------
+export GOPATH=$PROJS_BASE/go
+[ ! -d "$GOPATH" ] && mkdir -p "$GOPATH"
+addToPATH "/usr/local/go/bin"
+
 # --------> Export PATH --------------------------------------------------------
 export PATH
 # ==============================================================================
