@@ -72,7 +72,7 @@ POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 # ===> Powerlevel: Prompt Elements =============================================
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user host dir dir_writable newline vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
-    omzsh_prompt_node_version node_version go_version dotnet_version package newline
+    pyenv omzsh_prompt_node_version node_version go_version dotnet_version package newline
     status history time os_icon
 )
 # ==============================================================================
