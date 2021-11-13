@@ -109,7 +109,7 @@ POWERLEVEL9K_OS_ICON_FOREGROUND="255"
 POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
 # ==============================================================================
 
-# ===> Powerlevel: Other Config (For All) ================================================
+# ===> Powerlevel: Other Config (For All) ======================================
 POWERLEVEL9K_STATUS_CROSS=true
 POWERLEVEL9K_STATUS_OK=true
 
@@ -139,7 +139,7 @@ ANTIGEN_ZSH="$ADOTDIR/antigen.zsh"
 ANTIGEN_LOG="$ADOTDIR/antigen.log"
 
 [ ! -d "$ADOTDIR" ] && mkdir "$ADOTDIR"
-[ ! -f "$ANTIGEN_ZSH" ] && curl -L git.io/antigen > "$ANTIGEN_ZSH"
+[ ! -f "$ANTIGEN_ZSH" ] && curl -L git.io/antigen >"$ANTIGEN_ZSH"
 
 # shellcheck source=/dev/null
 [ -s "$ANTIGEN_ZSH" ] && source "$ANTIGEN_ZSH"
@@ -184,9 +184,6 @@ addToPATH() {
 addToPATH "$HOME/bin"
 addToPATH "/usr/local/bin"
 
-# --------> For Go (Optional) --------------------------------------------------
-addToPATH "/usr/local/go/bin"
-
 # --------> For Yarn (Optional) ------------------------------------------------
 addToPATH "$HOME/.yarn/bin"
 
@@ -218,6 +215,9 @@ alias codes='/usr/local/bin/code' # for macOS or Linux
 # shellcheck disable=SC2139
 # alias codes="$VSCODE_PATH" # for WSL
 alias code='code-insiders'
+
+# If you just want for shorcut code-insiders
+# alias codes='code-insiders'
 # ==============================================================================
 
 # ===> Alias: Edit =============================================================
@@ -316,16 +316,18 @@ alias edit-rc='edit $HOME/.zshrc'
 alias source-rc='source $HOME/.zshrc'
 alias paths='echo && echo -e ${PATH//:/\\n}'
 alias weather='curl wttr.in && echo && curl v2.wttr.in'
-alias monitor='gotop -r 1s -a -s' # https://github.com/xxxserxxx/gotop
-# alias tmux='TERM=xterm-256color tmux'
-# alias mand='sudo ncdu --exclude /mnt -e --color=dark /' # sudo apt-get -y ncdu
+# alias monitor='gotop -r 1s -a -s'                       # (Optional) https://github.com/xxxserxxx/gotop
+# alias mand='sudo ncdu --exclude /mnt -e --color=dark /' # (Optional) sudo apt-get -y install ncdu
+# alias ffind='find * -type f | fzf'                      # (Optional) sudo apt-get -y install fzf
+# alias tmux='TERM=xterm-256color tmux'                   # (Optional)
+
 # --------> List all ports -----------------------------------------------------
-# Run "sudo apt-get install net-tools" to install net-tools if needed
+# Run "sudo apt-get -y install net-tools" to install net-tools if needed
 # alias ports='netstat -tulanp' # For Linux
 alias ports='sudo lsof -iTCP -sTCP:LISTEN -n -P' # For macOS
 # ==============================================================================
 
-# ===> Python (Optional) =======================================================
+# ===> Python 3 shortcut (Optional) ============================================
 # alias python='python3'
 # ==============================================================================
 
@@ -344,11 +346,11 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 # --------> Fix NVM alias ------------------------------------------------------
 # function nvmalias {
-#   nvm_download -L -s "https://nodejs.org/dist/index.tab" -o - \
-#   | command sed "
+#     nvm_download -L -s "https://nodejs.org/dist/index.tab" -o - |
+#         command sed "
 #       1d;
-#       s/^/${PREFIX}/;" \
-#   | command awk '{
+#       s/^/${PREFIX}/;" |
+#         command awk '{
 #     if ($10 ~ /^\-?$/) { next }
 #     if ($10 && !a[tolower($10)]++) {
 #       if (alias) { print alias, version }
@@ -362,13 +364,12 @@ export NVM_DIR="$HOME/.nvm"
 #     if (alias) {
 #       print alias, version
 #     }
-#   }' | while read -r LTS_ALIAS_LINE; do 
-#     LTS_ALIAS="${LTS_ALIAS_LINE%% *}"
-#     LTS_VERSION="${LTS_ALIAS_LINE#* }"
-#     nvm_make_alias "${LTS_ALIAS}" "${LTS_VERSION}" >/dev/null 2>&1
-#   done
+#   }' | while read -r LTS_ALIAS_LINE; do
+#         LTS_ALIAS="${LTS_ALIAS_LINE%% *}"
+#         LTS_VERSION="${LTS_ALIAS_LINE#* }"
+#         nvm_make_alias "${LTS_ALIAS}" "${LTS_VERSION}" >/dev/null 2>&1
+#     done
 # }
-# nvmalias
 # ==============================================================================
 
 # ===> Git (Optional) ==========================================================
@@ -403,11 +404,11 @@ update_git() {
 # ===> SSH Agent (Optional) ====================================================
 SSH_KEY_FILE=$HOME/.ssh/id_rsa
 
-if [ "$(eval 'ps ax | grep "[s]sh-agent" | wc -l' 2> /dev/null)" -gt 0 ] ; then
-    echo "ssh-agent is already running"
+if [ "$(eval 'ps ax | grep "[s]sh-agent" | wc -l' 2>/dev/null)" -gt 0 ]; then
+    echo "ssh-agent is already running" >/dev/null
 else
     eval "$(ssh-agent -s)"
-    if [[ "$(ssh-add -l)" == "The agent has no identities." ]] ; then
+    if [[ "$(ssh-add -l)" == "The agent has no identities." ]]; then
         ssh-add "$SSH_KEY_FILE"
     fi
     # Kill it on exit. You may not want this part.
@@ -427,11 +428,13 @@ fi
 #     /mnt/c/Windows/System32/wsl.exe -d $DOCKER_DISTRO sh -c "nohup sudo -b dockerd < /dev/null > $DOCKER_DIR/dockerd.log 2>&1"
 
 #     # An symbolink config for VSCode
-#     if [ ! -e "/run/docker.sock" ]; then
+#     if [ ! -L "/run/docker.sock" ]; then
 #         sudo sh -c "ln -s $DOCKER_SOCK /run/docker.sock"
 #     fi
 # fi
 # ==============================================================================
+
+cd "$HOME" || exit
 
 # ==============================================================================
 # End of File
