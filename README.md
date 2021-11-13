@@ -81,3 +81,13 @@ brew install --cask font-fira-code
 * [SourceCodePro](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/SourceCodePro.zip)
 * [Menlo](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip)
 * [Other](https://www.nerdfonts.com/font-downloads)
+
+## Shortcut
+
+### Install Go
+
+You can use the folloing command to install [Go Language](https://golang.org/) quickly:
+
+```bash
+bash <(curl -s https://raw.githubusercontent.com/saltchang/terminal-setup-note/main/scripts/install-go.sh)
+```
