@@ -1,114 +1,83 @@
 # Terminal Setup Note
 
-依照此篇筆記順序安裝設定即可。
+My terminal setup note for WSL, macOS, and Windows
 
-## 安裝及設定 iTerm2
+## Install Terminal
 
-請先安裝 [iTerm2](https://iterm2.com/)
+### macOS
 
-## 安裝 zsh
+* [iTerm2](https://iterm2.com/)
 
-### 在 Ubuntu/Debian 安裝 zsh
+#### Config iTerm
+
+1. Download the [iTerm Profile](https://github.com/saltchang/terminal-setup-note/blob/main/terminal/iTerm/Salt_iTerm_Profile.json)
+2. Open your iTerm > Preferences > Profiles > Other Actions > Import JSON Profiles > Choose the one you just downloaded: `Salt_iTerm_Profile.json`
+3. After you setup: Other Actions > Set as Default > Restart iTerm
+4. Done
+
+## Install zsh
+
+### Ubuntu/Debian
 
 ```bash
-# 更新 apt
-sudo apt update
-
-# 安裝 zsh
-sudo apt install zsh
-
-# 或者
-sudo apt-get install zsh
+sudo apt update && sudo apt -y install zsh
 ```
 
-### 在 macOS 安裝 zsh
+### macOS
 
 ```bash
-# 使用 brew 安裝 zsh
+# Use Homebrew
 brew install zsh
 ```
 
-### 將 zsh 設為預設的 shell
+### Change zsh to your default shell
 
 ```bash
 chsh -s $(which zsh)
+
+# Then restart your terminal
 ```
 
-接著重新啟動終端機  
-你會看見初始的訊息
+## Setup shell profile
 
-### 設定 .zshrc
+Please copy the content in [.zshrc_example](https://github.com/saltchang/terminal-setup-note/blob/main/terminal/zsh/.zshrc_example), and paste into your `~/.zshrc`.
 
-設定請參考這個檔案： [.zshrc_example](https://raw.githubusercontent.com/saltchang/terminal-setup-note/main/terminal/zsh/.zshrc_example)
+If you have no `.zshrc` in your home directory, please create one: `touch ~/.zshrc`
 
-將其中的內容貼到 `~/.zshrc` 即可
-
-## 安裝 oh-my-zsh
-
-### 安裝需求
-
-### 基本安裝
-
-有兩種方法
-
-- curl
+Or use the below command to quickly create one from the source:
 
 ```bash
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+curl -L https://raw.githubusercontent.com/saltchang/terminal-setup-note/main/terminal/zsh/.zshrc_example -o $HOME/.zshrc
 ```
 
-- wget
+Change the content in `.zshrc` to customize your shell.
 
-```bash
-sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-```
+Now restart your terminal, and enjoy.
 
-選一種可以使用的就好
+### Color for powerlevel10k
 
-## 安裝 powerlevel10k
+If you would like to customize the color scheme of powerlevel10k, please see [This chart](https://user-images.githubusercontent.com/704406/43988708-64c0fa52-9d4c-11e8-8cf9-c4d4b97a5200.png)
 
-### 搭配 oh-my-zsh 安裝
-
-```bash
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-```
-
-### 顏色配置
-
-如果要修改 powerlevel10k 的顏色設定  
-可使用[這個圖表](https://user-images.githubusercontent.com/704406/43988708-64c0fa52-9d4c-11e8-8cf9-c4d4b97a5200.png)當中的色碼來搭配 Powerlevel9k/10k 進行配置
-
-如果沒有要修改配色則可以直接進行下一步驟
-
-## 安裝字型
+## Font
 
 ### FiraCode
 
-VS Code 建議使用 FiraCode
-
-- Ubuntu/Debian
+#### Ubuntu/Debian
 
 ```bash
 sudo apt install fonts-firacode
 ```
 
-- macOS
+#### macOS
 
 ```bash
 brew tap homebrew/cask-fonts
 brew install --cask font-fira-code
 ```
 
-### NerdFont 字型下載
+### Other NerdFont
 
-- [FuraCode](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip)
-- [SourceCodePro](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/SourceCodePro.zip)
-- [Menlo](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip)
-- [其他](https://www.nerdfonts.com/font-downloads)
-
-### 設定 iTerm2
-
-1. 下載 [iTerm Profile](https://github.com/saltchang/terminal-setup-note/blob/main/terminal/iTerm/Salt_iTerm_Profile.json)
-2. 打開 iTerm > Preferences > Profiles > Other Actions > Import JSON Profiles > 選擇剛剛下載的 `Salt_iTerm_Profile.json`
-3. 匯入設定之後： Other Actions > Set as Default > Restart iTerm
-4. 完成
+* [FuraCode](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip)
+* [SourceCodePro](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/SourceCodePro.zip)
+* [Menlo](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip)
+* [Other](https://www.nerdfonts.com/font-downloads)
