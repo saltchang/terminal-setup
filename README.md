@@ -86,8 +86,18 @@ brew install --cask font-fira-code
 
 ### Install Go
 
-You can use the folloing command to install [Go Language](https://golang.org/) quickly:
+You can use the following  command to install [Go Language](https://golang.org) on your Linux machine:
 
 ```bash
 bash <(curl -s https://raw.githubusercontent.com/saltchang/terminal-setup-note/main/scripts/install-go.sh)
 ```
+
+This installation script will prompt you to select a version of Go to install,  
+and download the package from official source, extract and install the packages for you.
+
+Note that this script use the default path(`/usr/local/go`) to install the packages.  
+It may prompt you the password for root permission to remove the previous installation and install the new one.
+
+After packages installed, the script will add the path to Go into your shell profile(`$HOME/.zshrc`, `$HOME/.bashrc`, or `$HOME/.bash_profile`) automatically.
+
+For more information, please see the [official document](https://golang.org/doc/install).
