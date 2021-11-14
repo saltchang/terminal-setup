@@ -19,11 +19,15 @@
 # ==============================================================================
 
 # Text colors
-GREEN='\033[0;32m'
-LIGHT_BLUE='\033[1;34m'
-DARK_GRAY='\033[1;30m'
-ORANGE='\033[0;33m'
-NORMAL='\033[0m'
+LIGHT_GREEN="\033[1;32m"
+LIGHT_CYAN="\033[1;36m"
+PURPLE="\033[0;35m"
+ORANGE="\033[0;33m"
+NORMAL="\033[0m"
+
+go_echo() {
+    echo -e "$*" 2>/dev/null
+}
 
 go_select_from_versions() {
 
@@ -35,7 +39,7 @@ go_select_from_versions() {
         printf "\033[?25l"
     }
 
-    trap "cursor_on; stty echo; printf '\n'; exit" 2 # Waiting for Ctrl+C signal to exit the function
+    trap "cursor_on; stty echo; go_echo '\n'; exit" 2 # Waiting for Ctrl+C signal to exit the function
     cursor_off
 
     clear # Clear terminal, ready to print options
@@ -89,21 +93,21 @@ go_select_from_versions() {
         clear
         local i=0
 
-        command printf "${GREEN}? ${NORMAL}Please choose a ${LIGHT_BLUE}Go Version${NORMAL} from this list: ${DARK_GRAY}(Use up/down arrow key)${NORMAL}\n"
+        go_echo "${LIGHT_GREEN}? ${NORMAL}Please choose a ${LIGHT_CYAN}Go Version${NORMAL} from this list: ${PURPLE}(Use up/down arrow key)${NORMAL}"
 
         for option; do
             if [ $i -gt $((shift_row - 1)) ] && [ $i -lt $((shift_row + last_option_row)) ]; then
                 if [ $i -eq $selected_id ]; then
                     # Selected option
-                    printf "${LIGHT_BLUE}\u276f %s${NORMAL}\n" "$option"
+                    go_echo "${LIGHT_CYAN}\u276f ${option}${NORMAL}"
                 else
-                    printf "  %s\n" "$option"
+                    go_echo "  ${option}"
                 fi
             fi
             ((i++))
         done
 
-        command printf " ${DARK_GRAY}(Move up and down to reveal more choices)${NORMAL}"
+        command printf " ${PURPLE}(Move up and down to reveal more choices)${NORMAL}"
 
         on_click() {
             up=$(printf "\033[A")
@@ -112,9 +116,9 @@ go_select_from_versions() {
 
             read -r -s -n3 key 2>/dev/null >&2
 
-            [ "$key" = "${up}" ] && echo up
-            [ "$key" = "${down}" ] && echo down
-            [ "$key" = "${enter}" ] && echo enter
+            [ "$key" = "${up}" ] && go_echo up
+            [ "$key" = "${down}" ] && go_echo down
+            [ "$key" = "${enter}" ] && go_echo enter
         }
 
         case $(on_click) in
@@ -148,12 +152,12 @@ go_try_user_profile() {
     if [ -z "${1-}" ] || [ ! -f "${1}" ]; then
         return 1
     fi
-    echo "${1}"
+    go_echo "${1}"
 }
 
 go_detect_user_profile() {
     if [ -n "${PROFILE}" ] && [ -f "${PROFILE}" ]; then
-        echo "${PROFILE}"
+        go_echo "${PROFILE}"
         return
     fi
 
@@ -181,7 +185,7 @@ go_detect_user_profile() {
     fi
 
     if [ -n "$DETECTED" ]; then
-        echo "$DETECTED"
+        go_echo "$DETECTED"
     fi
 }
 
@@ -192,9 +196,9 @@ go_install_package() {
     local TEMP_VERSIONS
     TEMP_VERSIONS=$(mktemp)
 
-    echo
-    echo "Fetch available versions fo Go..."
-    echo
+    go_echo
+    go_echo "Fetch available versions fo Go..."
+    go_echo
 
     curl -sL "https://golang.org/dl/#stable" | grep -P -o "(?<=go)\d+\.\d+(rc|beta)?\d?\.?(rc|beta)?\d+?(?=.linux-amd64.tar.gz)" | sort -u -t. -k 1,1nr -k 2,2nr -k 3,3nr | uniq >"$TEMP_VERSIONS"
 
@@ -204,47 +208,47 @@ go_install_package() {
     selected_index=$?
     selected_version=${GO_VERSIONS_ARRAY[$selected_index]}
 
-    echo "You selected the Go version: $selected_version"
-    echo
-    echo "Start downloading the package..."
-    echo
+    go_echo "You selected the Go version: $selected_version"
+    go_echo
+    go_echo "Start downloading the package..."
+    go_echo
 
     TEMP_ARCHIVE=$(mktemp "/tmp/go${selected_version}.linux-amd64.tar.gz.XXXXXX") || exit 1
 
     curl -L "https://golang.org/dl/go${selected_version}.linux-amd64.tar.gz" -o "$TEMP_ARCHIVE"
 
-    echo
-    echo "Start removing old version of Go..."
-    echo
+    go_echo
+    go_echo "Start removing old version of Go..."
+    go_echo
 
     sudo rm -rfv /usr/local/go
 
     RC=$?
     if [ $RC -ne 0 ]; then
-        echo
-        echo "Failed to remove old version..."
-        echo "Install Go Language failed!"
-        echo
-        echo "exit $RC"
+        go_echo
+        go_echo "Failed to remove old version..."
+        go_echo "Install Go Language failed!"
+        go_echo
+        go_echo "exit $RC"
         exit $RC
     fi
 
-    echo
-    echo "Start installing the package..."
+    go_echo
+    go_echo "Start installing the package..."
 
     sudo tar -C /usr/local -xzvf "$TEMP_ARCHIVE"
 
     RC=$?
     if [ $RC -ne 0 ]; then
-        echo
-        echo "Failed to install the package..."
-        echo "Install Go Language failed!"
-        echo
-        echo "exit $RC"
+        go_echo
+        go_echo "Failed to install the package..."
+        go_echo "Install Go Language failed!"
+        go_echo
+        go_echo "exit $RC"
         exit $RC
     fi
 
-    echo
+    go_echo
 
     # Add Go into PATH
     local GO_SOURCE_PATH
@@ -252,32 +256,35 @@ go_install_package() {
     GO_SOURCE_PATH='export PATH=$PATH:/usr/local/go/bin'
 
     if [ -z "${GO_USER_PROFILE-}" ]; then
-        command printf "${ORANGE}User profile not found.${NORMAL}\n"
-        command printf "${ORANGE}Please add the following lines to your profile manually:${NORMAL}\n"
-        command printf "\n${ORANGE}${GO_SOURCE_PATH}${NORMAL}\n"
-        echo
+        go_echo "${ORANGE}User profile not found.${NORMAL}"
+        go_echo "${ORANGE}Please add the following lines to your profile manually:${NORMAL}"
+        go_echo "\n${ORANGE}${GO_SOURCE_PATH}${NORMAL}"
+        go_echo
     else
         if ! command grep -qc '/usr/local/go/bin' "$GO_USER_PROFILE"; then
-            command printf "${GREEN}Adding Go to your PATH...${NORMAL}"
-            command printf "\n${GO_SOURCE_PATH}\n" >>"$GO_USER_PROFILE"
+            go_echo "${LIGHT_GREEN}Adding Go to your PATH...${NORMAL}"
+            go_echo "${GO_SOURCE_PATH}\n" >>"$GO_USER_PROFILE"
         else
-            command printf "${GREEN}Go has already added in your PATH.${NORMAL}\n"
+            go_echo "${LIGHT_GREEN}Go has already added in your PATH.${NORMAL}"
         fi
     fi
 
-    echo
+    go_echo
 
-    command printf "If the ${LIGHT_BLUE}\`go\`${NORMAL} command is not found, please try adding the following line to your shell profile:\n"
-    command printf "\n${ORANGE}${GO_SOURCE_PATH}${NORMAL}\n\n"
+    go_echo "If the ${LIGHT_CYAN}\`go\`${NORMAL} command is not found, please try adding the following line to your shell profile:"
+    go_echo
+    go_echo "${ORANGE}${GO_SOURCE_PATH}${NORMAL}"
+    go_echo
+    go_echo
 
-    echo "┌──────────────────────────────────────────────────────────────────────────────┐"
-    echo "│                                                                              │"
-    command printf "│                     ${LIGHT_BLUE}Go Language ${GREEN}installed sucessfully!${NORMAL}                       │\n"
-    echo "│                                                                              │"
-    command printf "│           Please run ${LIGHT_BLUE}\`go version\`${NORMAL} to see the current version of Go.          │\n"
-    echo "│                                                                              │"
-    echo "└──────────────────────────────────────────────────────────────────────────────┘"
-    echo
+    go_echo "┌──────────────────────────────────────────────────────────────────────────────┐"
+    go_echo "│                                                                              │"
+    go_echo "│                     ${LIGHT_CYAN}Go Language ${LIGHT_GREEN}installed sucessfully!${NORMAL}                       │"
+    go_echo "│                                                                              │"
+    go_echo "│           Please run ${LIGHT_CYAN}\`go version\`${NORMAL} to see the current version of Go.          │"
+    go_echo "│                                                                              │"
+    go_echo "└──────────────────────────────────────────────────────────────────────────────┘"
+    go_echo
 }
 
 go_install_package
