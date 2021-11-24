@@ -25,14 +25,30 @@
 
 # ===> Language Configuration (Optional) =======================================
 # ------------------------------------------------------------------------------
-# -------> English (United States) ---------------------------------------------
-# export LANG=en_US.UTF-8
-# export LC_ALL=en_US.UTF-8
-# ------------------------------------------------------------------------------
-# -------> Traditional Chinese (Taiwan) ----------------------------------------
-# -------> Run "sudo locale-gen zh_TW.UTF-8" to install the language pack ------
-# export LANG=zh_TW.UTF-8
-# export LC_ALL=zh_TW.UTF-8
+# -------> Set All to Traditional Chinese (Taiwan) -----------------------------
+# export LC_ALL="zh_TW.UTF-8" # sudo locale-gen zh_TW.UTF-8
+
+# -------> Set All to English (United States) ----------------------------------
+# export LC_ALL="en_US.UTF-8"
+
+# -------> Set By Details ------------------------------------------------------
+export LANG="zh_TW.UTF-8"
+# export LANG="en_US.UTF-8"
+
+# Run `locale` to see the details of language configs
+
+# export LC_CTYPE="zh_TW.UTF-8"
+# export LC_NUMERIC="zh_TW.UTF-8"
+# export LC_TIME="zh_TW.UTF-8"
+# export LC_COLLATE="zh_TW.UTF-8"
+# export LC_MONETARY="zh_TW.UTF-8"
+export LC_MESSAGES="en_US.UTF-8"
+# export LC_PAPER="zh_TW.UTF-8"
+# export LC_NAME="zh_TW.UTF-8"
+# export LC_ADDRESS="zh_TW.UTF-8"
+# export LC_TELEPHONE="zh_TW.UTF-8"
+# export LC_MEASUREMENT="zh_TW.UTF-8"
+# export LC_IDENTIFICATION="zh_TW.UTF-8"
 # ==============================================================================
 
 # ===> Proxy (Optional) ========================================================
@@ -312,6 +328,7 @@ gogo() {
 
 # ===> Alias: Shortcut =========================================================
 alias c='clear'
+# alias unu='sudo apt-get update && sudo apt-get upgrade' # for Ubuntu
 alias edit-rc='edit $HOME/.zshrc'
 alias source-rc='source $HOME/.zshrc'
 alias paths='echo && echo -e ${PATH//:/\\n}'
@@ -402,7 +419,8 @@ update_git() {
 # ==============================================================================
 
 # ===> SSH Agent (Optional) ====================================================
-SSH_KEY_FILE=$HOME/.ssh/id_rsa
+# SSH_KEY_FILE=$HOME/.ssh/id_rsa
+SSH_KEY_FILE=$HOME/.ssh/id_ed25519
 
 if [ "$(eval 'ps ax | grep "[s]sh-agent" | wc -l' 2>/dev/null)" -gt 0 ]; then
     echo "ssh-agent is already running" >/dev/null
