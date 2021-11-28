@@ -355,6 +355,11 @@ alias docker-ls='docker ps --format "{{.Names}} ({{.ID}}): {{.Image}} ({{.Ports}
 
 # ===> NVM (Optional) ==========================================================
 export NVM_DIR="$HOME/.nvm"
+# --------> Update NVM ---------------------------------------------------------
+update_nvm() {
+    # Install or Update NVM from the master branch (latest)
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+}
 # --------> Load NVM -----------------------------------------------------------
 # shellcheck disable=SC1091
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
