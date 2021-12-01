@@ -3,19 +3,8 @@
 
 # ==============================================================================
 
-# File Name: .zshrc
-
-# ------------------------------------------------------------------------------
-
+# Name: .zshrc
 # Description: ZSH configuration for macOS, Linux, and WSL
-
-# ------------------------------------------------------------------------------
-
-# Author: Salt Chang
-
-# ------------------------------------------------------------------------------
-
-# Author Email: me@saltchang.com
 
 # ==============================================================================
 
@@ -223,17 +212,17 @@ export PATH
 # ==============================================================================
 
 # ===> Alias: Visual Studio Code - Insiders (Optional) =========================
-unalias code 2>/dev/null
-unalias codes 2>/dev/null
+# unalias code 2>/dev/null
+# unalias codes 2>/dev/null
 # Only if you need to use insiders version of vscode as default
-alias codes='/usr/local/bin/code' # for macOS or Linux
+# alias codes='/usr/local/bin/code' # for macOS or Linux
 # VSCODE_PATH="/mnt/c/Users/saltc/AppData/Local/Programs/Microsoft\ VS\ Code/bin/code" # for WSL
 # shellcheck disable=SC2139
 # alias codes="$VSCODE_PATH" # for WSL
-alias code='code-insiders'
+# alias code='code-insiders'
 
 # If you just want for shorcut code-insiders
-# alias codes='code-insiders'
+alias codes='code-insiders'
 # ==============================================================================
 
 # ===> Alias: Edit =============================================================
@@ -330,13 +319,14 @@ gogo() {
 alias c='clear'
 # alias unu='sudo apt-get update && sudo apt-get upgrade' # for Ubuntu
 alias edit-rc='edit $HOME/.zshrc'
+alias edit-ssh='edit $HOME/.ssh/config'
 alias source-rc='source $HOME/.zshrc'
 alias paths='echo && echo -e ${PATH//:/\\n}'
 alias weather='curl wttr.in && echo && curl v2.wttr.in'
-# alias monitor='gotop -r 1s -a -s'                       # (Optional) https://github.com/xxxserxxx/gotop
-# alias mand='sudo ncdu --exclude /mnt -e --color=dark /' # (Optional) sudo apt-get -y install ncdu
-# alias ffind='find * -type f | fzf'                      # (Optional) sudo apt-get -y install fzf
-# alias tmux='TERM=xterm-256color tmux'                   # (Optional)
+# alias monitor='gotop -r 1s -a -s'                       # https://github.com/xxxserxxx/gotop
+# alias mand='sudo ncdu --exclude /mnt -e --color=dark /' # sudo apt-get -y install ncdu
+# alias ffind='find * -type f | fzf'                      # sudo apt-get -y install fzf
+# alias tmux='TERM=xterm-256color tmux'                   # sudo apt-get -y install tmux
 
 # --------> List all ports -----------------------------------------------------
 # Run "sudo apt-get -y install net-tools" to install net-tools if needed
@@ -395,8 +385,14 @@ update_nvm() {
 # ==============================================================================
 
 # ===> Git (Optional) ==========================================================
-# --------> Change Default Initial Branch --------------------------------------
-git config --global init.defaultBranch main
+# --------> Global Configuration -----------------------------------------------
+GIT_EDITOR="vim"
+# GIT_EDITOR="code"
+
+git config --global pull.ff only              # set git pull --ff-only
+git config --global init.defaultBranch main   # set default init branch
+git config --global core.editor "$GIT_EDITOR" # set default editor
+
 # --------> Quickly update Git (for Ubuntu) ------------------------------------
 # update_git() {
 #     printf "\nCurrent %s\n\n" "$(git --version)"
