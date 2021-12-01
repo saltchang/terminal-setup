@@ -3,10 +3,12 @@
 
 # ==============================================================================
 
-# Name: .zshrc
-# Description: ZSH configuration for macOS, Linux, and WSL
+# Name:         .zshrc
+# Description:   zsh configuration for macOS, Linux, and WSL
 
 # ==============================================================================
+
+ZSH_SHELL_NAME="-zsh"
 
 # ===> Terminal Tab Title (Optional)============================================
 # DISABLE_AUTO_TITLE="true"
@@ -139,33 +141,35 @@ POWERLEVEL9K_VCS_BACKGROUND="078"
 # ===> Antigen =================================================================
 # See: https://github.com/zsh-users
 
-ADOTDIR="$HOME/.antigen"
-ANTIGEN_ZSH="$ADOTDIR/antigen.zsh"
-ANTIGEN_LOG="$ADOTDIR/antigen.log"
+if [ "$0" = "$ZSH_SHELL_NAME" ]; then # don't run when source .zshrc
+    ADOTDIR="$HOME/.antigen"
+    ANTIGEN_ZSH="$ADOTDIR/antigen.zsh"
+    ANTIGEN_LOG="$ADOTDIR/antigen.log"
 
-[ ! -d "$ADOTDIR" ] && mkdir "$ADOTDIR"
-[ ! -f "$ANTIGEN_ZSH" ] && curl -L git.io/antigen >"$ANTIGEN_ZSH"
+    [ ! -d "$ADOTDIR" ] && mkdir "$ADOTDIR"
+    [ ! -f "$ANTIGEN_ZSH" ] && curl -L git.io/antigen >"$ANTIGEN_ZSH"
 
-# shellcheck source=/dev/null
-[ -s "$ANTIGEN_ZSH" ] && source "$ANTIGEN_ZSH"
+    # shellcheck source=/dev/null
+    [ -s "$ANTIGEN_ZSH" ] && source "$ANTIGEN_ZSH"
 
-# Load the oh-my-zsh's library.
-antigen use oh-my-zsh
+    # Load the oh-my-zsh's library.
+    antigen use oh-my-zsh
 
-# Bundles from the default repo (robbyrussell's oh-my-zsh).
-antigen bundle git
-antigen bundle docker
-antigen bundle emoji
-antigen bundle gh
+    # Bundles from the default repo (robbyrussell's oh-my-zsh).
+    antigen bundle git
+    antigen bundle docker
+    antigen bundle emoji
+    antigen bundle gh
 
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-completions
-antigen bundle zsh-users/zsh-history-substring-search
+    antigen bundle zsh-users/zsh-syntax-highlighting
+    antigen bundle zsh-users/zsh-autosuggestions
+    antigen bundle zsh-users/zsh-completions
+    antigen bundle zsh-users/zsh-history-substring-search
 
-antigen theme romkatv/powerlevel10k
+    antigen theme romkatv/powerlevel10k
 
-antigen apply
+    antigen apply
+fi
 # ==============================================================================
 
 # ===> Base Directory of Projects ==============================================
@@ -420,18 +424,20 @@ update_git() {
 # ==============================================================================
 
 # ===> SSH Agent (Optional) ====================================================
-# SSH_KEY_FILE=$HOME/.ssh/id_rsa
-SSH_KEY_FILE=$HOME/.ssh/id_ed25519
+if [ "$0" = "$ZSH_SHELL_NAME" ]; then # don't run when source .zshrc
+    # SSH_KEY_FILE=$HOME/.ssh/id_rsa
+    SSH_KEY_FILE=$HOME/.ssh/id_ed25519
 
-if [ "$(eval 'ps ax | grep "[s]sh-agent" | wc -l' 2>/dev/null)" -gt 0 ]; then
-    echo "ssh-agent is already running" >/dev/null
-else
-    eval "$(ssh-agent -s)"
-    if [[ "$(ssh-add -l)" == "The agent has no identities." ]]; then
-        ssh-add "$SSH_KEY_FILE"
+    if [ "$(eval 'ps ax | grep "[s]sh-agent" | wc -l' 2>/dev/null)" -gt 0 ]; then
+        echo "ssh-agent is already running" >/dev/null
+    else
+        eval "$(ssh-agent -s)"
+        if [[ "$(ssh-add -l)" == "The agent has no identities." ]]; then
+            ssh-add "$SSH_KEY_FILE"
+        fi
+        # Kill it on exit. You may not want this part.
+        # trap "ssh-agent -k" EXIT
     fi
-    # Kill it on exit. You may not want this part.
-    # trap "ssh-agent -k" EXIT
 fi
 # ==============================================================================
 
@@ -453,7 +459,10 @@ fi
 # fi
 # ==============================================================================
 
-cd "$HOME" || exit
+typeset -U path                       # remove duplicates in $PATH
+if [ "$0" = "$ZSH_SHELL_NAME" ]; then # don't run when source .zshrc
+    cd "$HOME" || exit                # change directory to $HOME
+fi
 
 # ==============================================================================
 # End of File
