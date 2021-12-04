@@ -141,35 +141,36 @@ POWERLEVEL9K_VCS_BACKGROUND="078"
 # ===> Antigen =================================================================
 # See: https://github.com/zsh-users
 
+ADOTDIR="$HOME/.antigen"
+ANTIGEN_ZSH="$ADOTDIR/antigen.zsh"
+ANTIGEN_LOG="$ADOTDIR/antigen.log"
+
+[ ! -d "$ADOTDIR" ] && mkdir "$ADOTDIR"
+[ ! -f "$ANTIGEN_ZSH" ] && curl -L git.io/antigen >"$ANTIGEN_ZSH"
+
+# shellcheck source=/dev/null
+[ -s "$ANTIGEN_ZSH" ] && source "$ANTIGEN_ZSH"
+
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+# Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundle git
+antigen bundle docker
+antigen bundle emoji
+antigen bundle gh
+
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-history-substring-search
+antigen bundle lukechilds/zsh-nvm
+
 if [ "$0" = "$ZSH_SHELL_NAME" ]; then # don't run when source .zshrc
-    ADOTDIR="$HOME/.antigen"
-    ANTIGEN_ZSH="$ADOTDIR/antigen.zsh"
-    ANTIGEN_LOG="$ADOTDIR/antigen.log"
-
-    [ ! -d "$ADOTDIR" ] && mkdir "$ADOTDIR"
-    [ ! -f "$ANTIGEN_ZSH" ] && curl -L git.io/antigen >"$ANTIGEN_ZSH"
-
-    # shellcheck source=/dev/null
-    [ -s "$ANTIGEN_ZSH" ] && source "$ANTIGEN_ZSH"
-
-    # Load the oh-my-zsh's library.
-    antigen use oh-my-zsh
-
-    # Bundles from the default repo (robbyrussell's oh-my-zsh).
-    antigen bundle git
-    antigen bundle docker
-    antigen bundle emoji
-    antigen bundle gh
-
-    antigen bundle zsh-users/zsh-syntax-highlighting
-    antigen bundle zsh-users/zsh-autosuggestions
-    antigen bundle zsh-users/zsh-completions
-    antigen bundle zsh-users/zsh-history-substring-search
-
     antigen theme romkatv/powerlevel10k
-
-    antigen apply
 fi
+
+antigen apply
 # ==============================================================================
 
 # ===> Base Directory of Projects ==============================================
@@ -345,47 +346,6 @@ alias ports='sudo lsof -iTCP -sTCP:LISTEN -n -P' # For macOS
 # ===> Docker (Optional) =======================================================
 alias docker-all='docker ps -a --format "{{.Names}} ({{.ID}}): {{.Image}} ({{.Ports}})"'
 alias docker-ls='docker ps --format "{{.Names}} ({{.ID}}): {{.Image}} ({{.Ports}})"'
-# ==============================================================================
-
-# ===> NVM (Optional) ==========================================================
-export NVM_DIR="$HOME/.nvm"
-# --------> Update NVM ---------------------------------------------------------
-update_nvm() {
-    # Install or Update NVM from the master branch (latest)
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
-}
-# --------> Load NVM -----------------------------------------------------------
-# shellcheck disable=SC1091
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-# --------> Load NVM BASH_COMPLETION -------------------------------------------
-# shellcheck disable=SC1091
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-# --------> Fix NVM alias ------------------------------------------------------
-# function nvmalias {
-#     nvm_download -L -s "https://nodejs.org/dist/index.tab" -o - |
-#         command sed "
-#       1d;
-#       s/^/${PREFIX}/;" |
-#         command awk '{
-#     if ($10 ~ /^\-?$/) { next }
-#     if ($10 && !a[tolower($10)]++) {
-#       if (alias) { print alias, version }
-#       alias_name = "lts/" tolower($10)
-#       if (!alias) { print "lts/*", alias_name }
-#       alias = alias_name
-#       version = $1
-#     }
-#   }
-#   END {
-#     if (alias) {
-#       print alias, version
-#     }
-#   }' | while read -r LTS_ALIAS_LINE; do
-#         LTS_ALIAS="${LTS_ALIAS_LINE%% *}"
-#         LTS_VERSION="${LTS_ALIAS_LINE#* }"
-#         nvm_make_alias "${LTS_ALIAS}" "${LTS_VERSION}" >/dev/null 2>&1
-#     done
-# }
 # ==============================================================================
 
 # ===> Git (Optional) ==========================================================
