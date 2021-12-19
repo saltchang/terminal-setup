@@ -40,17 +40,11 @@ chsh -s $(which zsh)
 
 ## Setup shell profile
 
-Please copy the content in [.zshrc_example](https://github.com/saltchang/terminal-setup-note/blob/main/terminal/zsh/.zshrc_example), and paste into your `~/.zshrc`.
-
-If you have no `.zshrc` in your home directory, please create one: `touch ~/.zshrc`
-
-Or use the below command to quickly create one from the source:
+Run the installation script to setup zsh:
 
 ```bash
-curl -L https://raw.githubusercontent.com/saltchang/terminal-setup-note/main/terminal/zsh/.zshrc_example -o $HOME/.zshrc
+./install.sh
 ```
-
-Change the content in `.zshrc` to customize your shell.
 
 Now restart your terminal, and enjoy.
 

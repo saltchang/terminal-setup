@@ -1,7 +1,7 @@
 {
-    "recommendations": [
-        "foxundermoon.shell-format",
-        "bmalehorn.shell-syntax",
-        "timonwong.shellcheck"
-    ]
+  "recommendations": [
+    "foxundermoon.shell-format",
+    "bmalehorn.shell-syntax",
+    "timonwong.shellcheck"
+  ]
 }

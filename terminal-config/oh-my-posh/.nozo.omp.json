@@ -109,14 +109,14 @@
             "display_status_detail": true,
             "display_stash_count": true,
             "display_worktree_count": true,
-            "status_separator_icon":"",
+            "status_separator_icon": "",
             "local_working_icon": " ",
             "local_staged_icon": " ",
             "stash_count_icon": " ",
 
             "display_upstream_icon": true,
-            "github_icon":" ",
-            "gitlab_icon":" ",
+            "github_icon": " ",
+            "gitlab_icon": " ",
             "bitbucket_icon": " ",
             "git_icon": "",
 

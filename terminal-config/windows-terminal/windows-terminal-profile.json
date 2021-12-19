@@ -1,0 +1,112 @@
+{
+  "$schema": "https://aka.ms/terminal-profiles-schema",
+  "actions": [
+    {
+      "command": {
+        "action": "copy",
+        "singleLine": false
+      },
+      "keys": "ctrl+c"
+    },
+    {
+      "command": "find",
+      "keys": "ctrl+shift+f"
+    },
+    {
+      "command": "paste",
+      "keys": "ctrl+v"
+    },
+    {
+      "command": {
+        "action": "splitPane",
+        "split": "auto",
+        "splitMode": "duplicate"
+      },
+      "keys": "alt+shift+d"
+    }
+  ],
+  "copyFormatting": "none",
+  "copyOnSelect": false,
+  "defaultProfile": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+  "launchMode": "maximized",
+  "profiles": {
+    "defaults": {
+      "bellStyle": ["audible", "taskbar", "window"],
+      "closeOnExit": "never",
+      "colorScheme": "Nozo",
+      "cursorColor": "#FF7500",
+      "cursorShape": "filledBox",
+      "fontFace": "MesloLGS Nerd Font",
+      "fontSize": 14,
+      "fontWeight": "medium",
+      "snapOnInput": false
+      // "useAcrylic": true,
+      // "acrylicOpacity": 0.4,
+      // "padding" : "0, 0, 0, 0",
+      // "backgroundImage": "C:/Users/saltc/Pictures/Kyaru/Kyaru_With_A_Cat.png",
+      // "backgroundImageOpacity": 0.2
+    },
+    "list": [
+      {
+        "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+        "hidden": false,
+        "icon": "C:/ubuntu.ico",
+        "name": "Ubuntu",
+        "source": "Windows.Terminal.Wsl",
+        "startingDirectory": "//wsl$/Ubuntu/home/salt"
+      },
+      {
+        "guid": "{2ece5bfe-50ed-5f3a-ab87-5cd4baafed2b}",
+        "hidden": false,
+        "name": "Git Bash",
+        "source": "Git"
+      },
+      {
+        "commandline": "powershell.exe",
+        "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+        "hidden": false,
+        "name": "PowerShell"
+      },
+      {
+        "commandline": "cmd.exe",
+        "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+        "hidden": false,
+        "name": "CMD"
+      },
+      {
+        "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
+        "hidden": false,
+        "name": "Azure",
+        "source": "Windows.Terminal.Azure"
+      }
+    ]
+  },
+  "schemes": [
+    {
+      "background": "#061923",
+      "black": "#1D485F",
+      "blue": "#5FB1C2",
+      "brightBlack": "#008EAB",
+      "brightBlue": "#77DBF4",
+      "brightCyan": "#0BC7E3",
+      "brightGreen": "#69f197",
+      "brightPurple": "#b682d8",
+      "brightRed": "#FEAF3C",
+      "brightWhite": "#FFFFFF",
+      "brightYellow": "#FEDAAE",
+      "cursorColor": "#FFFFFF",
+      "cyan": "#97B9C0",
+      "foreground": "#E5C49E",
+      "green": "#84C47E",
+      "name": "Nozo",
+      "purple": "#8756b4",
+      "red": "#DB662D",
+      "selectionBackground": "#265B75",
+      "white": "#C6E8F1",
+      "yellow": "#E1D471"
+    }
+  ],
+  "showTerminalTitleInTitlebar": false,
+  "tabWidthMode": "equal",
+  "theme": "dark"
+}

@@ -8,9 +8,44 @@
 
 # ==============================================================================
 
+# ===> Auto Detect OS and Shell ================================================
+
+Microsoft="Microsoft"
+UBUNTU="Ubuntu"
+DEBIAN="Debian"
+LINUX="Linux"
+MACOS="macOS"
+
+PROC_VERSION=$(cat /proc/version)
+
+case $(uname) in
+
+Darwin)
+    OS_NAME=$MACOS
+    ;;
+
+Linux)
+    OS_NAME=$LINUX
+    OS_INFO=$(lsb_release -a)
+    case $OS_INFO in
+
+    *"$UBUNTU"*)
+        DISTRO_NAME=$UBUNTU
+        ;;
+    *"$DEBIAN"*)
+        DISTRO_NAME=$DEBIAN
+        ;;
+    esac
+    ;;
+esac
+
+if echo "$PROC_VERSION" | grep -iqF $Microsoft; then
+    SYS_IS_WSL=YES
+fi
+
 ZSH_SHELL_NAME="-zsh"
 
-# ===> Terminal Tab Title (Optional)============================================
+# ===> Terminal Tab Title (Optional) ===========================================
 # DISABLE_AUTO_TITLE="true"
 # ==============================================================================
 
@@ -84,36 +119,52 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
 )
 # ==============================================================================
 
-# ===> Powerlevel: Prompt Prefix (For macOS) ===================================
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="\u2570\u2500\u27A4 "
-# ==============================================================================
+# ===> Powerlevel: Prompt Prefix ===============================================
 
-# ===> Powerlevel: Prompt Prefix (For Linux) ===================================
-# POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="\u2570\u2500\u2B9E "
-# POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="\u256D\u2500"
+case $OS_NAME in
+"$MACOS")
+    POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="\u2570\u2500\u27A4 "
+    ;;
+"$LINUX")
+    POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="\u2570\u2500\u2B9E "
+    POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="\u256D\u2500"
+    ;;
+esac
 # ==============================================================================
 
 # ===> Powerlevel (For Linux) ==================================================
-# -------> Segment -------------------------------------------------------------
-# POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=$'\uE0B0'
-# POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=$'\uE0B2'
+case $OS_NAME in
+"$MACOS")
+    POWERLEVEL9K_OS_ICON_FOREGROUND="255"
+    POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
+    ;;
+"$LINUX")
+    # Segment
+    POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=$'\uE0B0'
+    POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=$'\uE0B2'
 
-# -------> Icon ----------------------------------------------------------------
-# POWERLEVEL9K_LINUX_ICON="\uF316" # For RedHat
+    # Icon
+    POWERLEVEL9K_OS_ICON_BACKGROUND="233"
+    case $DISTRO_NAME in
+    "$UBUNTU")
+        POWERLEVEL9K_OS_ICON_FOREGROUND="202" # For Ubuntu
+        ;;
 
-# -------> Icon Color ----------------------------------------------------------
-# POWERLEVEL9K_OS_ICON_FOREGROUND="204" # For Debian
-# POWERLEVEL9K_OS_ICON_FOREGROUND="202" # For Ubuntu
-# POWERLEVEL9K_OS_ICON_FOREGROUND="197" # For Redhat
-# POWERLEVEL9K_OS_ICON_BACKGROUND="233"
+    "$DEBIAN")
+        POWERLEVEL9K_OS_ICON_FOREGROUND="204" # For Debian
+        ;;
 
-# -------> Other ---------------------------------------------------------------
-# POWERLEVEL9K_STATUS_BACKGROUND="059"
-# ==============================================================================
+    *)
+        POWERLEVEL9K_LINUX_ICON="\uF316"      # For RedHat
+        POWERLEVEL9K_OS_ICON_FOREGROUND="197" # For Redhat
+        ;;
+    esac
 
-# ===> Powerlevel (For macOS) ==================================================
-POWERLEVEL9K_OS_ICON_FOREGROUND="255"
-POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
+    # Other
+    POWERLEVEL9K_STATUS_BACKGROUND="059"
+    ;;
+esac
+
 # ==============================================================================
 
 # ===> Powerlevel: Other Config (For All) ======================================
@@ -166,7 +217,7 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-history-substring-search
 antigen bundle lukechilds/zsh-nvm
 
-if [ "$0" = "$ZSH_SHELL_NAME" ]; then # don't run when source .zshrc
+if [ "$0" = $ZSH_SHELL_NAME ]; then # don't run when source .zshrc
     antigen theme romkatv/powerlevel10k
 fi
 
@@ -216,44 +267,29 @@ addToPATH "/usr/local/go/bin"
 export PATH
 # ==============================================================================
 
-# ===> Alias: Visual Studio Code - Insiders (Optional) =========================
-# unalias code 2>/dev/null
-# unalias codes 2>/dev/null
-# Only if you need to use insiders version of vscode as default
-# alias codes='/usr/local/bin/code' # for macOS or Linux
-# VSCODE_PATH="/mnt/c/Users/saltc/AppData/Local/Programs/Microsoft\ VS\ Code/bin/code" # for WSL
-# shellcheck disable=SC2139
-# alias codes="$VSCODE_PATH" # for WSL
-# alias code='code-insiders'
-
-# If you just want for shorcut code-insiders
-alias codes='code-insiders'
-# ==============================================================================
-
-# ===> Alias: Edit =============================================================
-# --------> Disable vi ---------------------------------------------------------
-alias vi='vim'
-# --------> Use VSCode ---------------------------------------------------------
+# ===> Alias: Editor ===========================================================
 alias edit='code'
-# --------> Use Vim ------------------------------------------------------------
 # alias edit='vim'
+# alias vi='vim'
 # ==============================================================================
 
 # ===> Alias: Basic Command ====================================================
-# --------> For Linux Only -----------------------------------------------------
-# alias ls='echo && ls -hF --color=always'
-# alias ll='ls -l --time-style=long-iso --group-directories-first'
-# alias rm='rm -I -v --preserve-root'
-# alias chown='chown --preserve-root'
-# alias chmod='chmod --preserve-root'
-# alias chgrp='chgrp --preserve-root'
+case $OS_NAME in
+"$MACOS")
+    alias ls='echo && ls -hF'
+    alias ll='ls -l'
+    alias rm='rm -iv'
+    ;;
+"$LINUX")
+    alias ls='echo && ls -hF --color=always'
+    alias ll='ls -l --time-style=long-iso --group-directories-first'
+    alias rm='rm -I -v --preserve-root'
+    alias chown='chown --preserve-root'
+    alias chmod='chmod --preserve-root'
+    alias chgrp='chgrp --preserve-root'
+    ;;
+esac
 
-# --------> For macOS Only -----------------------------------------------------
-alias ls='echo && ls -hF'
-alias ll='ls -l'
-alias rm='rm -iv'
-
-# --------> For All ------------------------------------------------------------
 alias la='ll -a'
 alias cp='cp -iv'
 alias mv='mv -iv'
@@ -263,14 +299,7 @@ alias ssh='ssh -v -tt -A' # Use '-vvv' for top-level verbose
 alias ping='ping -c 5'
 alias mk='make'
 alias sudo='sudo '
-# ==============================================================================
-
-# ===> Functions: Prompt =======================================================
-# omzsh_prompt_node_version() {
-#     if which node &> /dev/null; then
-#         echo "%{$fg_bold[blue]%}node(%{$fg[red]%}$(node -v)%{$fg[blue]%}) %{$reset_color%}"
-#     fi
-# }
+alias codes='code-insiders'
 # ==============================================================================
 
 # ===> Functions: Shortcut =====================================================
@@ -308,35 +337,73 @@ gogo() {
     printf "\nOK, you are ready to Go :)\n"
 }
 
-# --------> Go to Windows Disk C (WSL Only) ------------------------------------
-# win() {
-#     cd "/mnt/c" || exit
-#     printf "\nOK, you are now in disk: C!\n"
-# }
+if [ $SYS_IS_WSL ]; then
+    # go to Windows Disk C
+    win() {
+        cd "/mnt/c" || exit
+        printf "\nOK, you are now in disk: C!\n"
+    }
+    # open with Windows Explorer
+    open() {
+        explorer.exe "$1"
+    }
+fi
 
-# --------> Open with Windows Explorer (WSL Only) ------------------------------
-# open() {
-#     explorer.exe "$1"
-# }
+# ==============================================================================
+
+# ===> Alias: Update & Upgrade Packages ========================================
+unu() {
+    case $OS_NAME in
+    "$MACOS")
+        brew update && brew upgrade
+        ;;
+    "$LINUX")
+        sudo apt-get update && sudo apt-get upgrade
+        ;;
+    esac
+}
 # ==============================================================================
 
 # ===> Alias: Shortcut =========================================================
 alias c='clear'
-# alias unu='sudo apt-get update && sudo apt-get upgrade' # for Ubuntu
 alias edit-rc='edit $HOME/.zshrc'
 alias edit-ssh='edit $HOME/.ssh/config'
 alias source-rc='source $HOME/.zshrc'
 alias paths='echo && echo -e ${PATH//:/\\n}'
 alias weather='curl wttr.in && echo && curl v2.wttr.in'
-# alias monitor='gotop -r 1s -a -s'                       # https://github.com/xxxserxxx/gotop
-# alias mand='sudo ncdu --exclude /mnt -e --color=dark /' # sudo apt-get -y install ncdu
-# alias ffind='find * -type f | fzf'                      # sudo apt-get -y install fzf
-# alias tmux='TERM=xterm-256color tmux'                   # sudo apt-get -y install tmux
+
+case $OS_NAME in
+"$MACOS") ;;
+"$LINUX")
+    alias mand='sudo ncdu --exclude /mnt -e --color=dark /' # sudo apt-get -y install ncdu
+    alias ffind='find * -type f | fzf'                      # sudo apt-get -y install fzf
+    alias monitor='gotop -r 1s -a -s'                       # https://github.com/xxxserxxx/gotop
+    ;;
+esac
 
 # --------> List all ports -----------------------------------------------------
-# Run "sudo apt-get -y install net-tools" to install net-tools if needed
-# alias ports='netstat -tulanp' # For Linux
-alias ports='sudo lsof -iTCP -sTCP:LISTEN -n -P' # For macOS
+case $OS_NAME in
+"$MACOS")
+    alias ports='sudo lsof -iTCP -sTCP:LISTEN -n -P'
+    ;;
+"$LINUX")
+    if [ -x "$(command -v netstat)" ]; then
+        alias ports='netstat -tulanp'
+    else
+        case $DISTRO_NAME in
+        "$UBUNTU")
+            sudo apt-get -y install net-tools
+            ;;
+        "$DEBIAN")
+            sudo apt-get -y install net-tools
+            ;;
+        *)
+            sudo yum -y install net-tools
+            ;;
+        esac
+    fi
+    ;;
+esac
 # ==============================================================================
 
 # ===> Python 3 shortcut (Optional) ============================================
@@ -357,27 +424,20 @@ git config --global pull.ff only              # set git pull --ff-only
 git config --global init.defaultBranch main   # set default init branch
 git config --global core.editor "$GIT_EDITOR" # set default editor
 
-# --------> Quickly update Git (for Ubuntu) ------------------------------------
-# update_git() {
-#     printf "\nCurrent %s\n\n" "$(git --version)"
-
-#     printf "Start to update Git...\n\n"
-
-#     sudo add-apt-repository ppa:git-core/ppa -y &&
-#         sudo apt-get update &&
-#         sudo apt-get install git -y
-
-#     printf "\nCurrent %s\n\n" "$(git --version)"
-#     printf "Git updated successfully.\n"
-# }
-# --------> Quickly update Git (for macOS) ------------------------------------
+# --------> Quickly update Git -------------------------------------------------
 update_git() {
     printf "\nCurrent %s\n\n" "$(git --version)"
-
     printf "Start to update Git...\n\n"
-
-    brew update && brew upgrade git
-
+    case $OS_NAME in
+    "$MACOS")
+        brew update && brew upgrade git
+        ;;
+    "$LINUX")
+        sudo add-apt-repository ppa:git-core/ppa -y &&
+            sudo apt-get update &&
+            sudo apt-get install git -y
+        ;;
+    esac
     printf "\nCurrent %s\n\n" "$(git --version)"
     printf "Git updated successfully.\n"
 }
@@ -402,26 +462,34 @@ fi
 # ==============================================================================
 
 # ===> Docker Deamon (Optional for WSL) ========================================
-# DOCKER_DISTRO="Ubuntu" # Run `wsl -l -q` in Powershell to see all distros
-# DOCKER_DIR=/mnt/wsl/shared-docker
-# DOCKER_SOCK="$DOCKER_DIR/docker.sock"
-# export DOCKER_HOST="unix://$DOCKER_SOCK"
-# if [ ! -S "$DOCKER_SOCK" ]; then
-#     mkdir -p "$DOCKER_DIR"
-#     chmod o=,ug=rwx "$DOCKER_DIR"
-#     chgrp docker "$DOCKER_DIR"
-#     /mnt/c/Windows/System32/wsl.exe -d $DOCKER_DISTRO sh -c "nohup sudo -b dockerd < /dev/null > $DOCKER_DIR/dockerd.log 2>&1"
+if [ $SYS_IS_WSL ]; then
+    DOCKER_DISTRO=$DISTRO_NAME # Run `wsl -l -q` in Powershell to see all distros
+    DOCKER_DIR=/mnt/wsl/shared-docker
+    DOCKER_SOCK="$DOCKER_DIR/docker.sock"
+    export DOCKER_HOST="unix://$DOCKER_SOCK"
+    if [ ! -S "$DOCKER_SOCK" ]; then
+        mkdir -p "$DOCKER_DIR"
+        chmod o=,ug=rwx "$DOCKER_DIR"
+        chgrp docker "$DOCKER_DIR"
+        /mnt/c/Windows/System32/wsl.exe -d $DOCKER_DISTRO sh -c "nohup sudo -b dockerd < /dev/null > $DOCKER_DIR/dockerd.log 2>&1"
 
-#     # An symbolink config for VSCode
-#     if [ ! -L "/run/docker.sock" ]; then
-#         sudo sh -c "ln -s $DOCKER_SOCK /run/docker.sock"
-#     fi
-# fi
+        # An symbolink config for VSCode
+        if [ ! -L "/run/docker.sock" ]; then
+            sudo sh -c "ln -s $DOCKER_SOCK /run/docker.sock"
+        fi
+    fi
+fi
+
 # ==============================================================================
 
 typeset -U path                       # remove duplicates in $PATH
 if [ "$0" = "$ZSH_SHELL_NAME" ]; then # don't run when source .zshrc
-    cd "$HOME" || exit                # change directory to $HOME
+
+    # update & upgrade packages once shell launched
+    # { [ $DISTRO_NAME = $UBUNTU ] || [ $OS_NAME = $MACOS ]; } && unu
+
+    # change directory to $HOME
+    cd "$HOME" || exit
 fi
 
 # ==============================================================================
