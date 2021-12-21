@@ -16,7 +16,14 @@ DEBIAN="Debian"
 LINUX="Linux"
 MACOS="macOS"
 
-PROC_VERSION=$(cat /proc/version)
+PROC_VERSION_PATH="/proc/version"
+
+if [ -f $PROC_VERSION_PATH ]; then
+    PROC_VERSION=$(cat $PROC_VERSION_PATH)
+    if echo "$PROC_VERSION" | grep -iqF $Microsoft; then
+        SYS_IS_WSL=YES
+    fi
+fi
 
 case $(uname) in
 
@@ -38,10 +45,6 @@ Linux)
     esac
     ;;
 esac
-
-if echo "$PROC_VERSION" | grep -iqF $Microsoft; then
-    SYS_IS_WSL=YES
-fi
 
 ZSH_SHELL_NAME="-zsh"
 
