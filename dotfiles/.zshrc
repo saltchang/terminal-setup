@@ -372,7 +372,7 @@ alias c='clear'
 alias edit-rc='edit $HOME/.zshrc'
 alias edit-ssh='edit $HOME/.ssh/config'
 alias source-rc='source $HOME/.zshrc'
-alias paths='echo && echo -e ${PATH//:/\\n}'
+alias paths='echo && echo -e ${PATH//:/\\n} | sort -n'
 alias weather='curl wttr.in && echo && curl v2.wttr.in'
 
 case $OS_NAME in
