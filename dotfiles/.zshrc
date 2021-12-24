@@ -226,6 +226,7 @@ antigen bundle lukechilds/zsh-nvm
 
 theme_antigen() {
     antigen theme romkatv/powerlevel10k
+    return
 }
 
 if [ "$0" = $ZSH_SHELL_NAME ]; then # don't run when source .zshrc
