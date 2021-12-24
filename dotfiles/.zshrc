@@ -387,12 +387,12 @@ alias weather='curl wttr.in && echo && curl v2.wttr.in'
 case $OS_NAME in
 "$MACOS") ;;
 "$LINUX")
+    alias ffind='find * -type f | fzf' # sudo apt-get -y install fzf
+    alias monitor='gotop -r 1s -a -s'  # https://github.com/xxxserxxx/gotop
     case $DISTRO_NAME in
     "$RHEL") ;;
     *)
         alias mand='sudo ncdu --exclude /mnt -e --color=dark /' # sudo apt-get -y install ncdu
-        alias ffind='find * -type f | fzf'                      # sudo apt-get -y install fzf
-        alias monitor='gotop -r 1s -a -s'                       # https://github.com/xxxserxxx/gotop
         ;;
     esac
     ;;
