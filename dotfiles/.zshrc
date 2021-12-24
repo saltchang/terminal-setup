@@ -13,6 +13,7 @@
 Microsoft="Microsoft"
 UBUNTU="Ubuntu"
 DEBIAN="Debian"
+RHEL="RedHatEnterpriseServer"
 LINUX="Linux"
 MACOS="macOS"
 
@@ -34,13 +35,16 @@ Darwin)
 Linux)
     OS_NAME=$LINUX
     OS_INFO=$(lsb_release -a)
-    case $OS_INFO in
 
+    case $OS_INFO in
     *"$UBUNTU"*)
         DISTRO_NAME=$UBUNTU
         ;;
     *"$DEBIAN"*)
         DISTRO_NAME=$DEBIAN
+        ;;
+    *"$RHEL"*)
+        DISTRO_NAME=$RHEL
         ;;
     esac
     ;;
@@ -157,7 +161,7 @@ case $OS_NAME in
         POWERLEVEL9K_OS_ICON_FOREGROUND="204" # For Debian
         ;;
 
-    *)
+    "$RHEL")
         POWERLEVEL9K_LINUX_ICON="\uF316"      # For RedHat
         POWERLEVEL9K_OS_ICON_FOREGROUND="197" # For Redhat
         ;;
@@ -361,7 +365,12 @@ unu() {
         brew update && brew upgrade
         ;;
     "$LINUX")
-        sudo apt-get update && sudo apt-get upgrade
+        case $DISTRO_NAME in
+        "$RHEL") ;;
+        *)
+            sudo apt-get update && sudo apt-get upgrade
+            ;;
+        esac
         ;;
     esac
 }
@@ -378,9 +387,14 @@ alias weather='curl wttr.in && echo && curl v2.wttr.in'
 case $OS_NAME in
 "$MACOS") ;;
 "$LINUX")
-    alias mand='sudo ncdu --exclude /mnt -e --color=dark /' # sudo apt-get -y install ncdu
-    alias ffind='find * -type f | fzf'                      # sudo apt-get -y install fzf
-    alias monitor='gotop -r 1s -a -s'                       # https://github.com/xxxserxxx/gotop
+    case $DISTRO_NAME in
+    "$RHEL") ;;
+    *)
+        alias mand='sudo ncdu --exclude /mnt -e --color=dark /' # sudo apt-get -y install ncdu
+        alias ffind='find * -type f | fzf'                      # sudo apt-get -y install fzf
+        alias monitor='gotop -r 1s -a -s'                       # https://github.com/xxxserxxx/gotop
+        ;;
+    esac
     ;;
 esac
 
@@ -394,14 +408,9 @@ case $OS_NAME in
         alias ports='netstat -tulanp'
     else
         case $DISTRO_NAME in
-        "$UBUNTU")
-            sudo apt-get -y install net-tools
-            ;;
-        "$DEBIAN")
-            sudo apt-get -y install net-tools
-            ;;
+        "$RHEL") ;;
         *)
-            sudo yum -y install net-tools
+            echo "net-tools is not installed, please run 'sudo apt-get -y install net-tools' to install it."
             ;;
         esac
     fi
@@ -436,9 +445,14 @@ update_git() {
         brew update && brew upgrade git
         ;;
     "$LINUX")
-        sudo add-apt-repository ppa:git-core/ppa -y &&
-            sudo apt-get update &&
-            sudo apt-get install git -y
+        case $DISTRO_NAME in
+        "$RHEL") ;;
+        *)
+            sudo add-apt-repository ppa:git-core/ppa -y &&
+                sudo apt-get update &&
+                sudo apt-get install git -y
+            ;;
+        esac
         ;;
     esac
     printf "\nCurrent %s\n\n" "$(git --version)"
