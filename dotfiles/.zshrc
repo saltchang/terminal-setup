@@ -224,8 +224,12 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-history-substring-search
 antigen bundle lukechilds/zsh-nvm
 
-if [ "$0" = $ZSH_SHELL_NAME ]; then # don't run when source .zshrc
+theme_antigen() {
     antigen theme romkatv/powerlevel10k
+}
+
+if [ "$0" = $ZSH_SHELL_NAME ]; then # don't run when source .zshrc
+    theme_antigen
 fi
 
 antigen apply
