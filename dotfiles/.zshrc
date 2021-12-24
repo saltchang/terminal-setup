@@ -359,21 +359,23 @@ fi
 # ==============================================================================
 
 # ===> Alias: Update & Upgrade Packages ========================================
-unu() {
-    case $OS_NAME in
-    "$MACOS")
+case $OS_NAME in
+"$MACOS")
+    unu() {
         brew update && brew upgrade
-        ;;
-    "$LINUX")
-        case $DISTRO_NAME in
-        "$RHEL") ;;
-        *)
+    }
+    ;;
+"$LINUX")
+    case $DISTRO_NAME in
+    "$RHEL") ;;
+    *)
+        unu() {
             sudo apt-get update && sudo apt-get upgrade
-            ;;
-        esac
+        }
         ;;
     esac
-}
+    ;;
+esac
 # ==============================================================================
 
 # ===> Alias: Shortcut =========================================================
@@ -480,23 +482,25 @@ fi
 
 # ===> Docker Deamon (Optional for WSL) ========================================
 if [ $SYS_IS_WSL ]; then
-    DOCKER_DISTRO=$DISTRO_NAME # Run `wsl -l -q` in Powershell to see all distros
-    DOCKER_DIR=/mnt/wsl/shared-docker
-    DOCKER_SOCK="$DOCKER_DIR/docker.sock"
-    export DOCKER_HOST="unix://$DOCKER_SOCK"
-    if [ ! -S "$DOCKER_SOCK" ]; then
-        mkdir -p "$DOCKER_DIR"
-        chmod o=,ug=rwx "$DOCKER_DIR"
-        chgrp docker "$DOCKER_DIR"
-        /mnt/c/Windows/System32/wsl.exe -d $DOCKER_DISTRO sh -c "nohup sudo -b dockerd < /dev/null > $DOCKER_DIR/dockerd.log 2>&1"
+    DOCKER_GROUP_NAME="docker"
+    if [ $(getent group $DOCKER_GROUP_NAME) ]; then # check if group docker is installed
+        DOCKER_DISTRO=$DISTRO_NAME                  # Run `wsl -l -q` in Powershell to see all distros
+        DOCKER_DIR=/mnt/wsl/shared-docker
+        DOCKER_SOCK="$DOCKER_DIR/docker.sock"
+        export DOCKER_HOST="unix://$DOCKER_SOCK"
+        if [ ! -S "$DOCKER_SOCK" ]; then
+            mkdir -p "$DOCKER_DIR"
+            chmod o=,ug=rwx "$DOCKER_DIR"
+            chgrp docker "$DOCKER_DIR"
+            /mnt/c/Windows/System32/wsl.exe -d $DOCKER_DISTRO sh -c "nohup sudo -b dockerd < /dev/null > $DOCKER_DIR/dockerd.log 2>&1"
 
-        # An symbolink config for VSCode
-        if [ ! -L "/run/docker.sock" ]; then
-            sudo sh -c "ln -s $DOCKER_SOCK /run/docker.sock"
+            # An symbolink config for VSCode
+            if [ ! -L "/run/docker.sock" ]; then
+                sudo sh -c "ln -s $DOCKER_SOCK /run/docker.sock"
+            fi
         fi
     fi
 fi
-
 # ==============================================================================
 
 typeset -U path                       # remove duplicates in $PATH
