@@ -1,66 +1,43 @@
-# Terminal Setup Note
+# Terminal Setup
 
-My terminal setup note for WSL, macOS, and Windows
+Terminal setup for macOS, Linux, and Windows.
 
-## Install Terminal
+## Clone This Project
 
-### macOS
-
-* [iTerm2](https://iterm2.com/)
-
-#### Config iTerm
-
-1. Download the [iTerm Profile](https://github.com/saltchang/terminal-setup-note/blob/main/terminal/iTerm/Salt_iTerm_Profile.json)
-2. Open your iTerm > Preferences > Profiles > Other Actions > Import JSON Profiles > Choose the one you just downloaded: `Salt_iTerm_Profile.json`
-3. After you setup: Other Actions > Set as Default > Restart iTerm
-4. Done
-
-## Install zsh
-
-### Ubuntu/Debian
+It's recommended to put the project under `$HOME/projects/personal`:
 
 ```bash
-sudo apt update && sudo apt -y install zsh
+mkdir -p $HOME/projects/personal
+cd $HOME/projects/personal
 ```
 
-### macOS
+Then clone this project:
 
 ```bash
-# Use Homebrew
-brew install zsh
+# SSH
+git clone git@github.com:saltchang/terminal-setup.git
 ```
-
-### Change zsh to your default shell
 
 ```bash
-chsh -s $(which zsh)
-
-# Then restart your terminal
+# HTTPS
+git clone https://github.com/saltchang/terminal-setup.git
 ```
 
-## Setup shell profile
+## Fonts
 
-Run the installation script to setup zsh:
+### Nerd Fonts
 
-```bash
-./install.sh
-```
+Please install at least one of the below fonts for your terminal, [Menlo](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip) is recommended.
 
-Now restart your terminal, and enjoy.
+* [Menlo](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip)
+* [FuraCode](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip)
+* [SourceCodePro](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/SourceCodePro.zip)
 
-### Color for powerlevel10k
-
-If you would like to customize the color scheme of powerlevel10k, please see [This chart](https://user-images.githubusercontent.com/704406/43988708-64c0fa52-9d4c-11e8-8cf9-c4d4b97a5200.png)
-
-## Font
+See all [Nerd Fonts](https://www.nerdfonts.com/font-downloads).
 
 ### FiraCode
 
-#### Ubuntu/Debian
-
-```bash
-sudo apt install fonts-firacode
-```
+Fira Code is recommended for your editor such as [VS Code](https://code.visualstudio.com).
 
 #### macOS
 
@@ -69,9 +46,73 @@ brew tap homebrew/cask-fonts
 brew install --cask font-fira-code
 ```
 
-### Other NerdFont
+#### Ubuntu/Debian
 
-* [FuraCode](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip)
-* [SourceCodePro](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/SourceCodePro.zip)
-* [Menlo](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip)
-* [Other](https://www.nerdfonts.com/font-downloads)
+```bash
+sudo apt install fonts-firacode
+```
+
+## Install Terminal
+
+*This is for macOS only*
+
+### macOS
+
+* [iTerm2](https://iterm2.com/)
+
+#### Config iTerm
+
+1. Open your iTerm > Preferences > Profiles > Other Actions > Import JSON Profiles > Choose this [iTerm Profile](https://github.com/saltchang/terminal-setup/blob/main/terminal-config/iTerm/Salt_iTerm_Profile.json)
+2. After you setup: Other Actions > Set as Default
+3. Restart iTerm
+
+## Install zsh
+
+### macOS
+
+```bash
+# Use Homebrew
+brew install zsh
+```
+
+*Since **Catalina**, macOS will use zsh as the defualt shell*
+
+### Ubuntu/Debian
+
+```bash
+sudo apt update && sudo apt -y install zsh
+```
+
+### Change zsh to Your Default Shell
+
+```bash
+chsh -s $(which zsh)
+
+# Then restart your terminal
+```
+
+## Setup Shell
+
+Run the installation script to setup zsh:
+
+```bash
+cd terminal-setup
+
+./install.sh
+```
+
+Now restart your terminal, and enjoy.
+
+### Customize Your Shell
+
+Run the below command to open your `.zshrc`:
+
+```bash
+edit-rc
+```
+
+The you can start to customize your shell.
+
+## Color for powerlevel10k
+
+If you would like to customize the color scheme of powerlevel10k, please see [This chart](https://user-images.githubusercontent.com/704406/43988708-64c0fa52-9d4c-11e8-8cf9-c4d4b97a5200.png).
