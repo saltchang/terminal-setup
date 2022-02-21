@@ -217,6 +217,7 @@ antigen bundle git
 antigen bundle docker
 antigen bundle emoji
 antigen bundle gh
+antigen bundle gnu-utils
 
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
@@ -288,8 +289,12 @@ alias edit='code'
 # ===> Alias: Basic Command ====================================================
 case $OS_NAME in
 "$MACOS")
-    alias ls='echo && ls -hF'
-    alias ll='ls -l'
+    # alias ls='echo && ls -hF'
+    # alias ll='ls -l'
+
+    # brew install coreutils
+    alias ls='echo && gls -hF --color=always'
+    alias ll='ls -l --time-style=long-iso --group-directories-first'
     alias rm='rm -iv'
     ;;
 "$LINUX")
