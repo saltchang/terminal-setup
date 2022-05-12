@@ -242,6 +242,7 @@ PROJS_BASE=$HOME/projects
 [ ! -d "$PROJS_BASE" ] && mkdir -p "$PROJS_BASE"
 [ ! -d "$PROJS_BASE/work" ] && mkdir -p "$PROJS_BASE/work"
 [ ! -d "$PROJS_BASE/personal" ] && mkdir -p "$PROJS_BASE/personal"
+[ ! -d "$PROJS_BASE/archived" ] && mkdir -p "$PROJS_BASE/archived"
 [ ! -d "$PROJS_BASE/lib" ] && mkdir -p "$PROJS_BASE/lib"
 # ==============================================================================
 
@@ -342,6 +343,11 @@ gow() {
 gop() {
     cl "$PROJS_BASE/personal"
     printf "\nOK, ready to do something amazing :)\n"
+}
+
+goa() {
+    cl "$PROJS_BASE/archived"
+    printf "\nHere are the archived projects :)\n"
 }
 
 gol() {
