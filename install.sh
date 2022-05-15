@@ -42,4 +42,4 @@ if [ $INSTALL_ANTIGEN ]; then
     fi
 fi
 
-echo "Please restart your terminal or run \"source-rc\" to reload .zshrc"
+echo "Please restart your terminal or run \`source ~/.zshrc\` to reload .zshrc"

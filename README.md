@@ -23,7 +23,7 @@ git clone git@github.com:saltchang/terminal-setup.git
 git clone https://github.com/saltchang/terminal-setup.git
 ```
 
-## Fonts
+## Install Fonts
 
 ### Nerd Fonts
 
@@ -52,7 +52,7 @@ brew install --cask font-fira-code
 sudo apt install fonts-firacode
 ```
 
-## Install Terminal
+## Install Terminal App
 
 *This is for macOS only*
 
@@ -75,7 +75,7 @@ sudo apt install fonts-firacode
 brew install zsh
 ```
 
-*Since **Catalina**, macOS will use zsh as the defualt shell*
+*Since **Catalina**, macOS will use zsh as the defualt shell, so you may have zsh built-in in your system*
 
 ### Ubuntu/Debian
 
@@ -91,7 +91,7 @@ chsh -s $(which zsh)
 # Then restart your terminal
 ```
 
-## Setup Shell
+## Setup the Shell
 
 Run the installation script to setup zsh:
 
@@ -101,7 +101,7 @@ cd terminal-setup
 ./install.sh
 ```
 
-Now restart your terminal, and enjoy.
+Now restart your terminal or run `source ~/.zshrc`, you should see the new face of the shell.
 
 ### Customize Your Shell
 
