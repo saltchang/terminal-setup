@@ -93,13 +93,21 @@ chsh -s $(which zsh)
 
 ## Setup the Shell
 
-Run the installation script to setup zsh:
+First, if you're using macOS, please install the coreutils library:
+
+```bash
+brew install coreutils
+```
+
+To setup the shell, just run the installation script:
 
 ```bash
 cd terminal-setup
 
 ./install.sh
 ```
+
+It will create a soft link from `~/.zshrc` to the one in this project, check `dotfiles/.zshrc`.
 
 Now restart your terminal or run `source ~/.zshrc`, you should see the new face of the shell.
 

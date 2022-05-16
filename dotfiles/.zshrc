@@ -293,6 +293,7 @@ case $OS_NAME in
     # alias ls='echo && ls -hF'
     # alias ll='ls -l'
 
+    # if you see "command not found: gls" in macOS, run to install the requirement:
     # brew install coreutils
     alias ls='echo && gls -hF --color=always'
     alias ll='ls -l --time-style=long-iso --group-directories-first'
