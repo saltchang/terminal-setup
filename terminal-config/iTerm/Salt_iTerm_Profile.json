@@ -33,7 +33,7 @@
     "Alpha Component": 1,
     "Green Component": 0.35736742615699768
   },
-  "Blend": 0.45615737757731961,
+  "Blend": 0.34869785538529063,
   "Mouse Reporting": true,
   "Cursor Boost": 0,
   "Ansi 4 Color": {
@@ -76,7 +76,7 @@
     "Green Component": 0.35916060209274292
   },
   "Shortcut": "",
-  "Background Image Location": "",
+  "Background Image Location": "/Users/salt/Pictures/ACG/Anime/Eiko/Eiko_with_Car.jpeg",
   "Bold Color": {
     "Red Component": 1,
     "Color Space": "sRGB",
@@ -112,6 +112,12 @@
       "Text": "[1;2H",
       "Action": 10
     },
+    "0xf702-0x300000-0x7b": {
+      "Version": 1,
+      "Action": 11,
+      "Text": "0x01",
+      "Label": ""
+    },
     "0xf72b-0x40000": {
       "Text": "[1;5F",
       "Action": 10
@@ -139,6 +145,12 @@
     "0x33-0x40000": {
       "Text": "0x1b",
       "Action": 11
+    },
+    "0xf703-0x300000-0x7c": {
+      "Version": 1,
+      "Action": 11,
+      "Text": "0x05",
+      "Label": ""
     },
     "0xf703-0x220000": {
       "Text": "[1;2C",
@@ -333,7 +345,8 @@
   },
   "Smart Cursor Color": false,
   "Ambiguous Double Width": false,
-  "Blur Radius": 3.7047648318527919,
+  "Blur Radius": 3.9844689541932174,
+  "Background Image Mode": 2,
   "Cursor Type": 2,
   "Ansi 0 Color": {
     "Red Component": 0.11437240988016129,
@@ -344,7 +357,7 @@
   },
   "Blur": true,
   "Vertical Spacing": 1,
-  "Normal Font": "MesloLGLNerdFontComplete-Regular 18",
+  "Normal Font": "MesloLGLNerdFontComplete-Regular 17",
   "Use Underline Color": false,
   "Ansi 7 Color": {
     "Red Component": 0.89857113361358643,
@@ -374,7 +387,7 @@
     "Alpha Component": 1,
     "Green Component": 0.69693183898925781
   },
-  "Transparency": 0.20308534263959391,
+  "Transparency": 0.20106572827789179,
   "Background Color": {
     "Red Component": 0.027143325656652451,
     "Color Space": "sRGB",
@@ -384,7 +397,7 @@
   },
   "Screen": 0,
   "Bound Hosts": [],
-  "Non Ascii Font": "MesloLGLNerdFontComplete-Regular 18",
+  "Non Ascii Font": "MesloLGLNerdFontComplete-Regular 17",
   "Ansi 13 Color": {
     "Red Component": 0.7786296010017395,
     "Color Space": "sRGB",
