@@ -75,7 +75,7 @@ sudo apt install fonts-firacode
 brew install zsh
 ```
 
-*Since **Catalina**, macOS will use zsh as the defualt shell, so you may have zsh built-in in your system*
+*Since **Catalina**, macOS will use zsh as the default shell, so you may have zsh built-in in your system*
 
 ### Ubuntu/Debian
 

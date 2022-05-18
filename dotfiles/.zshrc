@@ -10,7 +10,7 @@
 
 # ===> Auto Detect OS and Shell ================================================
 
-Microsoft="Microsoft"
+MS="Microsoft"
 UBUNTU="Ubuntu"
 DEBIAN="Debian"
 RHEL="RedHatEnterpriseServer"
@@ -21,7 +21,7 @@ PROC_VERSION_PATH="/proc/version"
 
 if [ -f $PROC_VERSION_PATH ]; then
     PROC_VERSION=$(cat $PROC_VERSION_PATH)
-    if echo "$PROC_VERSION" | grep -iqF $Microsoft; then
+    if echo "$PROC_VERSION" | grep -iqF $MS; then
         SYS_IS_WSL=YES
     fi
 fi
@@ -294,11 +294,18 @@ case $OS_NAME in
     # alias ll='ls -l'
 
     # if you see "command not found: gls" in macOS, run to install the requirement:
-    # brew install coreutils
-    alias ls='echo && gls -hF --color=always'
-    alias ll='ls -l --time-style=long-iso --group-directories-first'
-    alias rm='rm -iv'
+    # brew install c
+
+    if hash gls 2>/dev/null; then
+        alias ls='echo && gls -hF --color=always'
+        alias ll='ls -l --time-style=long-iso --group-directories-first'
+        alias rm='rm -iv'
+
+    else
+        echo "\ncoreutils is not installed, please install it with: \n\n    $ brew install coreutils\n\nThen restart the terminal."
+    fi
     ;;
+
 "$LINUX")
     alias ls='echo && ls -hF --color=always'
     alias ll='ls -l --time-style=long-iso --group-directories-first'
@@ -379,7 +386,7 @@ fi
 case $OS_NAME in
 "$MACOS")
     unu() {
-        brew update && brew upgrade
+        brew update -v && brew upgrade -v
     }
     ;;
 "$LINUX")

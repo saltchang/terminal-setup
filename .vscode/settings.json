@@ -4,5 +4,6 @@
   "files.associations": {
     "*.zshrc": "shellscript",
     "*.itermcolors": "xml"
-  }
+  },
+  "cSpell.words": ["Fira", "Fura"]
 }
