@@ -1,14 +1,14 @@
 #!/bin/bash
 # shellcheck disable=SC2034
 
-# ==============================================================================
+# ==================================================================================================
 
 # Name:         .zshrc
 # Description:   zsh configuration for macOS, Linux, and WSL
 
-# ==============================================================================
+# ==================================================================================================
 
-# ===> Auto Detect OS and Shell ================================================
+# ===> Auto Detect OS and Shell ====================================================================
 
 MS="Microsoft"
 UBUNTU="Ubuntu"
@@ -52,19 +52,19 @@ esac
 
 ZSH_SHELL_NAME="-zsh"
 
-# ===> Terminal Tab Title (Optional) ===========================================
+# ===> Terminal Tab Title (Optional) ===============================================================
 # DISABLE_AUTO_TITLE="true"
-# ==============================================================================
+# ==================================================================================================
 
-# ===> Language Configuration (Optional) =======================================
-# ------------------------------------------------------------------------------
-# -------> Set All to Traditional Chinese (Taiwan) -----------------------------
+# ===> Language Configuration (Optional) ===========================================================
+# --------------------------------------------------------------------------------------------------
+# -------> Set All to Traditional Chinese (Taiwan) -------------------------------------------------
 # export LC_ALL="zh_TW.UTF-8" # sudo locale-gen zh_TW.UTF-8
 
-# -------> Set All to English (United States) ----------------------------------
+# -------> Set All to English (United States) ------------------------------------------------------
 # export LC_ALL="en_US.UTF-8"
 
-# -------> Set By Details ------------------------------------------------------
+# -------> Set By Details --------------------------------------------------------------------------
 export LANG="zh_TW.UTF-8"
 # export LANG="en_US.UTF-8"
 
@@ -82,9 +82,9 @@ export LC_MESSAGES="en_US.UTF-8"
 # export LC_TELEPHONE="zh_TW.UTF-8"
 # export LC_MEASUREMENT="zh_TW.UTF-8"
 # export LC_IDENTIFICATION="zh_TW.UTF-8"
-# ==============================================================================
+# ==================================================================================================
 
-# ===> Proxy (Optional) ========================================================
+# ===> Proxy (Optional) ============================================================================
 # PROXY="http://proxy-web.company.com:80"
 # NO_PROXY="localhost,127.0.0.1,.company.com"
 
@@ -98,35 +98,35 @@ export LC_MESSAGES="en_US.UTF-8"
 # export https_proxy=$PROXY
 # export all_proxy=$PROXY
 # export no_proxy=$NO_PROXY
-# ==============================================================================
+# ==================================================================================================
 
-# ===> CA Certificate (Optional) ===============================================
+# ===> CA Certificate (Optional) ===================================================================
 # CA_FILE="/usr/local/share/ca-certificates/certnew.crt"
-# --------> For OpenSSL --------------------------------------------------------
+# --------> For OpenSSL ----------------------------------------------------------------------------
 # export SSL_CERT_FILE=$CA_FILE
-# --------> For NodeJS ---------------------------------------------------------
+# --------> For NodeJS -----------------------------------------------------------------------------
 # export NODE_EXTRA_CA_CERTS=$CA_FILE
-# ==============================================================================
+# ==================================================================================================
 
-# ===> Powerlevel: Profile =====================================================
+# ===> Powerlevel: Profile =========================================================================
 POWERLEVEL9K_MODE="nerdfont-complete"
-# ==============================================================================
+# ==================================================================================================
 
-# ===> Powerlevel: Prompt Newline ==============================================
+# ===> Powerlevel: Prompt Newline ==================================================================
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
 POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
-# ==============================================================================
+# ==================================================================================================
 
-# ===> Powerlevel: Prompt Elements =============================================
+# ===> Powerlevel: Prompt Elements =================================================================
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user host dir dir_writable newline vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
     pyenv omzsh_prompt_node_version node_version go_version dotnet_version package newline
     status history time os_icon
 )
-# ==============================================================================
+# ==================================================================================================
 
-# ===> Powerlevel: Prompt Prefix ===============================================
+# ===> Powerlevel: Prompt Prefix ===================================================================
 
 case $OS_NAME in
 "$MACOS")
@@ -137,9 +137,9 @@ case $OS_NAME in
     POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="\u256D\u2500"
     ;;
 esac
-# ==============================================================================
+# ==================================================================================================
 
-# ===> Powerlevel (For Linux) ==================================================
+# ===> Powerlevel (For Linux) ======================================================================
 case $OS_NAME in
 "$MACOS")
     POWERLEVEL9K_OS_ICON_FOREGROUND="255"
@@ -172,9 +172,9 @@ case $OS_NAME in
     ;;
 esac
 
-# ==============================================================================
+# ==================================================================================================
 
-# ===> Powerlevel: Other Config (For All) ======================================
+# ===> Powerlevel: Other Config (For All) ==========================================================
 POWERLEVEL9K_STATUS_CROSS=true
 POWERLEVEL9K_STATUS_OK=true
 
@@ -194,9 +194,9 @@ POWERLEVEL9K_STATUS_SHOW_PIPESTATUS=false
 
 POWERLEVEL9K_VCS_MODIFIED_BACKGROUND="208"
 POWERLEVEL9K_VCS_BACKGROUND="078"
-# ==============================================================================
+# ==================================================================================================
 
-# ===> Antigen =================================================================
+# ===> Antigen =====================================================================================
 # See: https://github.com/zsh-users
 
 ADOTDIR="$HOME/.antigen"
@@ -235,19 +235,19 @@ if [ "$0" = $ZSH_SHELL_NAME ]; then # don't run when source .zshrc
 fi
 
 antigen apply
-# ==============================================================================
+# ==================================================================================================
 
-# ===> Base Directory of Projects ==============================================
+# ===> Base Directory of Projects ==================================================================
 PROJS_BASE=$HOME/projects
 [ ! -d "$PROJS_BASE" ] && mkdir -p "$PROJS_BASE"
 [ ! -d "$PROJS_BASE/work" ] && mkdir -p "$PROJS_BASE/work"
 [ ! -d "$PROJS_BASE/personal" ] && mkdir -p "$PROJS_BASE/personal"
 [ ! -d "$PROJS_BASE/archived" ] && mkdir -p "$PROJS_BASE/archived"
 [ ! -d "$PROJS_BASE/lib" ] && mkdir -p "$PROJS_BASE/lib"
-# ==============================================================================
+# ==================================================================================================
 
-# ===> Path ====================================================================
-# --------> Avoid repeated PATH statements -------------------------------------
+# ===> Path ========================================================================================
+# --------> Avoid repeated PATH statements ---------------------------------------------------------
 addToPATH() {
     case ":$PATH:" in
     *":$1:"*) : ;;        # already there
@@ -255,39 +255,42 @@ addToPATH() {
     esac
 }
 
-# --------> Basic Binary -------------------------------------------------------
+# --------> Basic Binary ---------------------------------------------------------------------------
 addToPATH "$HOME/bin"
 addToPATH "/usr/local/bin"
 
-# --------> For Yarn (Optional) ------------------------------------------------
+# --------> For Yarn (Optional) --------------------------------------------------------------------
 addToPATH "$HOME/.yarn/bin"
 
-# --------> For Laravel (Optional) ---------------------------------------------
+# --------> For Laravel (Optional) -----------------------------------------------------------------
 addToPATH "$HOME/.composer/vendor/bin"
 
-# --------> For Pyenv (Optional) -----------------------------------------------
+# --------> For Pyenv (Optional) -------------------------------------------------------------------
 # export PYENV_ROOT="$HOME/.pyenv"
 # addToPATH "$PYENV_ROOT/bin:$PATH"
 # eval "$(pyenv init --path)"
 # eval "$(pyenv init -)"
 # eval "$(pyenv virtualenv-init -)"
 
-# --------> Go Language (Optional) ---------------------------------------------
+# --------> Go Language (Optional) -----------------------------------------------------------------
 export GOPATH=$PROJS_BASE/go
 [ ! -d "$GOPATH" ] && mkdir -p "$GOPATH"
 addToPATH "/usr/local/go/bin"
 
-# --------> Export PATH --------------------------------------------------------
+# --------> Export PATH ----------------------------------------------------------------------------
 export PATH
-# ==============================================================================
+# ==================================================================================================
 
-# ===> Alias: Editor ===========================================================
-alias edit='code'
+# ===> Alias: Editor ===============================================================================
+# VSCode (Setup required)
+# https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line
+alias edit='code' # VSCode
+
 # alias edit='vim'
 # alias vi='vim'
-# ==============================================================================
+# ==================================================================================================
 
-# ===> Alias: Basic Command ====================================================
+# ===> Alias: Basic Command ========================================================================
 case $OS_NAME in
 "$MACOS")
     # alias ls='echo && ls -hF'
@@ -302,7 +305,12 @@ case $OS_NAME in
         alias rm='rm -iv'
 
     else
-        echo "\ncoreutils is not installed, please install it with: \n\n    $ brew install coreutils\n\nThen restart the terminal."
+        echo
+        echo "coreutils is not installed, please install it with: "
+        echo
+        echo "    $ brew install coreutils"
+        echo
+        echo "Then restart the terminal."
     fi
     ;;
 
@@ -326,9 +334,9 @@ alias ping='ping -c 5'
 alias mk='make'
 alias sudo='sudo '
 alias codes='code-insiders'
-# ==============================================================================
+# ==================================================================================================
 
-# ===> Functions: Shortcut =====================================================
+# ===> Functions: Shortcut =========================================================================
 cl() {
     cd "$1" && ls -l
 }
@@ -380,9 +388,9 @@ if [ $SYS_IS_WSL ]; then
     }
 fi
 
-# ==============================================================================
+# ==================================================================================================
 
-# ===> Alias: Update & Upgrade Packages ========================================
+# ===> Alias: Update & Upgrade Packages ============================================================
 case $OS_NAME in
 "$MACOS")
     unu() {
@@ -400,9 +408,9 @@ case $OS_NAME in
     esac
     ;;
 esac
-# ==============================================================================
+# ==================================================================================================
 
-# ===> Alias: Shortcut =========================================================
+# ===> Alias: Shortcut =============================================================================
 alias c='clear'
 alias edit-rc='edit $HOME/.zshrc'
 alias edit-ssh='edit $HOME/.ssh/config'
@@ -410,9 +418,11 @@ alias source-rc='source $HOME/.zshrc'
 alias paths='echo && echo -e ${PATH//:/\\n} | sort -n'
 alias weather='curl wttr.in && echo && curl v2.wttr.in'
 
-# Git shortcuts
+# --------> Git shortcuts -------------------------------------------------------------------------
 # https://kapeli.com/cheat_sheets/Oh-My-Zsh_Git.docset/Contents/Resources/Documents/index
-alias git-clear-branches='git branch | grep -v -e "main" -e "develop" | xargs git branch -D'
+
+# Clear local branches (except main and develop)
+alias gclb='git branch | grep -v -e "main" -e "develop" | xargs git branch -D'
 
 case $OS_NAME in
 "$MACOS") ;;
@@ -422,13 +432,14 @@ case $OS_NAME in
     case $DISTRO_NAME in
     "$RHEL") ;;
     *)
-        alias mand='sudo ncdu --exclude /mnt -e --color=dark /' # sudo apt-get -y install ncdu
+        # sudo apt-get -y install ncdu
+        alias mand='sudo ncdu --exclude /mnt -e --color=dark /'
         ;;
     esac
     ;;
 esac
 
-# --------> List all ports -----------------------------------------------------
+# --------> List all ports -------------------------------------------------------------------------
 case $OS_NAME in
 "$MACOS")
     alias ports='sudo lsof -iTCP -sTCP:LISTEN -n -P'
@@ -446,19 +457,19 @@ case $OS_NAME in
     fi
     ;;
 esac
-# ==============================================================================
+# ==================================================================================================
 
-# ===> Python 3 shortcut (Optional) ============================================
+# ===> Python 3 shortcut (Optional) ================================================================
 # alias python='python3'
-# ==============================================================================
+# ==================================================================================================
 
-# ===> Docker (Optional) =======================================================
+# ===> Docker (Optional) ===========================================================================
 alias docker-all='docker ps -a --format "{{.Names}} ({{.ID}}): {{.Image}} ({{.Ports}})"'
 alias docker-ls='docker ps --format "{{.Names}} ({{.ID}}): {{.Image}} ({{.Ports}})"'
-# ==============================================================================
+# ==================================================================================================
 
-# ===> Git (Optional) ==========================================================
-# --------> Global Configuration -----------------------------------------------
+# ===> Git (Optional) ==============================================================================
+# --------> Global Configuration -------------------------------------------------------------------
 GIT_EDITOR="vim"
 # GIT_EDITOR="code"
 
@@ -466,7 +477,7 @@ git config --global pull.ff only              # set git pull --ff-only
 git config --global init.defaultBranch main   # set default init branch
 git config --global core.editor "$GIT_EDITOR" # set default editor
 
-# --------> Quickly update Git -------------------------------------------------
+# --------> Quickly update Git ---------------------------------------------------------------------
 update_git() {
     printf "\nCurrent %s\n\n" "$(git --version)"
     printf "Start to update Git...\n\n"
@@ -488,9 +499,9 @@ update_git() {
     printf "\nCurrent %s\n\n" "$(git --version)"
     printf "Git updated successfully.\n"
 }
-# ==============================================================================
+# ==================================================================================================
 
-# ===> SSH Agent (Optional) ====================================================
+# ===> SSH Agent (Optional) ========================================================================
 if [ "$0" = "$ZSH_SHELL_NAME" ]; then # don't run when source .zshrc
     # SSH_KEY_FILE=$HOME/.ssh/id_rsa
     SSH_KEY_FILE=$HOME/.ssh/id_ed25519
@@ -506,9 +517,9 @@ if [ "$0" = "$ZSH_SHELL_NAME" ]; then # don't run when source .zshrc
         # trap "ssh-agent -k" EXIT
     fi
 fi
-# ==============================================================================
+# ==================================================================================================
 
-# ===> Docker Deamon (Optional for WSL) ========================================
+# ===> Docker Deamon (Optional for WSL) ============================================================
 if [ $SYS_IS_WSL ]; then
     DOCKER_GROUP_NAME="docker"
     if [ $(getent group $DOCKER_GROUP_NAME) ]; then # check if group docker is installed
@@ -529,7 +540,7 @@ if [ $SYS_IS_WSL ]; then
         fi
     fi
 fi
-# ==============================================================================
+# ==================================================================================================
 
 typeset -U path                       # remove duplicates in $PATH
 if [ "$0" = "$ZSH_SHELL_NAME" ]; then # don't run when source .zshrc
@@ -541,6 +552,6 @@ if [ "$0" = "$ZSH_SHELL_NAME" ]; then # don't run when source .zshrc
     cd "$HOME" || exit
 fi
 
-# ==============================================================================
+# ==================================================================================================
 # End of File
-# ==============================================================================
+# ==================================================================================================
