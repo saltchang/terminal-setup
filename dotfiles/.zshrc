@@ -410,6 +410,10 @@ alias source-rc='source $HOME/.zshrc'
 alias paths='echo && echo -e ${PATH//:/\\n} | sort -n'
 alias weather='curl wttr.in && echo && curl v2.wttr.in'
 
+# Git shortcuts
+# https://kapeli.com/cheat_sheets/Oh-My-Zsh_Git.docset/Contents/Resources/Documents/index
+alias git-clear-branches='git branch | grep -v -e "main" -e "develop" | xargs git branch -D'
+
 case $OS_NAME in
 "$MACOS") ;;
 "$LINUX")
