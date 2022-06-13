@@ -17,6 +17,8 @@ RHEL="RedHatEnterpriseServer"
 LINUX="Linux"
 MACOS="macOS"
 
+ZSH_SHELL_NAME="-zsh"
+
 PROC_VERSION_PATH="/proc/version"
 
 if [ -f $PROC_VERSION_PATH ]; then
@@ -49,8 +51,6 @@ Linux)
     esac
     ;;
 esac
-
-ZSH_SHELL_NAME="-zsh"
 
 # ===> Terminal Tab Title (Optional) ===============================================================
 # DISABLE_AUTO_TITLE="true"
@@ -227,10 +227,10 @@ antigen bundle lukechilds/zsh-nvm
 
 theme_antigen() {
     antigen theme romkatv/powerlevel10k
-    return
 }
 
 if [ "$0" = $ZSH_SHELL_NAME ]; then # don't run when source .zshrc
+    echo "Launch antigen"
     theme_antigen
 fi
 
