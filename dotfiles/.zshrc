@@ -202,6 +202,7 @@ POWERLEVEL9K_VCS_BACKGROUND="078"
 ADOTDIR="$HOME/.antigen"
 ANTIGEN_ZSH="$ADOTDIR/antigen.zsh"
 ANTIGEN_LOG="$ADOTDIR/antigen.log"
+_ANTIGEN_CACHE_ENABLED="false"
 
 [ ! -d "$ADOTDIR" ] && mkdir "$ADOTDIR"
 [ ! -f "$ANTIGEN_ZSH" ] && curl -L git.io/antigen >"$ANTIGEN_ZSH"
