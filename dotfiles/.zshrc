@@ -17,6 +17,9 @@ RHEL="RedHatEnterpriseServer"
 LINUX="Linux"
 MACOS="macOS"
 
+ARM64="arm64"
+X86_64="x86_64"
+
 ZSH_SHELL_NAME="-zsh"
 
 PROC_VERSION_PATH="/proc/version"
@@ -32,6 +35,16 @@ case $(uname) in
 
 Darwin)
     OS_NAME=$MACOS
+
+    case $(uname -m) in
+
+    $ARM64)
+        PROCESSOR_ARCHITECTURE=$ARM64
+        ;;
+    $X86_64)
+        PROCESSOR_ARCHITECTURE=$X86_64
+        ;;
+    esac
     ;;
 
 Linux)
@@ -423,7 +436,14 @@ alias weather='curl wttr.in && echo && curl v2.wttr.in'
 # https://kapeli.com/cheat_sheets/Oh-My-Zsh_Git.docset/Contents/Resources/Documents/index
 
 # Clear local branches (except main and develop)
-alias gclb='git branch | grep -v -e "main" -e "develop" | xargs git branch -D'
+# alias gclb='git branch | grep -v -e "main" -e "develop" | xargs git branch -D'
+alias gclb='git branch --merged | grep -v \
+-e $(git rev-parse --abbrev-ref HEAD) \
+-e "main" \
+-e "develop" \
+-e "release-*" \
+-e "release/*" \
+>/tmp/merged-branches && vi /tmp/merged-branches && xargs git branch -d </tmp/merged-branches'
 
 case $OS_NAME in
 "$MACOS") ;;
@@ -484,7 +504,11 @@ update_git() {
     printf "Start to update Git...\n\n"
     case $OS_NAME in
     "$MACOS")
-        brew update && brew upgrade git
+        brew list git || brew install git
+        brew update && brew upgrade git &&
+            printf "\nCurrent %s\n\n" "$(git --version)" &&
+            printf "Git updated successfully.\n\n" &&
+            source-rc
         ;;
     "$LINUX")
         case $DISTRO_NAME in
@@ -492,13 +516,13 @@ update_git() {
         *)
             sudo add-apt-repository ppa:git-core/ppa -y &&
                 sudo apt-get update &&
-                sudo apt-get install git -y
+                sudo apt-get install git -y &&
+                printf "\nCurrent %s\n\n" "$(git --version)" &&
+                printf "Git updated successfully.\n"
             ;;
         esac
         ;;
     esac
-    printf "\nCurrent %s\n\n" "$(git --version)"
-    printf "Git updated successfully.\n"
 }
 # ==================================================================================================
 
