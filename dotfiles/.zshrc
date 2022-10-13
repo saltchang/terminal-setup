@@ -437,13 +437,21 @@ alias weather='curl wttr.in && echo && curl v2.wttr.in'
 
 # Clear local branches (except main and develop)
 # alias gclb='git branch | grep -v -e "main" -e "develop" | xargs git branch -D'
-alias gclb='git branch --merged | grep -v \
+alias gclb='git branch | grep -v \
 -e $(git rev-parse --abbrev-ref HEAD) \
 -e "main" \
 -e "develop" \
 -e "release-*" \
 -e "release/*" \
->/tmp/merged-branches && vi /tmp/merged-branches && xargs git branch -d </tmp/merged-branches'
+>/tmp/branches-to-clean && vim /tmp/branches-to-clean && xargs git branch -D </tmp/branches-to-clean'
+
+alias gclmb='git branch --merged | grep -v \
+-e $(git rev-parse --abbrev-ref HEAD) \
+-e "main" \
+-e "develop" \
+-e "release-*" \
+-e "release/*" \
+>/tmp/merged-branches && vim /tmp/merged-branches && xargs git branch -d </tmp/merged-branches'
 
 case $OS_NAME in
 "$MACOS") ;;
@@ -482,6 +490,11 @@ esac
 
 # ===> Python 3 shortcut (Optional) ================================================================
 # alias python='python3'
+# ==================================================================================================
+
+# ===> PNPM (Optional) =============================================================================
+export PNPM_HOME="/Users/salt/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
 # ==================================================================================================
 
 # ===> Docker (Optional) ===========================================================================
