@@ -437,20 +437,20 @@ alias weather='curl wttr.in && echo && curl v2.wttr.in'
 
 # Clear local branches (except main and develop)
 # alias gclb='git branch | grep -v -e "main" -e "develop" | xargs git branch -D'
-alias gclb='git branch | grep -v \
--e $(git rev-parse --abbrev-ref HEAD) \
--e "main" \
--e "develop" \
--e "release-*" \
--e "release/*" \
+alias gclb='git branch \
+| grep -v -w main \
+| grep -v -w develop \
+| grep -v -e $(git rev-parse --abbrev-ref HEAD) \
+| grep -v -e " release-*" \
+| grep -v -e " release/*" \
 >/tmp/branches-to-clean && vim /tmp/branches-to-clean && xargs git branch -D </tmp/branches-to-clean'
 
-alias gclmb='git branch --merged | grep -v \
--e $(git rev-parse --abbrev-ref HEAD) \
--e "main" \
--e "develop" \
--e "release-*" \
--e "release/*" \
+alias gclmb='git branch --merged \
+| grep -v -w main \
+| grep -v -w develop \
+| grep -v -e $(git rev-parse --abbrev-ref HEAD) \
+| grep -v -e " release-*" \
+| grep -v -e " release/*" \
 >/tmp/merged-branches && vim /tmp/merged-branches && xargs git branch -d </tmp/merged-branches'
 
 case $OS_NAME in
