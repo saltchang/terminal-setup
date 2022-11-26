@@ -60,11 +60,20 @@ sudo apt install fonts-firacode
 
 * [iTerm2](https://iterm2.com/)
 
-#### Config iTerm
+## Config Terminal
+
+### Config iTerm
 
 1. Open your iTerm > Preferences > Profiles > Other Actions > Import JSON Profiles > Choose this [iTerm Profile](https://github.com/saltchang/terminal-setup/blob/main/terminal-config/iTerm/Salt_iTerm_Profile.json)
 2. After you setup: Other Actions > Set as Default
 3. Restart iTerm
+
+### Config Windows Terminal
+
+1. Open your Windows Terminal > Settings > Open JSON file
+2. Copy json configs from this [config file](https://github.com/saltchang/terminal-setup/blob/main/terminal-config/windows-terminal/windows-terminal-profile.json)
+3. Paste the config to the Windows Terminal config json you just opened
+4. Restart Windows Terminal
 
 ## Install zsh
 
