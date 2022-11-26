@@ -2,6 +2,8 @@
 
 Terminal setup for macOS, Linux, and Windows.
 
+![Windows Terminal Demo](./images/demo-windows-terminal.png)
+
 ## Clone This Project
 
 It's recommended to put the project under `$HOME/projects/personal`:
