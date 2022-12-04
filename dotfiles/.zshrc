@@ -390,6 +390,13 @@ gogo() {
     printf "\nOK, you are ready to Go :)\n"
 }
 
+megu() {
+    local MEGUMIIN_PROJ_DIR=$PROJS_BASE/personal/megumiin
+    cl "$MEGUMIIN_PROJ_DIR"
+    code "$PROJS_BASE/personal/workspaces/megumiin.wsl.code-workspace"
+    printf "\nOK, you are ready to megumiin :)\n"
+}
+
 if [ $SYS_IS_WSL ]; then
     # go to Windows Disk C
     win() {

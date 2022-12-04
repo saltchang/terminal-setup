@@ -1,0 +1,63 @@
+{
+  "folders": [
+    {
+      "name": "✨ megumiin",
+      "uri": "vscode-remote://wsl+ubuntu/home/salt/projects/personal/megumiin"
+    },
+    {
+      "name": "🚀 megumiin-api",
+      "uri": "vscode-remote://wsl+ubuntu/home/salt/projects/personal/megumiin/apps/megumiin-api"
+    },
+    {
+      "name": "🚀 megumiin-next",
+      "uri": "vscode-remote://wsl+ubuntu/home/salt/projects/personal/megumiin/apps/megumiin-next"
+    },
+    {
+      "name": "🚀 megumiin-remix",
+      "uri": "vscode-remote://wsl+ubuntu/home/salt/projects/personal/megumiin/apps/megumiin-remix"
+    },
+    {
+      "name": "🚀 megumiin-remix-basic",
+      "uri": "vscode-remote://wsl+ubuntu/home/salt/projects/personal/megumiin/apps/megumiin-remix-basic"
+    },
+    {
+      "name": "📦 @megumiin/eslint-config-megumiin",
+      "uri": "vscode-remote://wsl+ubuntu/home/salt/projects/personal/megumiin/packages/eslint-config-megumiin"
+    },
+    {
+      "name": "📦 @megumiin/utils",
+      "uri": "vscode-remote://wsl+ubuntu/home/salt/projects/personal/megumiin/packages/utils"
+    }
+  ],
+  "remoteAuthority": "wsl+Ubuntu",
+  "settings": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": [
+      "source.fixAll.format",
+      "source.fixAll.eslint",
+      "source.addMissingImports"
+    ],
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact"
+    ],
+    "files.associations": {
+      "*.env": "env",
+      "*.env.*": "env"
+    },
+    "search.exclude": {
+      "node_modules": true
+    },
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "[ignore]": {
+      "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
+    "cSpell.words": ["deepmerge", "notionhq", "Octicon", "cacheable"],
+    "[prisma]": {
+      "editor.defaultFormatter": "Prisma.prisma"
+    }
+  }
+}

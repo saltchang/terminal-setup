@@ -35,6 +35,7 @@
   "defaultProfile": "{51855cb2-8cce-5362-8f54-464b92b32386}",
   "initialRows": 40,
   "language": "en-US",
+  "snapOnInput": true,
   "profiles": 
   {
       "defaults": 

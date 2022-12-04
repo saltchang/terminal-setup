@@ -28,7 +28,7 @@ ZSHRC_FILE="$HOME/.zshrc"
 
 rm "$ZSHRC_FILE" 2>/dev/null && echo "Removed original .zshrc >>> Done"
 
-ln -s "$ZSHRC_SOURCE" "$ZSHRC_FILE" && echo "Created a new sybolic link from $ZSHRC_FILE to $ZSHRC_SOURCE >>> Done"
+ln -s "$ZSHRC_SOURCE" "$ZSHRC_FILE" && echo "Created a new symbolic link from $ZSHRC_FILE to $ZSHRC_SOURCE >>> Done"
 
 if [ $INSTALL_ANTIGEN ]; then
     mkdir -vp "$ANTIGEN_PATH"
