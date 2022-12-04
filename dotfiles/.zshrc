@@ -391,10 +391,16 @@ gogo() {
 }
 
 megu() {
+    local WORKSPACES_DIR=$PROJS_BASE/workspaces
     local MEGUMIIN_PROJ_DIR=$PROJS_BASE/personal/megumiin
-    cl "$MEGUMIIN_PROJ_DIR"
-    code "$PROJS_BASE/personal/workspaces/megumiin.wsl.code-workspace"
-    printf "\nOK, you are ready to megumiin :)\n"
+
+    if [ $SYS_IS_WSL ]; then
+        local MEGUMIIN_PROJ_WORKSPACE_FILE="megumiin.wsl.code-workspace"
+        code "$WORKSPACES_DIR/$MEGUMIIN_PROJ_WORKSPACE_FILE"
+
+        cl "$MEGUMIIN_PROJ_DIR"
+        printf "\nOK, you are ready to megumiin :)\n"
+    fi
 }
 
 if [ $SYS_IS_WSL ]; then
