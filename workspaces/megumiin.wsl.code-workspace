@@ -2,31 +2,19 @@
   "folders": [
     {
       "name": "✨ megumiin",
-      "uri": "vscode-remote://wsl+ubuntu/home/salt/projects/personal/megumiin"
+      "path": "../personal/megumiin"
     },
     {
-      "name": "🚀 megumiin-api",
-      "uri": "vscode-remote://wsl+ubuntu/home/salt/projects/personal/megumiin/apps/megumiin-api"
-    },
-    {
-      "name": "🚀 megumiin-next",
-      "uri": "vscode-remote://wsl+ubuntu/home/salt/projects/personal/megumiin/apps/megumiin-next"
-    },
-    {
-      "name": "🚀 megumiin-remix",
-      "uri": "vscode-remote://wsl+ubuntu/home/salt/projects/personal/megumiin/apps/megumiin-remix"
-    },
-    {
-      "name": "🚀 megumiin-remix-basic",
-      "uri": "vscode-remote://wsl+ubuntu/home/salt/projects/personal/megumiin/apps/megumiin-remix-basic"
+      "name": "🚀 megumiin-app",
+      "path": "../personal/megumiin/apps/megumiin-app"
     },
     {
       "name": "📦 @megumiin/eslint-config-megumiin",
-      "uri": "vscode-remote://wsl+ubuntu/home/salt/projects/personal/megumiin/packages/eslint-config-megumiin"
+      "path": "../personal/megumiin/packages/eslint-config-megumiin"
     },
     {
       "name": "📦 @megumiin/utils",
-      "uri": "vscode-remote://wsl+ubuntu/home/salt/projects/personal/megumiin/packages/utils"
+      "path": "../personal/megumiin/packages/utils"
     }
   ],
   "remoteAuthority": "wsl+Ubuntu",
