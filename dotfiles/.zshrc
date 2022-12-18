@@ -391,16 +391,11 @@ gogo() {
 }
 
 megu() {
-    local WORKSPACES_DIR=$PROJS_BASE/workspaces
     local MEGUMIIN_PROJ_DIR=$PROJS_BASE/personal/megumiin
 
-    if [ $SYS_IS_WSL ]; then
-        local MEGUMIIN_PROJ_WORKSPACE_FILE="megumiin.wsl.code-workspace"
-        code "$WORKSPACES_DIR/$MEGUMIIN_PROJ_WORKSPACE_FILE"
-
-        cl "$MEGUMIIN_PROJ_DIR"
-        printf "\nOK, you are ready to megumiin :)\n"
-    fi
+    cl "$MEGUMIIN_PROJ_DIR"
+    code .
+    printf "\nOK, you are ready to megumiin :)\n"
 }
 
 if [ $SYS_IS_WSL ]; then
@@ -506,8 +501,8 @@ esac
 # ==================================================================================================
 
 # ===> PNPM (Optional) =============================================================================
-export PNPM_HOME="/Users/salt/Library/pnpm"
-export PATH="$PNPM_HOME:$PATH"
+export PNPM_HOME="$HOME/.pnpm"
+addToPATH "$PNPM_HOME"
 # ==================================================================================================
 
 # ===> Docker (Optional) ===========================================================================
