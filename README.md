@@ -135,7 +135,3 @@ The you can start to customize your shell.
 ## Color for powerlevel10k
 
 If you would like to customize the color scheme of powerlevel10k, please see [This chart](https://user-images.githubusercontent.com/704406/43988708-64c0fa52-9d4c-11e8-8cf9-c4d4b97a5200.png).
-
-## VSCode workspaces
-
-To setup workspaces folder for your custom workspaces, please see [this readme](./workspaces/README.md)
