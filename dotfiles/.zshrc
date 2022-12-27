@@ -286,6 +286,11 @@ addToPATH "$HOME/.composer/vendor/bin"
 # eval "$(pyenv init -)"
 # eval "$(pyenv virtualenv-init -)"
 
+# --------> Go Language (Optional) -----------------------------------------------------------------
+export GOPATH="$HOME/go"
+[ ! -d "$GOPATH" ] && mkdir -p "$GOPATH"
+addToPATH "$GOPATH/bin"
+
 # --------> Export PATH ----------------------------------------------------------------------------
 export PATH
 # ==================================================================================================
