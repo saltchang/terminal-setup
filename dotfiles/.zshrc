@@ -8,6 +8,12 @@
 
 # ==================================================================================================
 
+# ===> Colors ======================================================================================
+RED="\033[31m"
+GREEN="\033[32m"
+NC="\033[0m"
+# ==================================================================================================
+
 # ===> Auto Detect OS and Shell ====================================================================
 
 MS="Microsoft"
@@ -286,11 +292,20 @@ addToPATH "$HOME/.composer/vendor/bin"
 # eval "$(pyenv init -)"
 # eval "$(pyenv virtualenv-init -)"
 
-# --------> Go Language (Optional) -----------------------------------------------------------------
+# --------> Go (Optional) --------------------------------------------------------------------------
 export GOPATH="$HOME/go"
 [ ! -d "$GOPATH" ] && mkdir -p "$GOPATH"
 addToPATH "$GOPATH/bin"
 
+if [ -x "$(command -v go)" ]; then
+    LATEST_GO_VERSION=$(curl -sL https://go.dev/dl/\#stable | grep -A10 'id="stable"' | grep -o 'id="go[0-9\.]*"' | grep -o 'go[0-9\.]*' | grep -o '[0-9\.]*')
+    CURRENT_GO_VERSION=$(go version | grep -o 'go[0-9\.]*' | grep -o '[0-9\.]*')
+    if [ "$CURRENT_GO_VERSION" != "$LATEST_GO_VERSION" ]; then
+        echo
+        echo "Go update available! ${RED}$CURRENT_GO_VERSION${NC} → ${GREEN}$LATEST_GO_VERSION${NC}"
+        echo
+    fi
+fi
 # --------> Export PATH ----------------------------------------------------------------------------
 export PATH
 # ==================================================================================================
