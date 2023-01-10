@@ -3,6 +3,7 @@
 # Variable
 
 Set-Variable -Name PROJS_BASE -Value $HOME/Projects
+Set-Variable -Name UNREAL_EXE -Value "C:/Program Files/Epic Games/UE_5.1/Engine/Binaries/Win64/UnrealEditor.exe"
 
 # Setup
 if (-not(Test-Path $PROJS_BASE/Personal)) {
@@ -48,6 +49,17 @@ function gow {
 function gop {
     cd $PROJS_BASE/Personal
     Write-Output "OK, ready to do something amazing :)"
+}
+
+function unreal {
+    param (
+        $UnrealProjectPath
+    )
+
+    $proj_path = (Get-Item $UnrealProjectPath | % { $_.FullName})
+    Write-Output "-> Starting Unreal Project..."
+    Write-Output "-> Project: $proj_path"
+    Invoke-Expression "& `"$UNREAL_EXE`" `"$proj_path`""
 }
 
 # $Env:Path += ";$HOME/bin"
