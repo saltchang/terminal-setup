@@ -5,5 +5,13 @@
     "*.zshrc": "shellscript",
     "*.itermcolors": "xml"
   },
-  "cSpell.words": ["Fira", "Fura"]
+  "cSpell.words": [
+    "agnoster",
+    "Fira",
+    "Fura",
+    "powerline",
+    "pwsh",
+    "sysinfo",
+    "worktree"
+  ]
 }

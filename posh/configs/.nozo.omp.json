@@ -162,7 +162,7 @@
           "type": "time"
         },
         {
-          "type": "memory",
+          "type": "sysinfo",
           "style": "powerline",
           "invert_powerline": true,
           "powerline_symbol": "",

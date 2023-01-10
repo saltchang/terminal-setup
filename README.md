@@ -1,8 +1,10 @@
 # Terminal Setup
 
-Terminal setup for macOS, Linux, and Windows.
+Terminal setup for zsh in macOS, Linux, and Windows.
 
 ![Windows Terminal Demo](./images/demo-windows-terminal.png)
+
+**For PowerShell configuration, see the [posh config](https://github.com/saltchang/terminal-setup/blob/main/posh/README.md).**
 
 ## Clone This Project
 
