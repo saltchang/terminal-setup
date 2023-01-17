@@ -79,6 +79,11 @@ function open {
         $target_dir
     )
 
+    if ($target_dir -eq $null) {
+        Invoke-Expression "& `"explorer.exe`" `".`""
+        return
+    }
+
     $full_path = (Get-Item $target_dir | % { $_.FullName})
     Invoke-Expression "& `"explorer.exe`" `"$full_path`""
 }
