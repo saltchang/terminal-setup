@@ -450,6 +450,7 @@ esac
 # ===> Alias: Shortcut =============================================================================
 alias c='clear'
 alias edit-rc='edit $HOME/.zshrc'
+alias edit-rc-repo="edit $PROJS_BASE/personal/terminal-setup"
 alias edit-ssh='edit $HOME/.ssh/config'
 alias source-rc='source $HOME/.zshrc'
 alias paths='echo && echo -e ${PATH//:/\\n} | sort -n'

@@ -31,7 +31,6 @@ Set-PSReadLineKeyHandler -Key Tab -Function Complete
 
 # Alias
 Set-Alias -Name edit -Value code
-Set-Alias -Name "edit-rc" -Value "edit ~/OneDrive/Documents/PowerShell"
 
 # Functions
 function home {
@@ -57,6 +56,10 @@ function gop {
 function goa {
     cd $PROJS_BASE/Archived
     Write-Output "OK, ready to do check the archived files :)"
+}
+
+function edit-rc {
+    Invoke-Expression "& `"edit`" `"C:\Users\Salt\OneDrive\Documents\PowerShell`""
 }
 
 function unreal {
