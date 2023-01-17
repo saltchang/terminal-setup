@@ -14,8 +14,12 @@ if (-not(Test-Path $PROJS_BASE/Work)) {
     mkdir $PROJS_BASE/Work
 }
 
+if (-not(Test-Path $PROJS_BASE/Archived)) {
+    mkdir $PROJS_BASE/Archived
+}
+
 # Oh My Posh
-oh-my-posh init pwsh --config "$env:HOME/OneDrive/Documents/PowerShell/.nozo.omp.json" | Invoke-Expression
+oh-my-posh init pwsh --config "~/OneDrive/Documents/PowerShell/.nozo.omp.json" | Invoke-Expression
 Import-Module posh-git
 
 # PSReadLine
@@ -27,10 +31,9 @@ Set-PSReadLineKeyHandler -Key Tab -Function Complete
 
 # Alias
 Set-Alias -Name edit -Value code
-Set-Alias -Name "edit-rc" -Value "edit $env:HOME/OneDrive/Documents/PowerShell"
+Set-Alias -Name "edit-rc" -Value "edit ~/OneDrive/Documents/PowerShell"
 
 # Functions
-
 function home {
     cd $HOME
     Write-Output "Welcome home!"
@@ -51,6 +54,11 @@ function gop {
     Write-Output "OK, ready to do something amazing :)"
 }
 
+function goa {
+    cd $PROJS_BASE/Archived
+    Write-Output "OK, ready to do check the archived files :)"
+}
+
 function unreal {
     param (
         $UnrealProjectPath
@@ -60,6 +68,16 @@ function unreal {
     Write-Output "-> Starting Unreal Project..."
     Write-Output "-> Project: $proj_path"
     Invoke-Expression "& `"$UNREAL_EXE`" `"$proj_path`""
+}
+
+
+function open {
+    param (
+        $target_dir
+    )
+
+    $full_path = (Get-Item $target_dir | % { $_.FullName})
+    Invoke-Expression "& `"explorer.exe`" `"$full_path`""
 }
 
 # $Env:Path += ";$HOME/bin"
