@@ -262,6 +262,7 @@ PROJS_BASE=$HOME/projects
 [ ! -d "$PROJS_BASE" ] && mkdir -p "$PROJS_BASE"
 [ ! -d "$PROJS_BASE/work" ] && mkdir -p "$PROJS_BASE/work"
 [ ! -d "$PROJS_BASE/personal" ] && mkdir -p "$PROJS_BASE/personal"
+[ ! -d "$PROJS_BASE/games" ] && mkdir -p "$PROJS_BASE/games"
 [ ! -d "$PROJS_BASE/archived" ] && mkdir -p "$PROJS_BASE/archived"
 [ ! -d "$PROJS_BASE/lib" ] && mkdir -p "$PROJS_BASE/lib"
 # ==================================================================================================
@@ -390,6 +391,11 @@ gop() {
     printf "\nOK, ready to do something amazing :)\n"
 }
 
+gog() {
+    cl "$PROJS_BASE/games"
+    printf "\nOK, ready to do something amazing :)\n"
+}
+
 goa() {
     cl "$PROJS_BASE/archived"
     printf "\nHere are the archived projects :)\n"
@@ -450,7 +456,7 @@ esac
 # ===> Alias: Shortcut =============================================================================
 alias c='clear'
 alias edit-rc='edit $HOME/.zshrc'
-alias edit-rc-repo="edit $PROJS_BASE/personal/terminal-setup"
+alias go-rc-repo="cd $PROJS_BASE/personal/terminal-setup"
 alias edit-ssh='edit $HOME/.ssh/config'
 alias source-rc='source $HOME/.zshrc'
 alias paths='echo && echo -e ${PATH//:/\\n} | sort -n'
