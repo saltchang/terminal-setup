@@ -99,7 +99,7 @@
           "background_templates": [
             "{{ if or (or (gt .Working.Modified 0) (gt .Working.Deleted 0)) (.Staging.Changed) }}#FF8700{{ end }}"
           ],
-          "template": "{{if .UpstreamIcon }} {{ .UpstreamIcon }}{{ end }}{{ .HEAD }}{{ if or (gt .Behind 0) (gt .Ahead 0) }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ end }}{{ if .Staging.Changed }} \uf055 {{ end }}{{ if or (gt .Working.Modified 0) (gt .Working.Deleted 0) }} \uf06a {{ end }}{{ if gt .Working.Untracked 0 }} \uf059 {{ end }} ",
+          "template": "{{if .UpstreamIcon }} {{ .UpstreamIcon }}{{ end }}{{ .HEAD }}{{ if .Staging.Changed }} \uf055 {{ end }}{{ if or (gt .Working.Modified 0) (gt .Working.Deleted 0) }} \uf06a {{ end }}{{ if gt .Working.Untracked 0 }} \uf059 {{ end }}{{ if or (gt .Behind 0) (gt .Ahead 0) }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ end }} ",
           "properties": {
             "bitbucket_icon": "\uf171 ",
             "branch_ahead_icon": "\uf01b ",
