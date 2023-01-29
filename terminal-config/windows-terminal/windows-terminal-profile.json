@@ -45,9 +45,9 @@
         "size": 14,
         "weight": "medium"
       },
-      "opacity": 50,
+      "opacity": 90,
       "snapOnInput": true,
-      "useAcrylic": true
+      "useAcrylic": false
     },
     "list": [
       {
