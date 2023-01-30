@@ -10,6 +10,10 @@ if (-not(Test-Path $PROJS_BASE/Personal)) {
     mkdir $PROJS_BASE/Personal
 }
 
+if (-not(Test-Path $PROJS_BASE/Personal/Games)) {
+    mkdir $PROJS_BASE/Personal/Games
+}
+
 if (-not(Test-Path $PROJS_BASE/Work)) {
     mkdir $PROJS_BASE/Work
 }
@@ -20,7 +24,8 @@ if (-not(Test-Path $PROJS_BASE/Archived)) {
 
 # Oh My Posh
 oh-my-posh init pwsh --config "~/OneDrive/Documents/PowerShell/.nozo.omp.json" | Invoke-Expression
-Import-Module posh-git
+# Import-Module posh-git
+# $env:POSH_GIT_ENABLED = $true
 
 # PSReadLine
 Import-Module PSReadLine
@@ -34,32 +39,37 @@ Set-Alias -Name edit -Value code
 
 # Functions
 function home {
-    cd $HOME
+    Set-Location $HOME
     Write-Output "Welcome home!"
 }
 
 function goj {
-    cd $PROJS_BASE
+    Set-Location $PROJS_BASE
     Write-Output "OK, ready to do something amazing :)"
 }
 
 function gow {
-    cd $PROJS_BASE/Work
+    Set-Location $PROJS_BASE/Work
     Write-Output "OK, ready to work :)"
 }
 
 function gop {
-    cd $PROJS_BASE/Personal
+    Set-Location $PROJS_BASE/Personal
+    Write-Output "OK, ready to do something amazing :)"
+}
+
+function gog {
+    Set-Location $PROJS_BASE/Personal/Games
     Write-Output "OK, ready to do something amazing :)"
 }
 
 function goa {
-    cd $PROJS_BASE/Archived
+    Set-Location $PROJS_BASE/Archived
     Write-Output "OK, ready to do check the archived files :)"
 }
 
 function edit-rc {
-    Invoke-Expression "& `"edit`" `"C:\Users\Salt\OneDrive\Documents\PowerShell`""
+    Invoke-Expression "& `"edit`" `"C:/Users/Salt/OneDrive/Documents/PowerShell`""
 }
 
 function unreal {
@@ -67,7 +77,7 @@ function unreal {
         $UnrealProjectPath
     )
 
-    $proj_path = (Get-Item $UnrealProjectPath | % { $_.FullName})
+    $proj_path = (Get-Item $UnrealProjectPath | ForEach-Object { $_.FullName })
     Write-Output "-> Starting Unreal Project..."
     Write-Output "-> Project: $proj_path"
     Invoke-Expression "& `"$UNREAL_EXE`" `"$proj_path`""
@@ -79,12 +89,12 @@ function open {
         $target_dir
     )
 
-    if ($target_dir -eq $null) {
+    if ($null -eq $target_dir) {
         Invoke-Expression "& `"explorer.exe`" `".`""
         return
     }
 
-    $full_path = (Get-Item $target_dir | % { $_.FullName})
+    $full_path = (Get-Item $target_dir | ForEach-Object { $_.FullName })
     Invoke-Expression "& `"explorer.exe`" `"$full_path`""
 }
 
