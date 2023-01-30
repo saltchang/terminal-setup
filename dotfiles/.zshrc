@@ -245,14 +245,10 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-history-substring-search
 antigen bundle lukechilds/zsh-nvm
 
-theme_antigen() {
-    antigen theme romkatv/powerlevel10k
-}
-
-if [ "$0" = $ZSH_SHELL_NAME ]; then # don't run when source .zshrc
-    echo "Launch antigen"
-    theme_antigen
-fi
+# workaround for https://github.com/zsh-users/antigen/issues/675theme_antigen() {
+THEME=romkatv/powerlevel10k
+antigen list | grep $THEME
+if [ $? -ne 0 ]; then echo "Launch antigen" && antigen theme $THEME; fi
 
 antigen apply
 # ==================================================================================================
@@ -457,6 +453,7 @@ esac
 alias c='clear'
 alias edit-rc='edit $HOME/.zshrc'
 alias go-rc-repo="cd $PROJS_BASE/personal/terminal-setup"
+alias grr=go-rc-repo
 alias edit-ssh='edit $HOME/.ssh/config'
 alias source-rc='source $HOME/.zshrc'
 alias paths='echo && echo -e ${PATH//:/\\n} | sort -n'
