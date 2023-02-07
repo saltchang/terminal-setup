@@ -1,17 +1,18 @@
 {
-  "editor.formatOnSave": true,
-  "editor.formatOnSaveMode": "file",
-  "files.associations": {
-    "*.zshrc": "shellscript",
-    "*.itermcolors": "xml"
-  },
-  "cSpell.words": [
-    "agnoster",
-    "Fira",
-    "Fura",
-    "powerline",
-    "pwsh",
-    "sysinfo",
-    "worktree"
-  ]
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+    "files.associations": {
+        "*.zshrc": "shellscript",
+        "*.itermcolors": "xml"
+    },
+    "cSpell.words": [
+        "agnoster",
+        "antialiasing",
+        "Fira",
+        "Fura",
+        "powerline",
+        "pwsh",
+        "sysinfo",
+        "worktree"
+    ]
 }
