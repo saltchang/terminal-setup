@@ -8,9 +8,14 @@
 
 # ==================================================================================================
 
+# ===> Terminal Setup Cache ========================================================================
+TERMINAL_SETUP_CACHE="$HOME/.terminal-setup-cache"
+# ==================================================================================================
+
 # ===> Colors ======================================================================================
 RED="\033[31m"
 GREEN="\033[32m"
+BLUE="\033[34m"
 NC="\033[0m"
 # ==================================================================================================
 
@@ -294,15 +299,15 @@ export GOPATH="$HOME/go"
 [ ! -d "$GOPATH" ] && mkdir -p "$GOPATH"
 addToPATH "$GOPATH/bin"
 
-if [ -x "$(command -v go)" ]; then
-    LATEST_GO_VERSION=$(curl -sL https://go.dev/dl/\#stable | grep -A10 'id="stable"' | grep -o 'id="go[0-9\.]*"' | grep -o 'go[0-9\.]*' | grep -o '[0-9\.]*')
-    CURRENT_GO_VERSION=$(go version | grep -o 'go[0-9\.]*' | grep -o '[0-9\.]*')
-    if [ "$CURRENT_GO_VERSION" != "$LATEST_GO_VERSION" ]; then
-        echo
-        echo "Go update available! ${RED}$CURRENT_GO_VERSION${NC} → ${GREEN}$LATEST_GO_VERSION${NC}"
-        echo
-    fi
-fi
+# if [ -x "$(command -v go)" ]; then
+#     LATEST_GO_VERSION=$(curl -sL https://go.dev/dl/\#stable | grep -A10 'id="stable"' | grep -o 'id="go[0-9\.]*"' | grep -o 'go[0-9\.]*' | grep -o '[0-9\.]*')
+#     CURRENT_GO_VERSION=$(go version | grep -o 'go[0-9\.]*' | grep -o '[0-9\.]*')
+#     if [ "$CURRENT_GO_VERSION" != "$LATEST_GO_VERSION" ]; then
+#         echo
+#         echo "Go update available! ${RED}$CURRENT_GO_VERSION${NC} → ${GREEN}$LATEST_GO_VERSION${NC}"
+#         echo
+#     fi
+# fi
 # --------> Export PATH ----------------------------------------------------------------------------
 export PATH
 # ==================================================================================================
@@ -605,6 +610,44 @@ fi
 #         fi
 #     fi
 # fi
+# ==================================================================================================
+
+# ===> Git version check  ==========================================================================
+function git() {
+    LAST_CHECK_FILE="${TERMINAL_SETUP_CACHE}/.git_last_check"
+
+    CHECK_INTERVAL_DAYS=1
+    CHECK_INTERVAL=$((60 * 60 * 24 * ${CHECK_INTERVAL_DAYS})) # 60s * 60m * 24h * n days
+
+    CURRENT_TIME=$(date +%s)
+
+    SHOULD_FIRST_CHECK=NO
+
+    if [[ -f $LAST_CHECK_FILE ]]; then
+        LAST_CHECK_TIME=$(cat $LAST_CHECK_FILE)
+    else
+        mkdir -p ${TERMINAL_SETUP_CACHE} >/dev/null 2>&1
+        SHOULD_FIRST_CHECK=YES
+    fi
+
+    if [[ $((CURRENT_TIME - LAST_CHECK_TIME)) -gt ${CHECK_INTERVAL} || ${SHOULD_FIRST_CHECK} == 'YES' ]]; then
+        echo -e "Checking Git version..."
+
+        LOCAL_GIT_VERSION=$(command git --version | cut -d ' ' -f 3)
+        LATEST_GIT_VERSION=$(curl --silent https://mirrors.edge.kernel.org/pub/software/scm/git/ | grep tar | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+' | sort --version-sort | tail -1)
+
+        if [[ $(echo "$LOCAL_GIT_VERSION $LATEST_GIT_VERSION" | tr ' ' '\n' | sort -Vr | head -n 1) != "$LOCAL_GIT_VERSION" ]]; then
+            echo -e "New version of Git is available! ${RED}${LOCAL_GIT_VERSION}${NC} → ${GREEN}${LATEST_GIT_VERSION}${NC}"
+            echo -e "Run the command: ${BLUE}update_git${NC} to update it."
+        else
+            echo -e "Your current Git version ${GREEN}${LOCAL_GIT_VERSION}${NC} is up to date."
+        fi
+    fi
+
+    echo ${CURRENT_TIME} >${LAST_CHECK_FILE}
+
+    command git "$@"
+}
 # ==================================================================================================
 
 typeset -U path                       # remove duplicates in $PATH
