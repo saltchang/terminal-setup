@@ -464,7 +464,7 @@ alias source-rc='source $HOME/.zshrc'
 alias paths='echo && echo -e ${PATH//:/\\n} | sort -n'
 alias weather='curl wttr.in && echo && curl v2.wttr.in'
 
-# --------> Git shortcuts -------------------------------------------------------------------------
+# --------> Git shortcuts --------------------------------------------------------------------------
 # https://kapeli.com/cheat_sheets/Oh-My-Zsh_Git.docset/Contents/Resources/Documents/index
 
 # Clear local branches (except main and develop)
@@ -484,6 +484,9 @@ alias gclmb='git branch --merged \
 | grep -v -e " release-*" \
 | grep -v -e " release/*" \
 >/tmp/merged-branches && vim /tmp/merged-branches && xargs git branch -d </tmp/merged-branches'
+
+alias gfap='gfa && git pull'
+# --------------------------------------------------------------------------------------------------
 
 case $OS_NAME in
 "$MACOS") ;;
