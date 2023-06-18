@@ -10,6 +10,10 @@ if (-not(Test-Path $PROJS_BASE/Personal)) {
     mkdir $PROJS_BASE/Personal
 }
 
+if (-not(Test-Path $PROJS_BASE/Library)) {
+    mkdir $PROJS_BASE/Library
+}
+
 if (-not(Test-Path $PROJS_BASE/Personal/Games)) {
     mkdir $PROJS_BASE/Personal/Games
 }
@@ -56,6 +60,11 @@ function gow {
 function gop {
     Set-Location $PROJS_BASE/Personal
     Write-Output "OK, ready to do something amazing :)"
+}
+
+function gol {
+    Set-Location $PROJS_BASE/Library
+    Write-Output "OK, you are now in the Library :)"
 }
 
 function gog {
