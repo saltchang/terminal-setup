@@ -616,16 +616,17 @@ fi
 # fi
 # ==================================================================================================
 
-# ===> Git version check  ==========================================================================
+# ===> Check Git Version ===========================================================================
 function git() {
-    LAST_CHECK_FILE="${TERMINAL_SETUP_CACHE}/.git_last_check"
+    local LAST_CHECK_TIME=0
+    local LAST_CHECK_FILE="${TERMINAL_SETUP_CACHE}/.git_last_check"
 
-    CHECK_INTERVAL_DAYS=1
-    CHECK_INTERVAL=$((60 * 60 * 24 * ${CHECK_INTERVAL_DAYS})) # 60s * 60m * 24h * n days
+    local CHECK_INTERVAL_DAYS=1
+    local CHECK_INTERVAL=$((60 * 60 * 24 * ${CHECK_INTERVAL_DAYS})) # 60s * 60m * 24h * n days
 
-    CURRENT_TIME=$(date +%s)
+    local CURRENT_TIME=$(date +%s)
 
-    SHOULD_FIRST_CHECK=NO
+    local SHOULD_FIRST_CHECK=NO
 
     if [[ -f $LAST_CHECK_FILE ]]; then
         LAST_CHECK_TIME=$(cat $LAST_CHECK_FILE)
@@ -635,10 +636,10 @@ function git() {
     fi
 
     if [[ $((CURRENT_TIME - LAST_CHECK_TIME)) -gt ${CHECK_INTERVAL} || ${SHOULD_FIRST_CHECK} == 'YES' ]]; then
-        echo -e "Checking Git version..."
+        echo -e "\nChecking Git version..."
 
-        LOCAL_GIT_VERSION=$(command git --version | cut -d ' ' -f 3)
-        LATEST_GIT_VERSION=$(curl --silent https://mirrors.edge.kernel.org/pub/software/scm/git/ | grep tar | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+' | sort --version-sort | tail -1)
+        local LOCAL_GIT_VERSION=$(command git --version | cut -d ' ' -f 3)
+        local LATEST_GIT_VERSION=$(curl --silent https://mirrors.edge.kernel.org/pub/software/scm/git/ | grep tar | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+' | sort --version-sort | tail -1)
 
         if [[ $(echo "$LOCAL_GIT_VERSION $LATEST_GIT_VERSION" | tr ' ' '\n' | sort -Vr | head -n 1) != "$LOCAL_GIT_VERSION" ]]; then
             echo -e "New version of Git is available! ${RED}${LOCAL_GIT_VERSION}${NC} → ${GREEN}${LATEST_GIT_VERSION}${NC}"
@@ -646,11 +647,54 @@ function git() {
         else
             echo -e "Your current Git version ${GREEN}${LOCAL_GIT_VERSION}${NC} is up to date."
         fi
+
+        echo
     fi
 
     echo ${CURRENT_TIME} >${LAST_CHECK_FILE}
 
     command git "$@"
+}
+# ==================================================================================================
+
+# ===> Check Rust Version ==========================================================================
+function cargo() {
+    local LAST_CHECK_TIME=0
+    local LAST_CHECK_FILE="${TERMINAL_SETUP_CACHE}/.rust_last_check"
+
+    local CHECK_INTERVAL_DAYS=1
+    local CHECK_INTERVAL=$((60 * 60 * 24 * ${CHECK_INTERVAL_DAYS})) # 60s * 60m * 24h * n days
+
+    local CURRENT_TIME=$(date +%s)
+
+    local SHOULD_FIRST_CHECK=NO
+
+    if [[ -f $LAST_CHECK_FILE ]]; then
+        LAST_CHECK_TIME=$(cat $LAST_CHECK_FILE)
+    else
+        mkdir -p ${TERMINAL_SETUP_CACHE} >/dev/null 2>&1
+        SHOULD_FIRST_CHECK=YES
+    fi
+
+    if [[ $((CURRENT_TIME - LAST_CHECK_TIME)) -gt ${CHECK_INTERVAL} || ${SHOULD_FIRST_CHECK} == 'YES' ]]; then
+        echo -e "\nChecking Rust version..."
+
+        local LOCAL_RUST_VERSION=$(command rustc --version | cut -d ' ' -f 2)
+        local LATEST_RUST_VERSION=$(curl --silent https://github.com/rust-lang/rust/tags | grep /rust-lang/rust/releases/tag/ | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+' | sort --version-sort | tail -1)
+
+        if [[ $(echo "$LOCAL_RUST_VERSION $LATEST_RUST_VERSION" | tr ' ' '\n' | sort -Vr | head -n 1) != "$LOCAL_RUST_VERSION" ]]; then
+            echo -e "New version of Rust is available! ${RED}${LOCAL_RUST_VERSION}${NC} → ${GREEN}${LATEST_RUST_VERSION}${NC}"
+            echo -e "Run the command: ${BLUE}rustup update${NC} to update it."
+        else
+            echo -e "Your current Rust version ${GREEN}${LOCAL_RUST_VERSION}${NC} is up to date."
+        fi
+
+        echo
+    fi
+
+    echo ${CURRENT_TIME} >${LAST_CHECK_FILE}
+
+    command cargo "$@"
 }
 # ==================================================================================================
 
