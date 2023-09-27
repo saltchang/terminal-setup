@@ -374,42 +374,42 @@ cl() {
 
 home() {
     cl "$HOME"
-    printf "\nWelcome home!\n"
+    printf "\nWelcome home!\n\n"
 }
 
 goj() {
     cl "$PROJS_BASE"
-    printf "\nOK, ready to do something amazing :)\n"
+    printf "\nOK, ready to do something amazing :)\n\n"
 }
 
 gow() {
     cl "$PROJS_BASE/work"
-    printf "\nOK, ready to work :)\n"
+    printf "\nOK, ready to work :)\n\n"
 }
 
 gop() {
     cl "$PROJS_BASE/personal"
-    printf "\nOK, ready to do something amazing :)\n"
+    printf "\nOK, ready to do something amazing :)\n\n"
 }
 
 gog() {
     cl "$PROJS_BASE/games"
-    printf "\nOK, ready to do something amazing :)\n"
+    printf "\nOK, ready to do something amazing :)\n\n"
 }
 
 goa() {
     cl "$PROJS_BASE/archived"
-    printf "\nHere are the archived projects :)\n"
+    printf "\nHere are the archived projects :)\n\n"
 }
 
 gol() {
     cl "$PROJS_BASE/lib"
-    printf "\nHere are the third-party libraries :)\n"
+    printf "\nHere are the third-party libraries :)\n\n"
 }
 
 gogo() {
     cl "$GOPATH"
-    printf "\nOK, you are ready to Go :)\n"
+    printf "\nOK, you are ready to Go :)\n\n"
 }
 
 megu() {
@@ -417,14 +417,14 @@ megu() {
 
     cl "$MEGUMIIN_PROJ_DIR"
     code .
-    printf "\nOK, you are ready to megumiin :)\n"
+    printf "\nOK, you are ready to megumiin :)\n\n"
 }
 
 if [ $SYS_IS_WSL ]; then
     # go to Windows Disk C
     win() {
         cd "/mnt/c" || exit
-        printf "\nOK, you are now in disk: C!\n"
+        printf "\nOK, you are now in disk: C!\n\n"
     }
     # open with Windows Explorer
     open() {
@@ -705,7 +705,9 @@ if [ "$0" = "$ZSH_SHELL_NAME" ]; then # don't run when source .zshrc
     # { [ $DISTRO_NAME = $UBUNTU ] || [ $OS_NAME = $MACOS ]; } && unu
 
     # change directory to $HOME
-    cd "$HOME" || exit
+    # cd "$HOME" || exit
+
+    cd "$PROJS_BASE/personal" || exit
 fi
 
 # ==================================================================================================
