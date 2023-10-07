@@ -17,15 +17,16 @@ cd $HOME/projects/personal
 
 Then clone this project:
 
-```bash
-# SSH
-git clone git@github.com:saltchang/terminal-setup.git
-```
+- use SSH
 
-```bash
-# HTTPS
-git clone https://github.com/saltchang/terminal-setup.git
-```
+    ```bash
+    git clone git@github.com:saltchang/terminal-setup.git
+    ```
+- use HTTPS
+
+    ```bash
+    git clone https://github.com/saltchang/terminal-setup.git
+    ```
 
 ## Install Fonts
 
@@ -83,12 +84,11 @@ sudo apt install fonts-firacode
 
 ### macOS
 
+*Since **Catalina**, macOS will use zsh as the default shell, so you may have zsh built-in in your system*
+
 ```bash
-# Use Homebrew
 brew install zsh
 ```
-
-*Since **Catalina**, macOS will use zsh as the default shell, so you may have zsh built-in in your system*
 
 ### Ubuntu/Debian
 
@@ -100,9 +100,9 @@ sudo apt update && sudo apt -y install zsh
 
 ```bash
 chsh -s $(which zsh)
-
-# Then restart your terminal
 ```
+
+Then restart your terminal
 
 ## Setup the Shell
 
@@ -130,6 +130,12 @@ Run the below command to open your `.zshrc`:
 
 ```bash
 edit-rc
+```
+
+Or use the shortcut to go to the `terminal-setup` repo:
+
+```bash
+go-rc-repo
 ```
 
 The you can start to customize your shell.
