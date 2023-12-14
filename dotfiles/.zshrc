@@ -486,6 +486,7 @@ alias gclmb='git branch --merged \
 >/tmp/merged-branches && vim /tmp/merged-branches && xargs git branch -d </tmp/merged-branches'
 
 alias gfap='gfa && git pull'
+alias gfapr='gfa && git pull --rebase'
 alias gpuoc='git push -u origin $(git branch --show-current)'
 # --------------------------------------------------------------------------------------------------
 
