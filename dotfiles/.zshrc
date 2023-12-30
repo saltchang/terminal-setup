@@ -239,7 +239,6 @@ antigen use oh-my-zsh
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
 antigen bundle git
-antigen bundle docker
 antigen bundle emoji
 antigen bundle gh
 antigen bundle gnu-utils
@@ -526,7 +525,7 @@ esac
 # ==================================================================================================
 
 # ===> Python 3 shortcut (Optional) ================================================================
-# alias python='python3'
+alias python='python3'
 # ==================================================================================================
 
 # ===> PNPM (Optional) =============================================================================
