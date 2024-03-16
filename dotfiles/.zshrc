@@ -283,6 +283,9 @@ addToPATH "/usr/local/bin"
 # --------> For Yarn (Optional) --------------------------------------------------------------------
 addToPATH "$HOME/.yarn/bin"
 
+# --------> For Godot (Optional) -------------------------------------------------------------------
+# export GODOT4_BIN=/Applications/Godot.app/Contents/MacOS/Godot
+
 # --------> For Laravel (Optional) -----------------------------------------------------------------
 addToPATH "$HOME/.composer/vendor/bin"
 
