@@ -414,12 +414,10 @@ gogo() {
     printf "\nOK, you are ready to Go :)\n\n"
 }
 
-megu() {
-    local MEGUMIIN_PROJ_DIR=$PROJS_BASE/personal/megumiin
-
-    cl "$MEGUMIIN_PROJ_DIR"
-    code .
-    printf "\nOK, you are ready to megumiin :)\n\n"
+nvm_prune_versions() {
+    # Remove all versions except the current version
+    current_version=$(nvm current)
+    nvm ls --no-colors | grep -oP 'v\d+\.\d+\.\d+' | grep -v "$current_version" | while read version; do nvm uninstall "$version"; done
 }
 
 if [ $SYS_IS_WSL ]; then
@@ -527,8 +525,10 @@ case $OS_NAME in
 esac
 # ==================================================================================================
 
-# ===> Python 3 shortcut (Optional) ================================================================
+# ===> Python (Optional) ===========================================================================
 alias python='python3'
+# for Python 3.11 workaround
+# export PATH="$(brew --prefix)/opt/python@3.11/libexec/bin:$PATH"
 # ==================================================================================================
 
 # ===> PNPM (Optional) =============================================================================
