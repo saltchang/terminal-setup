@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 # shellcheck disable=SC2034
 
 # ==================================================================================================
@@ -7,6 +7,18 @@
 # Description:   zsh configuration for macOS, Linux, and WSL
 
 # ==================================================================================================
+
+# See https://github.com/foxundermoon/vs-shell-format/issues/336
+P10K_INSTANT_PROMPT_CACHE_SUFFIX=${USER}
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${P10K_INSTANT_PROMPT_CACHE_SUFFIX}.zsh" ]]; then
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${P10K_INSTANT_PROMPT_CACHE_SUFFIX}.zsh"
+fi
+
+unset prompt_cr
 
 # ===> Terminal Setup Cache ========================================================================
 TERMINAL_SETUP_CACHE="$HOME/.terminal-setup-cache"
@@ -108,153 +120,95 @@ export LC_MESSAGES="en_US.UTF-8"
 # export LC_IDENTIFICATION="zh_TW.UTF-8"
 # ==================================================================================================
 
-# ===> Proxy (Optional) ============================================================================
-# PROXY="http://proxy-web.company.com:80"
-# NO_PROXY="localhost,127.0.0.1,.company.com"
+# ===> Zinit & Prezto ==============================================================================
+# See: https://github.com/zdharma-continuum/zinit
 
-# export PROXY=$PROXY
-# export HTTP_PROXY=$PROXY
-# export HTTPS_PROXY=$PROXY
-# export ALL_PROXY=$PROXY
-# export NO_PROXY=$NO_PROXY
-# export proxy=$PROXY
-# export http_proxy=$PROXY
-# export https_proxy=$PROXY
-# export all_proxy=$PROXY
-# export no_proxy=$NO_PROXY
-# ==================================================================================================
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
 
-# ===> CA Certificate (Optional) ===================================================================
-# CA_FILE="/usr/local/share/ca-certificates/certnew.crt"
-# --------> For OpenSSL ----------------------------------------------------------------------------
-# export SSL_CERT_FILE=$CA_FILE
-# --------> For NodeJS -----------------------------------------------------------------------------
-# export NODE_EXTRA_CA_CERTS=$CA_FILE
-# ==================================================================================================
-
-# ===> Powerlevel: Profile =========================================================================
-POWERLEVEL9K_MODE="nerdfont-complete"
-# ==================================================================================================
-
-# ===> Powerlevel: Prompt Newline ==================================================================
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
-POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
-# ==================================================================================================
-
-# ===> Powerlevel: Prompt Elements =================================================================
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user host dir dir_writable newline vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
-    pyenv omzsh_prompt_node_version node_version go_version dotnet_version package newline
-    status history time os_icon
-)
-# ==================================================================================================
-
-# ===> Powerlevel: Prompt Prefix ===================================================================
-
-case $OS_NAME in
-"$MACOS")
-    POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="\u2570\u2500\u27A4 "
-    ;;
-"$LINUX")
-    POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="\u2570\u2500\u2B9E "
-    POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="\u256D\u2500"
-    ;;
-esac
-# ==================================================================================================
-
-# ===> Powerlevel (For Linux) ======================================================================
-case $OS_NAME in
-"$MACOS")
-    POWERLEVEL9K_OS_ICON_FOREGROUND="255"
-    POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
-    ;;
-"$LINUX")
-    # Segment
-    POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=$'\uE0B0'
-    POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=$'\uE0B2'
-
-    # Icon
-    POWERLEVEL9K_OS_ICON_BACKGROUND="233"
-    case $DISTRO_NAME in
-    "$UBUNTU")
-        POWERLEVEL9K_OS_ICON_FOREGROUND="202" # For Ubuntu
+# Bind keys for history-substring-search
+# See: https://github.com/zsh-users/zsh-history-substring-search/issues/110#issuecomment-650832313
+function _bind_keys_for_history_substring_search() {
+    case $OS_NAME in
+    "$MACOS")
+        bindkey '^[[A' history-substring-search-up
+        bindkey '^[[B' history-substring-search-down
         ;;
-
-    "$DEBIAN")
-        POWERLEVEL9K_OS_ICON_FOREGROUND="204" # For Debian
-        ;;
-
-    "$RHEL")
-        POWERLEVEL9K_LINUX_ICON="\uF316"      # For RedHat
-        POWERLEVEL9K_OS_ICON_FOREGROUND="197" # For Redhat
+    "$LINUX")
+        # https://superuser.com/a/1296543
+        # key dict is defined in /etc/zsh/zshrc
+        bindkey "$key[Up]" history-substring-search-up
+        bindkey "$key[Down]" history-substring-search-down
         ;;
     esac
+}
 
-    # Other
-    POWERLEVEL9K_STATUS_BACKGROUND="059"
-    ;;
-esac
+# Load Prezto
+zi snippet PZT::modules/helper/init.zsh
 
+# Load Prezto modules
+zi ice wait'!' blockf \
+    atclone"git clone -q --depth=1 https://github.com/sorin-ionescu/prezto.git external"
+zi snippet PZTM::git/alias.zsh
+zi ice wait'!' blockf \
+    atclone"git clone -q --depth=1 https://github.com/sorin-ionescu/prezto.git external"
+zi snippet PZTM::git
+
+zi ice wait'!'
+zi snippet PZT::modules/gnu-utility
+
+zi ice wait'!' lucid \
+    atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay"
+zi load zdharma-continuum/fast-syntax-highlighting
+
+zi ice wait'!' lucid blockf
+zi load zsh-users/zsh-completions
+
+zi ice wait'!' lucid atload"!_bind_keys_for_history_substring_search"
+zi load zsh-users/zsh-history-substring-search
+
+zi ice wait'!' lucid atload"!_zsh_autosuggest_start"
+zi load zsh-users/zsh-autosuggestions
+
+# Load the theme
+zi ice depth=1
+zi light romkatv/powerlevel10k
+
+zi snippet PZT::modules/prompt
+
+# Fix git reset HEAD^: zsh: no matches found: HEAD^
+setopt NO_NOMATCH
 # ==================================================================================================
 
-# ===> Powerlevel: Other Config (For All) ==========================================================
-POWERLEVEL9K_STATUS_CROSS=true
-POWERLEVEL9K_STATUS_OK=true
+# ===> asdf (Optional) =============================================================================
+if [ ! -d "$HOME/.asdf" ] || [ -z "$HOME/.asdf/asdf.sh" ]; then
+    echo "Installing asdf..."
+    rm -rf "$HOME/.asdf"
+    git clone https://github.com/asdf-vm/asdf.git $HOME/.asdf
+fi
 
-POWERLEVEL9K_TIME_BACKGROUND="179"
-POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
+. "$HOME/.asdf/asdf.sh"
 
-POWERLEVEL9K_DIR_FOREGROUND="017"
-POWERLEVEL9K_DIR_BACKGROUND="116"
+# append completions to fpath
+fpath=(${ASDF_DIR}/completions $fpath)
+# initialise completions with ZSH's compinit
+autoload -Uz compinit && compinit
 
-POWERLEVEL9K_USER_FOREGROUND="208"
-POWERLEVEL9K_USER_BACKGROUND="229"
+# check if asdf-nodejs plugin is installed
+if ! asdf plugin list | grep -q "nodejs"; then
+    asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+fi
 
-POWERLEVEL9K_STATUS_OK_FOREGROUND="156"
-POWERLEVEL9K_STATUS_ERROR_FOREGROUND="160"
-POWERLEVEL9K_STATUS_HIDE_SIGNAME=true
-POWERLEVEL9K_STATUS_SHOW_PIPESTATUS=false
-
-POWERLEVEL9K_VCS_MODIFIED_BACKGROUND="208"
-POWERLEVEL9K_VCS_BACKGROUND="078"
-# ==================================================================================================
-
-# ===> Antigen =====================================================================================
-# See: https://github.com/zsh-users
-
-ADOTDIR="$HOME/.antigen"
-ANTIGEN_ZSH="$ADOTDIR/antigen.zsh"
-ANTIGEN_LOG="$ADOTDIR/antigen.log"
-_ANTIGEN_CACHE_ENABLED="false"
-
-[ ! -d "$ADOTDIR" ] && mkdir "$ADOTDIR"
-[ ! -f "$ANTIGEN_ZSH" ] && curl -L git.io/antigen >"$ANTIGEN_ZSH"
-
-# shellcheck source=/dev/null
-[ -s "$ANTIGEN_ZSH" ] && source "$ANTIGEN_ZSH"
-
-# Load the oh-my-zsh's library.
-antigen use oh-my-zsh
-
-# Bundles from the default repo (robbyrussell's oh-my-zsh).
-antigen bundle git
-antigen bundle emoji
-antigen bundle gh
-antigen bundle gnu-utils
-
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-completions
-antigen bundle zsh-users/zsh-history-substring-search
-antigen bundle lukechilds/zsh-nvm
-
-# workaround for https://github.com/zsh-users/antigen/issues/675theme_antigen() {
-THEME=romkatv/powerlevel10k
-antigen list | grep $THEME
-if [ $? -ne 0 ]; then echo "Launch antigen" && antigen theme $THEME; fi
-
-antigen apply
+# append "legacy_version_file = yes" to ~/.asdfrc to enable legacy version file if needed
+if [ -f "$HOME/.asdfrc" ]; then
+    if ! grep -q "legacy_version_file = yes" "$HOME/.asdfrc"; then
+        echo "legacy_version_file = yes" >>"$HOME/.asdfrc"
+    fi
+else
+    echo "legacy_version_file = yes" >"$HOME/.asdfrc"
+fi
 # ==================================================================================================
 
 # ===> Base Directory of Projects ==================================================================
@@ -326,25 +280,9 @@ alias edit='code' # VSCode
 # ===> Alias: Basic Command ========================================================================
 case $OS_NAME in
 "$MACOS")
-    # alias ls='echo && ls -hF'
-    # alias ll='ls -l'
-
-    # if you see "command not found: gls" in macOS, run to install the requirement:
-    # brew install c
-
-    if hash gls 2>/dev/null; then
-        alias ls='echo && gls -hF --color=always'
-        alias ll='ls -l --time-style=long-iso --group-directories-first'
-        alias rm='rm -iv'
-
-    else
-        echo
-        echo "coreutils is not installed, please install it with: "
-        echo
-        echo "    $ brew install coreutils"
-        echo
-        echo "Then restart the terminal."
-    fi
+    alias ls='ls -hF --color=always'
+    alias ll='ls -l --time-style=long-iso --group-directories-first'
+    alias rm='rm -iv'
     ;;
 
 "$LINUX")
@@ -702,26 +640,26 @@ function cargo() {
 # ==================================================================================================
 
 # ===> Automatically use the correct node version if exists ========================================
-autoload -U add-zsh-hook
-load-nvmrc() {
-    local node_version="$(nvm version)"
-    local nvmrc_path="$(nvm_find_nvmrc)"
+# autoload -U add-zsh-hook
+# load-nvmrc() {
+#     local node_version="$(nvm version)"
+#     local nvmrc_path="$(nvm_find_nvmrc)"
 
-    if [ -n "$nvmrc_path" ]; then
-        local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+#     if [ -n "$nvmrc_path" ]; then
+#         local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
 
-        if [ "$nvmrc_node_version" = "N/A" ]; then
-            nvm install
-        elif [ "$nvmrc_node_version" != "$node_version" ]; then
-            nvm use
-        fi
-    elif [ "$node_version" != "$(nvm version default)" ]; then
-        echo "Reverting to nvm default version"
-        nvm use default
-    fi
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
+#         if [ "$nvmrc_node_version" = "N/A" ]; then
+#             nvm install
+#         elif [ "$nvmrc_node_version" != "$node_version" ]; then
+#             nvm use
+#         fi
+#     elif [ "$node_version" != "$(nvm version default)" ]; then
+#         echo "Reverting to nvm default version"
+#         nvm use default
+#     fi
+# }
+# add-zsh-hook chpwd load-nvmrc
+# load-nvmrc
 # ==================================================================================================
 
 typeset -U path                       # remove duplicates in $PATH
@@ -739,3 +677,7 @@ fi
 # ==================================================================================================
 # End of File
 # ==================================================================================================
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+(( ! ${+functions[p10k]} )) || p10k finalize
