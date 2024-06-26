@@ -83,11 +83,12 @@ esac
   # last prompt line gets hidden if it would overlap with left prompt.
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
+    # =========================[ Line #2 ]=========================
+    newline
     status                    # exit code of the last command
     asdf                      # asdf version manager (https://github.com/asdf-vm/asdf)
     time                      # current time
-    # =========================[ Line #2 ]=========================
-    newline
+
   )
 
   # Defines character set used by powerlevel10k. It's best to let `p10k configure` set it for you.
