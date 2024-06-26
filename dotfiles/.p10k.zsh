@@ -96,7 +96,7 @@ esac
   typeset -g POWERLEVEL9K_ICON_BEFORE_CONTENT=
 
   # Add an empty line before each prompt.
-  typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=false
+  typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
   typeset -g POWERLEVEL9K_PROMPT_ON_NEWLINE=false
   typeset -g POWERLEVEL9K_RPROMPT_ON_NEWLINE=false
 
