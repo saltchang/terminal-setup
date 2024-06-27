@@ -8,20 +8,22 @@
 
 # ==================================================================================================
 
-# See https://github.com/foxundermoon/vs-shell-format/issues/336
-P10K_INSTANT_PROMPT_CACHE_SUFFIX=${USER}
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${P10K_INSTANT_PROMPT_CACHE_SUFFIX}.zsh" ]]; then
-    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${P10K_INSTANT_PROMPT_CACHE_SUFFIX}.zsh"
+# See https://github.com/foxundermoon/vs-shell-format/issues/336
+if [ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${USER}.zsh" ]; then
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${USER}.zsh"
 fi
 
 unset prompt_cr
 
 # ===> Terminal Setup Cache ========================================================================
 TERMINAL_SETUP_CACHE="$HOME/.terminal-setup-cache"
+# ==================================================================================================
+
+# ===> Terminal Setup Bin ========================================================================
+TERMINAL_SETUP_LOCAL_BIN_DIR="$HOME/.local/terminal-setup/bin"
 # ==================================================================================================
 
 # ===> Colors ======================================================================================
@@ -230,6 +232,9 @@ addToPATH() {
     esac
 }
 
+# --------> Load bins of terminal-setup ------------------------------------------------------------
+addToPATH "$TERMINAL_SETUP_LOCAL_BIN_DIR"
+
 # --------> Basic Binary ---------------------------------------------------------------------------
 addToPATH "$HOME/bin"
 addToPATH "/usr/local/bin"
@@ -352,17 +357,43 @@ gogo() {
     printf "\nOK, you are ready to Go :)\n\n"
 }
 
-nvm_prune_versions() {
-    # Remove all versions except the current version
-    current_version=$(nvm current)
-    nvm ls --no-colors | grep -oP 'v\d+\.\d+\.\d+' | grep -v "$current_version" | while read version; do nvm uninstall "$version"; done
+odg() {
+    local TEMP_FILE=$(mktemp)
+    select_menu --prompt="Which project would you like to go?" --options="IXT Core,IXT Launchpad,IXT Ecosystem,IXT FE Tools,Quit" --tmp-file=$TEMP_FILE --no-output
+    local SELECTED_PROJ=$(cat "$TEMP_FILE")
+    rm -f "$tmp_file"
+
+    case $SELECTED_PROJ in
+    "IXT Launchpad")
+        cd "$PROJS_BASE/work/ixt-launchpad-web" || return
+        echo "\nOK, you are ready to work on IXT Launchpad :)"
+        ;;
+    "IXT Ecosystem")
+        cd "$PROJS_BASE/work/ixt-ecosystem-web" || return
+        echo "\nOK, you are ready to work on IXT Ecosystem :)"
+        ;;
+    "IXT Core")
+        cd "$PROJS_BASE/work/ixt-web" || return
+        echo "\nOK, you are ready to work on IXT Core :)"
+        ;;
+    "IXT FE Tools")
+        cd "$PROJS_BASE/work/ixt-frontend-tools" || return
+        echo "\nOK, you are ready to work on IXT Frontend Tools :)"
+        ;;
+    "Quit")
+        return
+        ;;
+    *)
+        echo "Invalid option: $SELECTED_PROJ"
+        ;;
+    esac
 }
 
 if [ $SYS_IS_WSL ]; then
     # go to Windows Disk C
     win() {
         cd "/mnt/c" || exit
-        printf "\nOK, you are now in disk: C!\n\n"
+        printf "\nOK, you are now in disk: C!\n"
     }
     # open with Windows Explorer
     open() {
@@ -639,27 +670,34 @@ function cargo() {
 }
 # ==================================================================================================
 
-# ===> Automatically use the correct node version if exists ========================================
-# autoload -U add-zsh-hook
-# load-nvmrc() {
-#     local node_version="$(nvm version)"
-#     local nvmrc_path="$(nvm_find_nvmrc)"
+# ===> Automatically use the correct node version if exists, with legacy .nvmrc support =============
+# ===> Installs the node version if not already installed ==========================================
+autoload -U add-zsh-hook
+load-node-version() {
+    local asdf_node_version="$(asdf current nodejs 2>/dev/null | awk '{print $2}')"
+    local directory_node_version=""
+    local legacy_nvmrc_node_version=""
 
-#     if [ -n "$nvmrc_path" ]; then
-#         local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+    if [ -f ".tool-versions" ]; then
+        directory_node_version="$(cat .tool-versions | grep nodejs | awk '{print $2}')"
+    elif [ -f ".nvmrc" ]; then
+        legacy_nvmrc_node_version="$(cat .nvmrc)"
+    fi
 
-#         if [ "$nvmrc_node_version" = "N/A" ]; then
-#             nvm install
-#         elif [ "$nvmrc_node_version" != "$node_version" ]; then
-#             nvm use
-#         fi
-#     elif [ "$node_version" != "$(nvm version default)" ]; then
-#         echo "Reverting to nvm default version"
-#         nvm use default
-#     fi
-# }
-# add-zsh-hook chpwd load-nvmrc
-# load-nvmrc
+    local target_version="${directory_node_version:-$legacy_nvmrc_node_version}"
+
+    if [ -n "$target_version" ]; then
+        if [ "$asdf_node_version" != "$target_version" ]; then
+            if ! asdf list nodejs | grep -q "$target_version"; then
+                echo "Node version $target_version not installed. Installing..."
+                asdf install nodejs "$target_version"
+            fi
+            asdf local nodejs "$target_version"
+        fi
+    fi
+}
+add-zsh-hook chpwd load-node-version
+load-node-version
 # ==================================================================================================
 
 typeset -U path                       # remove duplicates in $PATH
@@ -669,15 +707,18 @@ if [ "$0" = "$ZSH_SHELL_NAME" ]; then # don't run when source .zshrc
     # { [ $DISTRO_NAME = $UBUNTU ] || [ $OS_NAME = $MACOS ]; } && unu
 
     # change directory to $HOME
-    # cd "$HOME" || exit
+    cd "$HOME" || exit
+fi
 
-    cd "$PROJS_BASE/personal" || exit
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# original code is `(( ! ${+functions[p10k]} )) || p10k finalize`,
+# but the shell-format doesn't support the syntax of zsh
+if type p10k >/dev/null 2>&1; then
+    p10k finalize
 fi
 
 # ==================================================================================================
 # End of File
 # ==================================================================================================
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-(( ! ${+functions[p10k]} )) || p10k finalize
