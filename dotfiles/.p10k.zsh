@@ -220,6 +220,18 @@ esac
   typeset -g POWERLEVEL9K_VCS_LOADING_BACKGROUND=8
 
   typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uF126 '
+  typeset -g POWERLEVEL9K_VCS_GIT_NO_UPSTREAM_ICON='\uF127 '
+  typeset -g POWERLEVEL9K_VCS_GIT_GITHUB_ICON='\uF113 '
+  typeset -g POWERLEVEL9K_VCS_GIT_GITLAB_ICON='\uF296 '
+  typeset -g POWERLEVEL9K_VCS_GIT_BITBUCKET_ICON='\uF171 '
+
+  typeset -g POWERLEVEL9K_VCS_GIT_REMOTE_ICONS=(
+  '*github*'      VCS_GIT_GITHUB_ICON
+  '*gitlab*'      VCS_GIT_GITLAB_ICON
+  '*bitbucket*'   VCS_GIT_BITBUCKET_ICON
+  '*'             VCS_GIT_NO_UPSTREAM_ICON
+  )
+
   typeset -g POWERLEVEL9K_VCS_UNTRACKED_ICON='\uF059 '
   typeset -g POWERLEVEL9K_VCS_UNSTAGED_ICON='\uF06A '
   typeset -g POWERLEVEL9K_VCS_STAGED_ICON='\uF055 '
@@ -248,7 +260,7 @@ esac
       local branch=${(V)VCS_STATUS_LOCAL_BRANCH}
       # Tip: To always show local branch name in full without truncation, delete the next line.
       (( $#branch > 100 )) && branch[20,-20]="…"  # <-- this line
-      res+="${clean}${(g::)POWERLEVEL9K_VCS_BRANCH_ICON}${branch//\%/%%}"
+      res+="${clean}${branch//\%/%%}"
     fi
 
     if [[ -n $VCS_STATUS_TAG
@@ -274,8 +286,7 @@ esac
     fi
 
     if (( VCS_STATUS_COMMITS_AHEAD || VCS_STATUS_COMMITS_BEHIND )); then
-      (( VCS_STATUS_COMMITS_BEHIND )) && res+=" ${clean}${(g::)POWERLEVEL9K_VCS_STATUS_COMMITS_BEHIND_ICON}${VCS_STATUS_COMMITS_BEHIND}"
-      (( VCS_STATUS_COMMITS_AHEAD && !VCS_STATUS_COMMITS_BEHIND )) && res+=" "
+      (( VCS_STATUS_COMMITS_BEHIND )) && res+="${clean}${(g::)POWERLEVEL9K_VCS_STATUS_COMMITS_BEHIND_ICON}${VCS_STATUS_COMMITS_BEHIND}"
       (( VCS_STATUS_COMMITS_AHEAD  )) && res+="${clean}${(g::)POWERLEVEL9K_VCS_STATUS_COMMITS_AHEAD_ICON}${VCS_STATUS_COMMITS_AHEAD}"
     elif [[ -n $VCS_STATUS_REMOTE_BRANCH ]]; then
     fi
