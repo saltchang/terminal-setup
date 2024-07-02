@@ -238,7 +238,7 @@ esac
   typeset -g POWERLEVEL9K_VCS_STATUS_COMMITS_BEHIND_ICON=' \uF0AB '
   typeset -g POWERLEVEL9K_VCS_STATUS_COMMITS_AHEAD_ICON=' \uF0AA '
   typeset -g POWERLEVEL9K_VCS_CONFLICTED_ICON='\uF057 '
-  typeset -g POWERLEVEL9K_VCS_STASHES_ICON='\uF187 '
+  typeset -g POWERLEVEL9K_VCS_STASHES_ICON='\uF1C0 '
 
   function my_git_formatter() {
     emulate -L zsh
