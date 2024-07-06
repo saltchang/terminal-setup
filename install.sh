@@ -1,6 +1,7 @@
 #!/bin/bash
 
-TERMINAL_SETUP_LOCAL_BIN_DIR="$HOME/.local/terminal-setup/bin"
+TERMINAL_SETUP_LOCAL_DIR="$HOME/.local/terminal-setup/"
+TERMINAL_SETUP_LOCAL_BIN_DIR="$TERMINAL_SETUP_LOCAL_DIR/bin"
 TERMINAL_SETUP_REPO_BIN_DIR="$(pwd)/bin"
 
 ZSHRC_SOURCE_REL="dotfiles/.zshrc"
@@ -26,6 +27,10 @@ P10KZSH_FILE="$HOME/.p10k.zsh"
 [ -e "$P10KZSH_FILE" ] && rm "$P10KZSH_FILE" 2>/dev/null && echo "Removed original .p10k.zsh >>> Done"
 
 [ -e "$ZSHRC_FILE" ] && rm "$ZSHRC_FILE" 2>/dev/null && echo "Removed original .zshrc >>> Done"
+
+[ -d "$TERMINAL_SETUP_LOCAL_BIN_DIR" ] && rm -rf "$TERMINAL_SETUP_LOCAL_BIN_DIR" 2>/dev/null && echo "Removed original directory: $TERMINAL_SETUP_LOCAL_BIN_DIR >>> Done"
+
+[ ! -d "$TERMINAL_SETUP_LOCAL_DIR" ] && mkdir -p "$TERMINAL_SETUP_LOCAL_DIR" && echo "Created new directory: $TERMINAL_SETUP_LOCAL_DIR >>> Done"
 
 ln -s "$TERMINAL_SETUP_REPO_BIN_DIR" "$TERMINAL_SETUP_LOCAL_BIN_DIR" && echo "Created a new symbolic link from $TERMINAL_SETUP_LOCAL_BIN_DIR to $TERMINAL_SETUP_REPO_BIN_DIR >>> Done"
 
