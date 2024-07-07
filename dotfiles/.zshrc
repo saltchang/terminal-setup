@@ -237,6 +237,7 @@ addToPATH "$TERMINAL_SETUP_LOCAL_BIN_DIR"
 
 # --------> Basic Binary ---------------------------------------------------------------------------
 addToPATH "$HOME/bin"
+addToPATH "$HOME/.local/bin"
 addToPATH "/usr/local/bin"
 
 # --------> For Yarn (Optional) --------------------------------------------------------------------

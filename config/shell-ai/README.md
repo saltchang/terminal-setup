@@ -19,10 +19,10 @@ chmod 600 ~/.config/shell-ai/config.json # for security
 then edit the configuration file to add your API key.
 
 ```bash
-vi ~/.config/shell-ai/config.json
+code ~/.config/shell-ai/config.json
 
 # or
-code ~/.config/shell-ai/config.json
+vi ~/.config/shell-ai/config.json
 ```
 
 to generate a new OpenAI API key, go to [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)
