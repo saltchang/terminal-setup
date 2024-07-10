@@ -1,5 +1,29 @@
 #!/bin/bash
 
+case $(uname) in
+Darwin)
+    OS_NAME=$MACOS
+    ;;
+
+Linux)
+    OS_NAME=$LINUX
+    ;;
+esac
+
+# ===> Install System Package Manager ======================================================================
+case $OS_NAME in
+"$MACOS")
+    if [ -x "$(command -v brew)" ]; then
+        echo "Homebrew is already installed"
+    else
+        echo "Installing Homebrew..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+    ;;
+*) ;;
+esac
+# ==================================================================================================
+
 TERMINAL_SETUP_LOCAL_DIR="$HOME/.local/terminal-setup/"
 TERMINAL_SETUP_LOCAL_BIN_DIR="$TERMINAL_SETUP_LOCAL_DIR/bin"
 TERMINAL_SETUP_REPO_BIN_DIR="$(pwd)/bin"

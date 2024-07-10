@@ -57,7 +57,6 @@ if [ -f $PROC_VERSION_PATH ]; then
 fi
 
 case $(uname) in
-
 Darwin)
     OS_NAME=$MACOS
 

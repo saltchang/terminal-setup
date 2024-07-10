@@ -22,6 +22,7 @@ Then clone this project:
     ```bash
     git clone git@github.com:saltchang/terminal-setup.git
     ```
+
 - use HTTPS
 
     ```bash
@@ -32,11 +33,10 @@ Then clone this project:
 
 ### Nerd Fonts
 
-Please install at least one of the below fonts for your terminal, [Menlo](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip) is recommended.
+Please install at least one of the below fonts for your terminal, [Menlo](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip) is recommended.
 
-* [Menlo](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip)
-* [FuraCode](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip)
-* [SourceCodePro](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/SourceCodePro.zip)
+- [Menlo](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip)
+- [FuraCode](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip)
 
 See all [Nerd Fonts](https://www.nerdfonts.com/font-downloads).
 
@@ -63,7 +63,7 @@ sudo apt install fonts-firacode
 
 ### macOS
 
-* [iTerm2](https://iterm2.com/)
+- [iTerm2](https://iterm2.com/)
 
 ## Config Terminal
 
