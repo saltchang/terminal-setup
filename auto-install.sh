@@ -18,6 +18,9 @@ case $OS_NAME in
     else
         echo "Installing Homebrew..."
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+        (echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> /Users/salt.chang/.zprofile
+        eval "$(/opt/homebrew/bin/brew shellenv)"
     fi
 
     # install coreutils if it's not installed in homebrew

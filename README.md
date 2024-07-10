@@ -9,7 +9,7 @@ Terminal setup for zsh in macOS, Linux, and Windows.
 ### Install & Config iTerm
 
 1. Install [iTerm2](https://iterm2.com/)
-2. Open your iTerm > Preferences > Profiles > Other Actions > Import JSON Profiles > Choose this [iTerm Profile](https://github.com/saltchang/terminal-setup/blob/main/terminal-config/iTerm/Salt_iTerm_Profile.json)
+2. Open your iTerm > Settings > Profiles > Other Actions > Import JSON Profiles > Choose this [iTerm Profile](https://github.com/saltchang/terminal-setup/blob/main/terminal-config/iTerm/Salt_iTerm_Profile.json)
 3. After you setup: Other Actions > Set as Default
 4. Restart iTerm
 
@@ -20,7 +20,7 @@ Terminal setup for zsh in macOS, Linux, and Windows.
 Run the below to setup the terminal automatically:
 
 ```bash
-curl -s https://raw.githubusercontent.com/saltchang/terminal-setup/main/auto-install.sh | bash
+sudo curl -s https://raw.githubusercontent.com/saltchang/terminal-setup/main/auto-install.sh | bash
 ```
 
 It will setup the terminal by the below steps:
