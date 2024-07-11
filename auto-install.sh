@@ -11,8 +11,7 @@ Linux)
 esac
 
 # ===> Prompt User for the repo to clone ===========================================================
-echo "Please enter the terminal-setup github repo to clone (default: saltchang/terminal-setup):"
-printf "> "
+printf "Please enter the terminal-setup github repo to clone (default: saltchang/terminal-setup): \n> "
 read -r REPO
 
 if [ -z "$REPO" ]; then
