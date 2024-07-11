@@ -9,7 +9,7 @@ Terminal setup for zsh in macOS, Linux, and Windows.
 ### Install & Config iTerm
 
 1. Install [iTerm2](https://iterm2.com/)
-2. Open your iTerm > Settings > Profiles > Other Actions > Import JSON Profiles > Choose this [iTerm Profile](https://github.com/saltchang/terminal-setup/blob/main/terminal-config/iTerm/Salt_iTerm_Profile.json)
+2. Open your iTerm > Settings > Profiles > Other Actions > Import JSON Profiles > Choose this [iTerm Profile](./terminal-config/iTerm/Salty_iTerm_Profile.json)
 3. After you setup: Other Actions > Set as Default
 4. Restart iTerm
 
@@ -139,10 +139,10 @@ If you would like to customize the color scheme of powerlevel10k, please see [Th
 ### Config Windows Terminal
 
 1. Open your Windows Terminal > Settings > Open JSON file
-2. Copy json configs from this [config file](https://github.com/saltchang/terminal-setup/blob/main/terminal-config/windows-terminal/windows-terminal-profile.json)
+2. Copy json configs from this [config file](./terminal-config/windows-terminal/windows-terminal-profile.json)
 3. Paste the config to the Windows Terminal config json you just opened
 4. Restart Windows Terminal
 
 ### Setup PowerShell
 
-See [PowerShell Setup](https://github.com/saltchang/terminal-setup/tree/main/posh/README.md)
+See [PowerShell Setup](./posh/README.md)

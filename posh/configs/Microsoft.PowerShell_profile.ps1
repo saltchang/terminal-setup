@@ -78,7 +78,7 @@ function goa {
 }
 
 function edit-rc {
-    Invoke-Expression "& `"edit`" `"C:/Users/Salt/OneDrive/Documents/PowerShell`""
+    Invoke-Expression "& `"edit`" `"$HOME/OneDrive/Documents/PowerShell`""
 }
 
 function unreal {
