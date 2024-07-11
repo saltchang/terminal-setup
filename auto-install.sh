@@ -12,7 +12,7 @@ esac
 
 # ===> Prompt User for the repo to clone ===========================================================
 printf "Please enter the terminal-setup github repo to clone (default: saltchang/terminal-setup): \n> "
-read -r REPO
+read -r REPO </dev/tty
 
 if [ -z "$REPO" ]; then
     REPO="saltchang/terminal-setup"
