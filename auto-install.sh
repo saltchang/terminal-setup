@@ -115,7 +115,7 @@ if [ -d "$HOME/projects/personal/terminal-setup" ]; then
 else
     # check if git ssh key is setup
     if [ -f "$HOME/.ssh/id_rsa" ] || [ -f "$HOME/.ssh/id_ed25519" ]; then
-        git clone "git@github.com:$REPO.git" >/dev/null 2>&1 || echo "Failed to clone terminal-setup via ssh, try https" && git clone "https://github.com/$REPO.git"
+        git clone "git@github.com:$REPO.git" || (echo -e "\nFailed to clone the repo via ssh, try https..\n" && git clone "https://github.com/$REPO.git")
     else
         git clone "https://github.com/$REPO.git"
     fi
