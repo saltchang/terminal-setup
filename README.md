@@ -17,25 +17,29 @@ Terminal setup for zsh in macOS, Linux, and Windows.
 
 ## Auto Installation (Recommended)
 
-Run the below to setup the terminal automatically:
+1. To customize your own configs, you can fork this project before running the below installation script
 
-```bash
-sudo curl -s https://raw.githubusercontent.com/saltchang/terminal-setup/main/auto-install.sh | bash
-```
+2. Run the below to setup the terminal automatically:
 
-It will setup the terminal by the below steps:
+    ```bash
+    sudo curl -s https://raw.githubusercontent.com/saltchang/terminal-setup/main/auto-install.sh | bash
+    ```
 
-1. Install homebrew and coreutils for macOS
-2. Install fonts: Meslo & Fira Code
-3. Install and setup zsh
-4. Clone this project into `$HOME/projects/personal/terminal-setup`
-5. Create a soft link from `$HOME/.zshrc` to the one in this project
-6. Create a soft link from `$HOME/.p10k.zsh` to the one in this project
-7. Create a soft link from `$HOME/.local/terminal-setup/bin` to the one in this project
+    It will setup the terminal by the below steps:
 
-After the installation, restart your terminal or run `source $HOME/.zshrc`, you should see the new face of the shell.
+    1. Install homebrew and coreutils for macOS
+    2. Install fonts: Meslo & Fira Code
+    3. Install and setup zsh
+    4. Clone this project into `$HOME/projects/personal/terminal-setup`
+    5. Create a soft link from `$HOME/.zshrc` to the one in this project
+    6. Create a soft link from `$HOME/.p10k.zsh` to the one in this project
+    7. Create a soft link from `$HOME/.local/terminal-setup/bin` to the one in this project
+
+3. After the installation, restart your terminal or run `source $HOME/.zshrc`, you should see the new face of the shell
 
 ## Manual Installation
+
+To customize your own configs, you can fork this project before the below steps.
 
 ### Install Nerd Fonts
 
@@ -72,7 +76,7 @@ mkdir -p $HOME/projects/personal
 cd $HOME/projects/personal
 ```
 
-Then clone this project:
+Then clone this project (if you forked it, replace the URL with your own):
 
 - use SSH
 

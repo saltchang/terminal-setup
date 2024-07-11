@@ -10,6 +10,16 @@ Linux)
     ;;
 esac
 
+# ===> Prompt User for the repo to clone ===========================================================
+echo "Please enter the terminal-setup github repo to clone (default: saltchang/terminal-setup):"
+printf "> "
+read -r REPO
+
+if [ -z "$REPO" ]; then
+    REPO="saltchang/terminal-setup"
+fi
+# ==================================================================================================
+
 # ===> Basic Setup By System =======================================================================
 case $OS_NAME in
 "$MACOS")
@@ -106,9 +116,9 @@ if [ -d "$HOME/projects/personal/terminal-setup" ]; then
 else
     # check if git ssh key is setup
     if [ -f "$HOME/.ssh/id_rsa" ] || [ -f "$HOME/.ssh/id_ed25519" ]; then
-        git clone git@github.com:saltchang/terminal-setup.git >/dev/null 2>&1 || echo "Failed to clone terminal-setup via ssh, try https" && git clone https://github.com/saltchang/terminal-setup.git
+        git clone "git@github.com:$REPO.git" >/dev/null 2>&1 || echo "Failed to clone terminal-setup via ssh, try https" && git clone "https://github.com/$REPO.git"
     else
-        git clone https://github.com/saltchang/terminal-setup.git
+        git clone "https://github.com/$REPO.git"
     fi
 fi
 
