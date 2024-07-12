@@ -495,9 +495,20 @@ esac
 # ==================================================================================================
 
 # ===> Python (Optional) ===========================================================================
-alias python='python3'
-# for Python 3.11 workaround
-# export PATH="$(brew --prefix)/opt/python@3.11/libexec/bin:$PATH"
+case $OS_NAME in
+"$MACOS")
+    alias python='python3'
+    alias pip='pip3'
+    addToPATH "$(brew --prefix)/opt/python@3.12/libexec/bin"
+    ;;
+"$LINUX")
+    alias python='python3'
+    alias pip='pip3'
+    ;;
+esac
+
+# for Python 3.11
+# addToPATH "$(brew --prefix)/opt/python@3.11/libexec/bin"
 # ==================================================================================================
 
 # ===> PNPM (Optional) =============================================================================

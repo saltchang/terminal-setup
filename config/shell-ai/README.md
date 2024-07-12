@@ -4,6 +4,25 @@ See: [https://github.com/ricklamers/shell-ai](https://github.com/ricklamers/shel
 
 ## Installation
 
+### macOS
+
+It's recommended to use `pipx` to install shell-ai.
+You can install `pipx` using Homebrew:
+
+```bash
+brew install pipx
+```
+
+Then you can install shell-ai using `pipx`:
+
+```bash
+pipx install shell-ai
+```
+
+### Other Platforms
+
+You can install shell-ai using `pip`:
+
 ```bash
 pip install shell-ai
 ```

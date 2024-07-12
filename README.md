@@ -27,7 +27,7 @@ Terminal setup for zsh in macOS, Linux, and Windows.
 
     It will setup the terminal by the below steps:
 
-    1. Install homebrew and coreutils for macOS
+    1. Install homebrew, coreutils, python and pipx for macOS
     2. Install fonts: Meslo & Fira Code
     3. Install and setup zsh
     4. Clone this project into `$HOME/projects/personal/terminal-setup`
@@ -39,7 +39,30 @@ Terminal setup for zsh in macOS, Linux, and Windows.
 
 ## Manual Installation
 
+### Customize Your Configs
+
 To customize your own configs, you can fork this project before the below steps.
+
+### Setup for macOS
+
+#### Install Homebrew
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+#### Install Coreutils
+
+```bash
+brew install coreutils
+```
+
+#### Install Python & Pipx
+
+```bash
+brew install python
+brew install pipx
+```
 
 ### Install Nerd Fonts
 
