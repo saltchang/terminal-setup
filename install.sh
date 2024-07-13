@@ -11,6 +11,9 @@ TERMINAL_SETUP_LOCAL_DIR="$HOME/.local/terminal-setup/"
 TERMINAL_SETUP_LOCAL_BIN_DIR="$TERMINAL_SETUP_LOCAL_DIR/bin"
 TERMINAL_SETUP_REPO_BIN_DIR="$(pwd)/bin"
 
+ZPROFILE_SOURCE_REL="dotfiles/.zprofile"
+ZPROFILE_SOURCE="$(pwd)/$ZPROFILE_SOURCE_REL"
+
 ZSHRC_SOURCE_REL="dotfiles/.zshrc"
 ZSHRC_SOURCE="$(pwd)/$ZSHRC_SOURCE_REL"
 
@@ -19,13 +22,19 @@ P10K_SOURCE="$(pwd)/$P10K_SOURCE_REL"
 
 [ ! -d "$TERMINAL_SETUP_REPO_BIN_DIR" ] && echo -e "${ERROR}Directory not found: \"$TERMINAL_SETUP_REPO_BIN_DIR\". You may be in the wrong directory >>> Exit 1${NC}" && exit 1
 
+[ ! -e "$ZPROFILE_SOURCE" ] && echo -e "${ERROR}File not found: \"./$ZPROFILE_SOURCE_REL\". You may be in the wrong directory >>> Exit 1${NC}" && exit 1
+
 [ ! -e "$ZSHRC_SOURCE" ] && echo -e "${ERROR}File not found: \"./$ZSHRC_SOURCE_REL\". You may be in the wrong directory >>> Exit ${NC}" && exit 1
 
 [ ! -e "$P10K_SOURCE" ] && echo -e "${ERROR}File not found: \"./$P10K_SOURCE_REL\". You may be in the wrong directory >>> Exit 1${NC}" && exit 1
 
+chmod 600 "$ZPROFILE_SOURCE"
+
 chmod 600 "$ZSHRC_SOURCE"
 
 chmod 600 "$P10K_SOURCE"
+
+ZPROFILE_FILE="$HOME/.zprofile"
 
 ZSHRC_FILE="$HOME/.zshrc"
 
@@ -34,9 +43,11 @@ P10KZSH_FILE="$HOME/.p10k.zsh"
 echo "Check and remove original files and directories..."
 echo
 
-[ -e "$P10KZSH_FILE" ] && rm "$P10KZSH_FILE" 2>/dev/null && echo -e "${GREEN}Removed original .p10k.zsh${NC}"
+[ -e "$ZPROFILE_FILE" ] && rm "$ZPROFILE_FILE" 2>/dev/null && echo -e "${GREEN}Removed original .zprofile${NC}"
 
 [ -e "$ZSHRC_FILE" ] && rm "$ZSHRC_FILE" 2>/dev/null && echo -e "${GREEN}Removed original .zshrc${NC}"
+
+[ -e "$P10KZSH_FILE" ] && rm "$P10KZSH_FILE" 2>/dev/null && echo -e "${GREEN}Removed original .p10k.zsh${NC}"
 
 [ -d "$TERMINAL_SETUP_LOCAL_BIN_DIR" ] && rm -rf "$TERMINAL_SETUP_LOCAL_BIN_DIR" 2>/dev/null && echo -e "${GREEN}Removed original directory: $TERMINAL_SETUP_LOCAL_BIN_DIR${NC}"
 
@@ -47,6 +58,8 @@ echo
 [ ! -d "$TERMINAL_SETUP_LOCAL_DIR" ] && mkdir -p "$TERMINAL_SETUP_LOCAL_DIR" && echo -e "${GREEN}Created new directory: $TERMINAL_SETUP_LOCAL_DIR${NC}"
 
 ln -s "$TERMINAL_SETUP_REPO_BIN_DIR" "$TERMINAL_SETUP_LOCAL_BIN_DIR" && echo -e "${GREEN}Created a new symbolic link from $TERMINAL_SETUP_LOCAL_BIN_DIR to $TERMINAL_SETUP_REPO_BIN_DIR${NC}"
+
+ln -s "$ZPROFILE_SOURCE" "$ZPROFILE_FILE" && echo -e "${GREEN}Created a new symbolic link from $ZPROFILE_FILE to $ZPROFILE_SOURCE${NC}"
 
 ln -s "$ZSHRC_SOURCE" "$ZSHRC_FILE" && echo -e "${GREEN}Created a new symbolic link from $ZSHRC_FILE to $ZSHRC_SOURCE${NC}"
 

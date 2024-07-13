@@ -1,0 +1,37 @@
+#!/bin/bash
+
+LINUX="Linux"
+MACOS="macOS"
+
+case $(uname) in
+Darwin)
+    OS_NAME=$MACOS
+    ;;
+
+Linux)
+    OS_NAME=$LINUX
+    ;;
+esac
+
+update_git() {
+    printf "\nCurrent %s\n\n" "$(git --version)"
+    printf "Start to update Git...\n\n"
+    case $OS_NAME in
+    "$MACOS")
+        brew list git || brew install git
+        brew update && brew upgrade git &&
+            printf "\nCurrent %s\n\n" "$(git --version)" &&
+            printf "Git updated successfully.\n\n" &&
+            source-rc
+        ;;
+    "$LINUX")
+        sudo add-apt-repository ppa:git-core/ppa -y &&
+            sudo apt-get update &&
+            sudo apt-get install git -y &&
+            printf "\nCurrent %s\n\n" "$(git --version)" &&
+            printf "Git updated successfully.\n"
+        ;;
+    esac
+}
+
+update_git

@@ -39,17 +39,16 @@ case $OS_NAME in
         echo "Installing Homebrew..."
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-        echo "eval \"\$(/opt/homebrew/bin/brew shellenv)\"" >>"$HOME/.zprofile"
         eval "$(/opt/homebrew/bin/brew shellenv)"
     fi
     echo -e "${GREEN}homebrew is already installed${NC}"
 
-    # install coreutils if it's not installed
-    if ! [ -x "$(command -v greadlink)" ]; then
-        echo "Installing coreutils..."
-        brew install coreutils
+    # install jump if it's not installed
+    if ! [ -x "$(command -v jump)" ]; then
+        echo "Installing jump..."
+        brew install jump
     fi
-    echo -e "${GREEN}coreutils is already installed${NC}"
+    echo -e "${GREEN}jump is already installed${NC}"
 
     # install python3 if it's not installed via homebrew
     BREW_PYTHON_PATH=$(brew --prefix python3 2>/dev/null)
@@ -65,6 +64,13 @@ case $OS_NAME in
         brew install pipx
     fi
     echo -e "${GREEN}pipx is already installed${NC}"
+    ;;
+"$LINUX")
+    # install jump if it's not installed
+    if ! [ -x "$(command -v jump)" ]; then
+        wget https://github.com/gsamokovarov/jump/releases/download/v0.51.0/jump_0.51.0_amd64.deb && sudo dpkg -i jump_0.51.0_amd64.deb
+    fi
+    echo -e "${GREEN}jump is already installed${NC}"
     ;;
 *) ;;
 esac

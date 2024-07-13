@@ -4,6 +4,29 @@ Terminal setup for zsh in macOS, Linux, and Windows.
 
 ![Terminal Demo](./images/demo-terminal.png)
 
+## Key Features
+
+- Cross-platform support (macOS, Linux, and Windows)
+- Customizable zsh configuration
+- [Powerline10k](https://github.com/romkatv/powerlevel10k) theme for a beautiful and informative prompt
+- Zinit plugin manager with the following plugins:
+  - [zdharma-continuum/fast-syntax-highlighting](https://github.com/zdharma-continuum/fast-syntax-highlighting): Provides syntax highlighting for commands while they are typed
+  - [zsh-users/zsh-completions](https://github.com/zsh-users/zsh-completions): Additional completion definitions for Zsh
+  - [zsh-users/zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search): Fish shell-like history search feature
+  - [zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions): Fish-like autosuggestions for Zsh
+  - Prezto modules:
+    - [helper](https://github.com/sorin-ionescu/prezto/tree/master/modules/helper): Provides helper functions for other modules
+    - [git](https://github.com/sorin-ionescu/prezto/tree/master/modules/git): Enhances the Git distributed version control system
+    - [gnu-utility](https://github.com/sorin-ionescu/prezto/tree/master/modules/gnu-utility): Provides for the interactive use of GNU utilities on non-GNU systems
+    - [utility](https://github.com/sorin-ionescu/prezto/tree/master/modules/utility): Provides general aliases and functions
+- Auto-switching Node.js versions using [asdf](https://github.com/asdf-vm/asdf)
+- Quickly jump to different directories with [jump](https://github.com/gsamokovarov/jump)
+- Git helpers and automatic version checking
+- Rust version checking
+- [Customizable aliases and functions](#custom-functions-and-aliases) for improved productivity
+- Automatic software updates (Homebrew, apt, etc.)
+- Integration with [iTerm2](https://iterm2.com/) on macOS and [Windows Terminal](https://github.com/microsoft/terminal) on Windows
+
 ## Pre-requirements for macOS
 
 ### Install & Config iTerm
@@ -27,7 +50,7 @@ Terminal setup for zsh in macOS, Linux, and Windows.
 
     It will setup the terminal by the below steps:
 
-    1. Install homebrew, coreutils, python and pipx for macOS
+    1. Install homebrew, python and pipx for macOS
     2. Install fonts: Meslo & Fira Code
     3. Install and setup zsh
     4. Clone this project into `$HOME/projects/personal/terminal-setup`
@@ -49,12 +72,6 @@ To customize your own configs, you can fork this project before the below steps.
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-#### Install Coreutils
-
-```bash
-brew install coreutils
 ```
 
 #### Install Python & Pipx
@@ -155,11 +172,90 @@ Or use the shortcut to go to the `terminal-setup` repo:
 go-rc-repo
 ```
 
-The you can start to customize your shell.
+Then you can start to customize your shell.
 
 ## Color for powerlevel10k
 
 If you would like to customize the color scheme of powerlevel10k, please see [This chart](https://user-images.githubusercontent.com/704406/43988708-64c0fa52-9d4c-11e8-8cf9-c4d4b97a5200.png).
+
+## Custom Functions and Aliases
+
+This setup includes several custom functions and aliases to improve your productivity. Here's a list of what's available:
+
+### Custom Functions
+
+- `cl`: Change to a directory and list its contents
+- `home`: Change to the home directory and display a welcome message
+- `gow`: Go to the work projects directory
+- `gop`: Go to the personal projects directory
+- `gol`: Go to the libraries directory
+- `odg`: Interactive menu to select and go to different IXT projects
+- `select_menu`: Interactive menu to select an option from a list
+- `update_git`: Check for and update Git to the latest version
+- `update_terminal_setup`: Update the terminal setup itself
+- `load-node-version`: Automatically use the correct Node.js version based on .tool-versions or .nvmrc files
+
+### Custom Aliases
+
+- `edit`: Open files in the default editor (set to VSCode)
+- `edit-rc`: Edit the .zshrc file
+- `go-rc-repo`: Go to the terminal setup repository
+- `edit-ssh`: Edit the SSH config file
+- `source-rc`: Source (reload) the .zshrc file
+- `paths`: Display all directories in PATH, one per line
+- `weather`: Show weather information using wttr.in
+
+#### Git Aliases
+
+- `gclb`: Clean local branches (except main and develop)
+- `gclmb`: Clean merged branches
+- `gfap`: Fetch all and pull
+- `gfapr`: Fetch all and pull with rebase
+- `gpuoc`: Push and set upstream to origin for the current branch
+
+#### System-specific Aliases
+
+macOS:
+
+- `unu`: Update and upgrade Homebrew packages
+
+Linux:
+
+- `unu`: Update and upgrade apt packages
+- `ffind`: Fuzzy find files
+- `monitor`: Monitor system resources using gotop
+- `mand`: Analyze disk usage with ncdu (excluding /mnt)
+
+#### Docker Aliases
+
+- `docker-all`: List all Docker containers with details
+- `docker-ls`: List running Docker containers with details
+
+#### Other Aliases
+
+- `c`: Clear the terminal
+- `python`: Alias for python3
+- `pip`: Alias for pip3
+
+## Troubleshooting
+
+### Font Issues
+
+If you're seeing boxes or question marks instead of special characters in your prompt:
+
+1. Make sure you've installed the recommended fonts (Meslo or FiraCode).
+2. Ensure your terminal is set to use one of these fonts.
+3. If using iTerm2, go to Settings > Profiles > Text and select the appropriate font.
+
+### Node.js Version Switching Issues
+
+If automatic Node.js version switching isn't working:
+
+1. Make sure asdf is properly installed and configured.
+2. Check if you have a `.tool-versions` or `.nvmrc` file in your project directory.
+3. Try running `asdf reshim nodejs` after installing a new Node.js version.
+
+For any other issues, please open an issue on the GitHub repository.
 
 ## Windows
 
@@ -173,3 +269,11 @@ If you would like to customize the color scheme of powerlevel10k, please see [Th
 ### Setup PowerShell
 
 See [PowerShell Setup](./posh/README.md)
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

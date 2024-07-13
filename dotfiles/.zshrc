@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-# shellcheck disable=SC2034
 
 # ==================================================================================================
 
@@ -15,8 +14,6 @@
 if [ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${USER}.zsh" ]; then
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${USER}.zsh"
 fi
-
-unset prompt_cr
 
 # ===> Terminal Setup Cache ========================================================================
 TERMINAL_SETUP_CACHE="$HOME/.terminal-setup-cache"
@@ -89,10 +86,6 @@ Linux)
     ;;
 esac
 
-# ===> Terminal Tab Title (Optional) ===============================================================
-# DISABLE_AUTO_TITLE="true"
-# ==================================================================================================
-
 # ===> Language Configuration (Optional) ===========================================================
 # --------------------------------------------------------------------------------------------------
 # -------> Set All to Traditional Chinese (Taiwan) -------------------------------------------------
@@ -107,18 +100,11 @@ export LANG="zh_TW.UTF-8"
 
 # Run `locale` to see the details of language configs
 
-# export LC_CTYPE="zh_TW.UTF-8"
-# export LC_NUMERIC="zh_TW.UTF-8"
-# export LC_TIME="zh_TW.UTF-8"
-# export LC_COLLATE="zh_TW.UTF-8"
-# export LC_MONETARY="zh_TW.UTF-8"
+export LC_CTYPE="zh_TW.UTF-8"
+# export LC_CTYPE="en_US.UTF-8"
+
+# export LC_MESSAGES="zh_TW.UTF-8"
 export LC_MESSAGES="en_US.UTF-8"
-# export LC_PAPER="zh_TW.UTF-8"
-# export LC_NAME="zh_TW.UTF-8"
-# export LC_ADDRESS="zh_TW.UTF-8"
-# export LC_TELEPHONE="zh_TW.UTF-8"
-# export LC_MEASUREMENT="zh_TW.UTF-8"
-# export LC_IDENTIFICATION="zh_TW.UTF-8"
 # ==================================================================================================
 
 # ===> Zinit & Prezto ==============================================================================
@@ -160,6 +146,9 @@ zi snippet PZTM::git
 zi ice wait'!'
 zi snippet PZT::modules/gnu-utility
 
+zi ice wait'!'
+zi snippet PZT::modules/utility
+
 zi ice wait'!' lucid \
     atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay"
 zi load zdharma-continuum/fast-syntax-highlighting
@@ -178,9 +167,6 @@ zi ice depth=1
 zi light romkatv/powerlevel10k
 
 zi snippet PZT::modules/prompt
-
-# Fix git reset HEAD^: zsh: no matches found: HEAD^
-setopt NO_NOMATCH
 # ==================================================================================================
 
 # ===> asdf (Optional) =============================================================================
@@ -217,9 +203,7 @@ PROJS_BASE=$HOME/projects
 [ ! -d "$PROJS_BASE" ] && mkdir -p "$PROJS_BASE"
 [ ! -d "$PROJS_BASE/work" ] && mkdir -p "$PROJS_BASE/work"
 [ ! -d "$PROJS_BASE/personal" ] && mkdir -p "$PROJS_BASE/personal"
-[ ! -d "$PROJS_BASE/games" ] && mkdir -p "$PROJS_BASE/games"
-[ ! -d "$PROJS_BASE/archived" ] && mkdir -p "$PROJS_BASE/archived"
-[ ! -d "$PROJS_BASE/lib" ] && mkdir -p "$PROJS_BASE/lib"
+[ ! -d "$PROJS_BASE/libs" ] && mkdir -p "$PROJS_BASE/libs"
 # ==================================================================================================
 
 # ===> Path ========================================================================================
@@ -238,39 +222,6 @@ addToPATH "$TERMINAL_SETUP_LOCAL_BIN_DIR"
 addToPATH "$HOME/bin"
 addToPATH "$HOME/.local/bin"
 addToPATH "/usr/local/bin"
-
-# --------> For Yarn (Optional) --------------------------------------------------------------------
-addToPATH "$HOME/.yarn/bin"
-
-# --------> For Godot (Optional) -------------------------------------------------------------------
-# export GODOT4_BIN=/Applications/Godot.app/Contents/MacOS/Godot
-
-# --------> For Laravel (Optional) -----------------------------------------------------------------
-addToPATH "$HOME/.composer/vendor/bin"
-
-# --------> For Pyenv (Optional) -------------------------------------------------------------------
-# export PYENV_ROOT="$HOME/.pyenv"
-# addToPATH "$PYENV_ROOT/bin:$PATH"
-# eval "$(pyenv init --path)"
-# eval "$(pyenv init -)"
-# eval "$(pyenv virtualenv-init -)"
-
-# --------> Go (Optional) --------------------------------------------------------------------------
-export GOPATH="$HOME/go"
-[ ! -d "$GOPATH" ] && mkdir -p "$GOPATH"
-addToPATH "$GOPATH/bin"
-
-# if [ -x "$(command -v go)" ]; then
-#     LATEST_GO_VERSION=$(curl -sL https://go.dev/dl/\#stable | grep -A10 'id="stable"' | grep -o 'id="go[0-9\.]*"' | grep -o 'go[0-9\.]*' | grep -o '[0-9\.]*')
-#     CURRENT_GO_VERSION=$(go version | grep -o 'go[0-9\.]*' | grep -o '[0-9\.]*')
-#     if [ "$CURRENT_GO_VERSION" != "$LATEST_GO_VERSION" ]; then
-#         echo
-#         echo "Go update available! ${RED}$CURRENT_GO_VERSION${NC} → ${GREEN}$LATEST_GO_VERSION${NC}"
-#         echo
-#     fi
-# fi
-# --------> Export PATH ----------------------------------------------------------------------------
-export PATH
 # ==================================================================================================
 
 # ===> Alias: Editor ===============================================================================
@@ -307,24 +258,25 @@ alias ln='ln -iv'
 alias mkdir='mkdir -pv'
 alias ssh='ssh -v -tt -A' # Use '-vvv' for top-level verbose
 alias ping='ping -c 5'
-alias mk='make'
 alias sudo='sudo '
-alias codes='code-insiders'
+# ==================================================================================================
+
+# ===> Lazy Load Function ==========================================================================
+lazy_load() {
+    local func_name="$1"
+    local load_cmd="$2"
+    eval "${func_name}() { unfunction ${func_name}; eval '${load_cmd}'; ${func_name} \$@ }"
+}
 # ==================================================================================================
 
 # ===> Functions: Shortcut =========================================================================
 cl() {
-    cd "$1" && ls -l
+    cd "$1" && la
 }
 
 home() {
     cl "$HOME"
     printf "\nWelcome home!\n\n"
-}
-
-goj() {
-    cl "$PROJS_BASE"
-    printf "\nOK, ready to do something amazing :)\n\n"
 }
 
 gow() {
@@ -337,24 +289,9 @@ gop() {
     printf "\nOK, ready to do something amazing :)\n\n"
 }
 
-gog() {
-    cl "$PROJS_BASE/games"
-    printf "\nOK, ready to do something amazing :)\n\n"
-}
-
-goa() {
-    cl "$PROJS_BASE/archived"
-    printf "\nHere are the archived projects :)\n\n"
-}
-
 gol() {
-    cl "$PROJS_BASE/lib"
+    cl "$PROJS_BASE/libs"
     printf "\nHere are the third-party libraries :)\n\n"
-}
-
-gogo() {
-    cl "$GOPATH"
-    printf "\nOK, you are ready to Go :)\n\n"
 }
 
 odg() {
@@ -427,7 +364,6 @@ esac
 alias c='clear'
 alias edit-rc='edit $HOME/.zshrc'
 alias go-rc-repo="cd $PROJS_BASE/personal/terminal-setup"
-alias grr=go-rc-repo
 alias edit-ssh='edit $HOME/.ssh/config'
 alias source-rc='source $HOME/.zshrc'
 alias paths='echo && echo -e ${PATH//:/\\n} | sort -n'
@@ -506,9 +442,6 @@ case $OS_NAME in
     alias pip='pip3'
     ;;
 esac
-
-# for Python 3.11
-# addToPATH "$(brew --prefix)/opt/python@3.11/libexec/bin"
 # ==================================================================================================
 
 # ===> PNPM (Optional) =============================================================================
@@ -529,51 +462,6 @@ GIT_EDITOR="vim"
 git config --global pull.ff only              # set git pull --ff-only
 git config --global init.defaultBranch main   # set default init branch
 git config --global core.editor "$GIT_EDITOR" # set default editor
-
-# --------> Quickly update Git ---------------------------------------------------------------------
-update_git() {
-    printf "\nCurrent %s\n\n" "$(git --version)"
-    printf "Start to update Git...\n\n"
-    case $OS_NAME in
-    "$MACOS")
-        brew list git || brew install git
-        brew update && brew upgrade git &&
-            printf "\nCurrent %s\n\n" "$(git --version)" &&
-            printf "Git updated successfully.\n\n" &&
-            source-rc
-        ;;
-    "$LINUX")
-        case $DISTRO_NAME in
-        "$RHEL") ;;
-        *)
-            sudo add-apt-repository ppa:git-core/ppa -y &&
-                sudo apt-get update &&
-                sudo apt-get install git -y &&
-                printf "\nCurrent %s\n\n" "$(git --version)" &&
-                printf "Git updated successfully.\n"
-            ;;
-        esac
-        ;;
-    esac
-}
-# ==================================================================================================
-
-# ===> SSH Agent (Optional) ========================================================================
-if [ "$0" = "$ZSH_SHELL_NAME" ]; then # don't run when source .zshrc
-    # SSH_KEY_FILE=$HOME/.ssh/id_rsa
-    SSH_KEY_FILE=$HOME/.ssh/id_ed25519
-
-    if [ "$(eval 'ps ax | grep "[s]sh-agent" | wc -l' 2>/dev/null)" -gt 0 ]; then
-        echo "ssh-agent is already running" >/dev/null
-    else
-        eval "$(ssh-agent -s)"
-        if [[ "$(ssh-add -l)" == "The agent has no identities." ]]; then
-            ssh-add "$SSH_KEY_FILE"
-        fi
-        # Kill it on exit. You may not want this part.
-        # trap "ssh-agent -k" EXIT
-    fi
-fi
 # ==================================================================================================
 
 # ===> Docker Deamon (Optional for WSL) ============================================================
@@ -711,12 +599,12 @@ add-zsh-hook chpwd load-node-version
 load-node-version
 # ==================================================================================================
 
-typeset -U path                       # remove duplicates in $PATH
+# ===> Path Configuration ==========================================================================
+export PATH
+typeset -U path # remove duplicates in $PATH
+# ==================================================================================================
+
 if [ "$0" = "$ZSH_SHELL_NAME" ]; then # don't run when source .zshrc
-
-    # update & upgrade packages once shell launched
-    # { [ $DISTRO_NAME = $UBUNTU ] || [ $OS_NAME = $MACOS ]; } && unu
-
     # change directory to $HOME
     cd "$HOME" || exit
 fi
