@@ -1,4 +1,8 @@
 #!/bin/bash
+# shellcheck disable=SC1091
+
+GREEN="\033[0;32m"
+NC="\033[0m"
 
 LINUX="Linux"
 MACOS="macOS"
@@ -14,22 +18,37 @@ Linux)
 esac
 
 update_git() {
-    printf "\nCurrent %s\n\n" "$(git --version)"
-    printf "Start to update Git...\n\n"
+    local LOCAL_GIT_VERSION
+    LOCAL_GIT_VERSION=$(command git --version | cut -d ' ' -f 3)
+
+    local LATEST_GIT_VERSION
+    LATEST_GIT_VERSION=$(curl --silent https://mirrors.edge.kernel.org/pub/software/scm/git/ | grep tar | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+' | sort --version-sort | tail -1)
+
+    echo
+    echo -e "Current Git Version: $LOCAL_GIT_VERSION"
+    echo
+    echo -e "Latest Git Version: $LATEST_GIT_VERSION"
+    echo
+
+    if [ "$LOCAL_GIT_VERSION" = "$LATEST_GIT_VERSION" ]; then
+        echo -e "${GREEN}Git is already up-to-date.${NC}"
+        return
+    fi
+
+    echo -e "Start to update Git..."
+    echo
     case $OS_NAME in
     "$MACOS")
         brew list git || brew install git
         brew update && brew upgrade git &&
-            printf "\nCurrent %s\n\n" "$(git --version)" &&
-            printf "Git updated successfully.\n\n" &&
-            source-rc
+            echo -e "${GREEN}Git updated successfully.${NC}" &&
+            source "$HOME/.zshrc"
         ;;
     "$LINUX")
         sudo add-apt-repository ppa:git-core/ppa -y &&
             sudo apt-get update &&
             sudo apt-get install git -y &&
-            printf "\nCurrent %s\n\n" "$(git --version)" &&
-            printf "Git updated successfully.\n"
+            echo -e "${GREEN}Git updated successfully.${NC}"
         ;;
     esac
 }
