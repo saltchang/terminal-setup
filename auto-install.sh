@@ -90,8 +90,9 @@ case $OS_NAME in
     ;;
 "$LINUX")
     if ! [ -f "/usr/local/share/fonts/MesloLGLNerdFont-Regular.ttf" ]; then
-        curl -s -L -o /tmp/Meslo.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.tar.xz
-        tar -xf /tmp/Meslo.tar.xz -d /tmp/Meslo
+        curl -s -L -o /tmp/Meslo.tar.xz https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.tar.xz
+        mkdir -p /tmp/Meslo
+        tar xvf /tmp/Meslo.tar.xz -C /tmp/Meslo
         sudo cp /tmp/Meslo/*.ttf /usr/local/share/fonts
     fi
     echo -e "${GREEN}font \"Meslo\" is already installed${NC}"
