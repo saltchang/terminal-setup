@@ -28,6 +28,15 @@ if [ -z "$REPO" ]; then
 fi
 # ==================================================================================================
 
+# ===> Prompt User for installing Pnpm =============================================================
+printf "\nDo you want to install pnpm? (y/n, default: y): \n> "
+read -r INSTALL_PNPM </dev/tty
+
+if [ -z "$INSTALL_PNPM" ]; then
+    INSTALL_PNPM="y"
+fi
+# ==================================================================================================
+
 echo
 echo "Check and install necessary stuffs..."
 echo
@@ -74,6 +83,7 @@ case $OS_NAME in
     ;;
 *) ;;
 esac
+# ==================================================================================================
 
 # ===> Install Fonts ===============================================================================
 # download and install font if it's not installed: Meslo & Fira Code
@@ -111,6 +121,17 @@ case $OS_NAME in
     ;;
 *) ;;
 esac
+# ==================================================================================================
+
+# ===> Install packages ============================================================================
+# Install pnpm if it's not installed
+if [ "$INSTALL_PNPM" = "y" ]; then
+    if ! [ -x "$(command -v pnpm)" ]; then
+        echo "Installing pnpm..."
+        curl -fsSL https://get.pnpm.io/install.sh | sh -
+    fi
+    echo -e "${GREEN}pnpm is already installed${NC}"
+fi
 # ==================================================================================================
 
 # ===> Setup zsh ===================================================================================
