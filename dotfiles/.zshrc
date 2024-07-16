@@ -3,7 +3,7 @@
 # ==================================================================================================
 
 # Name:         .zshrc
-# Description:   zsh configuration for macOS, Linux, and WSL
+# Description:   zsh configuration for macOS, Ubuntu/Debian, and WSL
 
 # ==================================================================================================
 

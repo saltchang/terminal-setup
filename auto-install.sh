@@ -77,7 +77,7 @@ case $OS_NAME in
 "$LINUX")
     # install jump if it's not installed
     if ! [ -x "$(command -v jump)" ]; then
-        wget https://github.com/gsamokovarov/jump/releases/download/v0.51.0/jump_0.51.0_amd64.deb && sudo dpkg -i jump_0.51.0_amd64.deb
+        sudo snap install jump
     fi
     echo -e "${GREEN}jump is already installed${NC}"
     ;;

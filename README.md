@@ -1,12 +1,12 @@
 # Terminal Setup
 
-Terminal setup for zsh in macOS, Linux, and Windows.
+Terminal setup for zsh in macOS, Ubuntu/Debian, and Windows.
 
 ![Terminal Demo](./images/demo-terminal.png)
 
 ## Key Features
 
-- Cross-platform support (macOS, Linux, and Windows)
+- Cross-platform support (macOS, Ubuntu/Debian, and Windows)
 - Customizable zsh configuration
 - [Powerline10k](https://github.com/romkatv/powerlevel10k) theme for a beautiful and informative prompt
 - Zinit plugin manager with the following plugins:
