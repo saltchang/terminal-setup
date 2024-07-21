@@ -25,18 +25,10 @@ Terminal setup for zsh in macOS, Ubuntu/Debian, and Windows.
 - Rust version checking
 - [Customizable aliases and functions](#custom-functions-and-aliases) for improved productivity
 - Automatic software updates (Homebrew, apt, etc.)
-- Integration with [iTerm2](https://iterm2.com/) on macOS and [Windows Terminal](https://github.com/microsoft/terminal) on Windows
-
-## Pre-requirements for macOS
-
-### Install & Config iTerm
-
-1. Install [iTerm2](https://iterm2.com/)
-2. Open your iTerm > Settings > Profiles > Other Actions > Import JSON Profiles > Choose this [iTerm Profile](./terminal-config/iTerm/Salty_iTerm_Profile.json)
-3. After you setup: Other Actions > Set as Default
-4. Restart iTerm
-
-*For Windows, see [Windows Section](#windows)*
+- Terminal Integration
+  - [Alacritty](https://alacritty.org) (macOS, Linux, Windows)
+  - [iTerm2](https://iterm2.com) (macOS)
+  - [Windows Terminal](https://github.com/microsoft/terminal) (Windows or WSL)
 
 ## Auto Installation (Recommended)
 
@@ -45,22 +37,47 @@ Terminal setup for zsh in macOS, Ubuntu/Debian, and Windows.
 2. Run the below to setup the terminal automatically:
 
     ```bash
-    sudo curl -s https://raw.githubusercontent.com/saltchang/terminal-setup/main/auto-install.sh | bash
+    sudo curl -fsSL https://raw.githubusercontent.com/saltchang/terminal-setup/HEAD/install.sh | sh -
     ```
 
     It will setup the terminal by the below steps:
 
-    1. Install homebrew, python and pipx for macOS
+    1. Install homebrew, coreutils, python and pipx for macOS
     2. Install fonts: Meslo & Fira Code
     3. Install and setup zsh
     4. Clone this project into `$HOME/projects/personal/terminal-setup`
     5. Create a soft link from `$HOME/.zshrc` to the one in this project
     6. Create a soft link from `$HOME/.p10k.zsh` to the one in this project
     7. Create a soft link from `$HOME/.local/terminal-setup/bin` to the one in this project
+    8. Optionally install pnpm
+    9. Optionally install alacritty
+    10. Setup alacritty config by creating a soft link from `$HOME/.config/alacritty/alacritty.toml` to the one in this project
 
 3. After the installation, restart your terminal or run `source $HOME/.zshrc`, you should see the new face of the shell
 
 ## Manual Installation
+
+*For Windows, see [Windows Section](#windows)*
+
+### Setup Your Terminal
+
+#### Install Alacritty (macOS, Linux)
+
+1. Install [Alacritty](https://alacritty.org)
+2. You can setup the config by copying the [Alacritty Config](./terminal-config/alacritty/alacritty.toml) to your `~/.config/alacritty/alacritty.toml` or run the install script:
+
+    ```bash
+    ./setup-alacritty.sh
+    ```
+
+    It will create a symbolic link to the config from your `~/.config/alacritty/alacritty.toml`
+
+#### Install & Config iTerm (macOS)
+
+1. Install [iTerm2](https://iterm2.com/)
+2. Open your iTerm > Settings > Profiles > Other Actions > Import JSON Profiles > Choose this [iTerm Profile](./terminal-config/iTerm/Salty_iTerm_Profile.json)
+3. After you setup: Other Actions > Set as Default
+4. Restart iTerm
 
 ### Customize Your Configs
 
@@ -154,12 +171,12 @@ Then restart your terminal
 
 ### Setup the Shell
 
-To setup the shell, just run the installation script:
+To setup the shell, just run the script:
 
 ```bash
 cd terminal-setup
 
-./install.sh
+./setup.sh
 ```
 
 It will create a soft link from `~/.zshrc` to the one in this project, check `dotfiles/.zshrc`.

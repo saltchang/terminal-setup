@@ -518,8 +518,20 @@ function cargo() {
 }
 # ==================================================================================================
 
-# ===> Automatically use the correct node version if exists, with legacy .nvmrc support =============
-# ===> Installs the node version if not already installed ==========================================
+# ===> Zsh hooks ===================================================================================
+# ---> Set terminal title to current directory -----------------------------------------------------
+
+autoload -Uz add-zsh-hook
+
+function set-title() {
+    local window_title="\033]0;${PWD##*/}\007"
+    echo -ne "$window_title"
+}
+
+add-zsh-hook precmd set-title
+# --------------------------------------------------------------------------------------------------
+
+# ---> Automatically use the correct node version if exists ----------------------------------------
 autoload -U add-zsh-hook
 load-node-version() {
     local asdf_node_version="$(asdf current nodejs 2>/dev/null | awk '{print $2}')"
@@ -529,6 +541,7 @@ load-node-version() {
     if [ -f ".tool-versions" ]; then
         directory_node_version="$(cat .tool-versions | grep nodejs | awk '{print $2}')"
     elif [ -f ".nvmrc" ]; then
+        # with legacy .nvmrc support
         legacy_nvmrc_node_version="$(cat .nvmrc)"
     fi
 
@@ -546,6 +559,7 @@ load-node-version() {
 }
 add-zsh-hook chpwd load-node-version
 load-node-version
+# --------------------------------------------------------------------------------------------------
 # ==================================================================================================
 
 # ===> Path Configuration ==========================================================================

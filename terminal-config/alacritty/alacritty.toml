@@ -1,0 +1,57 @@
+# Specification: https://github.com/alacritty/alacritty/blob/master/extra/man/alacritty.5.scd
+[window.dimensions]
+lines = 25
+columns = 100
+
+[window]
+opacity = 0.8
+blur = true
+option_as_alt = "Both"
+
+[font]
+size = 15
+
+[font.normal]
+family = "MesloLGL Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "MesloLGL Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "MesloLGL Nerd Font"
+style = "Italic"
+
+# Theme: Salty Nozo
+[colors.primary]
+background = "#001209"
+foreground = "#E5C49E"
+
+[colors.normal]
+black = "#1D485F"
+blue = "#5FB1C2"
+cyan = "#A6DFEB"
+green = "#84C47E"
+magenta = "#9E56B4"
+red = "#E76D54"
+white = "#C6E8F1"
+yellow = "#E1D471"
+
+[colors.bright]
+black = "#008EAB"
+blue = "#77DBF4"
+cyan = "#0BC7E3"
+green = "#69F197"
+magenta = "#B682D8"
+red = "#FF8274"
+white = "#FFFFFF"
+yellow = "#FEDAAE"
+
+[colors.cursor]
+text = "#000000"
+cursor = "#FFFFFF"
+
+[colors.selection]
+text = "#BF9729"
+background = "#265B75"

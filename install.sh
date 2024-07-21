@@ -2,71 +2,220 @@
 
 # ===> Colors ======================================================================================
 GREEN="\033[32m"
-YELLOW="\033[33m"
-ERROR="\033[31m"
 NC="\033[0m"
 # ==================================================================================================
 
-TERMINAL_SETUP_LOCAL_DIR="$HOME/.local/terminal-setup/"
-TERMINAL_SETUP_LOCAL_BIN_DIR="$TERMINAL_SETUP_LOCAL_DIR/bin"
-TERMINAL_SETUP_REPO_BIN_DIR="$(pwd)/bin"
+OS_NAME=""
+LINUX="Linux"
+MACOS="macOS"
 
-ZPROFILE_SOURCE_REL="dotfiles/.zprofile"
-ZPROFILE_SOURCE="$(pwd)/$ZPROFILE_SOURCE_REL"
+case $(uname) in
+Darwin)
+    OS_NAME=$MACOS
+    ;;
 
-ZSHRC_SOURCE_REL="dotfiles/.zshrc"
-ZSHRC_SOURCE="$(pwd)/$ZSHRC_SOURCE_REL"
+Linux)
+    OS_NAME=$LINUX
+    ;;
+esac
 
-P10K_SOURCE_REL="dotfiles/.p10k.zsh"
-P10K_SOURCE="$(pwd)/$P10K_SOURCE_REL"
+# ===> Prompt User for the repo to clone ===========================================================
+printf "Please enter the terminal-setup github repo to clone (default: saltchang/terminal-setup): \n> "
+read -r REPO </dev/tty
 
-[ ! -d "$TERMINAL_SETUP_REPO_BIN_DIR" ] && echo -e "${ERROR}Directory not found: \"$TERMINAL_SETUP_REPO_BIN_DIR\". You may be in the wrong directory >>> Exit 1${NC}" && exit 1
+if [ -z "$REPO" ]; then
+    REPO="saltchang/terminal-setup"
+fi
+# ==================================================================================================
 
-[ ! -e "$ZPROFILE_SOURCE" ] && echo -e "${ERROR}File not found: \"./$ZPROFILE_SOURCE_REL\". You may be in the wrong directory >>> Exit 1${NC}" && exit 1
+# ===> Prompt User for installing Pnpm =============================================================
+printf "\nDo you want to install pnpm(https://pnpm.io/)? (y/n, default: y): \n> "
+read -r INSTALL_PNPM </dev/tty
 
-[ ! -e "$ZSHRC_SOURCE" ] && echo -e "${ERROR}File not found: \"./$ZSHRC_SOURCE_REL\". You may be in the wrong directory >>> Exit ${NC}" && exit 1
+if [ -z "$INSTALL_PNPM" ]; then
+    INSTALL_PNPM="y"
+fi
+# ==================================================================================================
 
-[ ! -e "$P10K_SOURCE" ] && echo -e "${ERROR}File not found: \"./$P10K_SOURCE_REL\". You may be in the wrong directory >>> Exit 1${NC}" && exit 1
+# ===> Prompt User for using alacritty as terminal app =============================================
+printf "\nDo you want to use Alacritty(https://alacritty.org) as terminal app? (y/n, default: y): \n> "
+read -r USE_ALACRITTY </dev/tty
 
-chmod 600 "$ZPROFILE_SOURCE"
-
-chmod 600 "$ZSHRC_SOURCE"
-
-chmod 600 "$P10K_SOURCE"
-
-ZPROFILE_FILE="$HOME/.zprofile"
-
-ZSHRC_FILE="$HOME/.zshrc"
-
-P10KZSH_FILE="$HOME/.p10k.zsh"
-
-echo "Check and remove original files and directories..."
-echo
-
-[ -e "$ZPROFILE_FILE" ] && rm "$ZPROFILE_FILE" 2>/dev/null && echo -e "${GREEN}Removed original .zprofile${NC}"
-
-[ -e "$ZSHRC_FILE" ] && rm "$ZSHRC_FILE" 2>/dev/null && echo -e "${GREEN}Removed original .zshrc${NC}"
-
-[ -e "$P10KZSH_FILE" ] && rm "$P10KZSH_FILE" 2>/dev/null && echo -e "${GREEN}Removed original .p10k.zsh${NC}"
-
-[ -d "$TERMINAL_SETUP_LOCAL_BIN_DIR" ] && rm -rf "$TERMINAL_SETUP_LOCAL_BIN_DIR" 2>/dev/null && echo -e "${GREEN}Removed original directory: $TERMINAL_SETUP_LOCAL_BIN_DIR${NC}"
+if [ -z "$USE_ALACRITTY" ]; then
+    USE_ALACRITTY="y"
+fi
+# ==================================================================================================
 
 echo
-echo "Check and create new symbolic links..."
+echo "Check and install necessary stuffs..."
 echo
 
-[ ! -d "$TERMINAL_SETUP_LOCAL_DIR" ] && mkdir -p "$TERMINAL_SETUP_LOCAL_DIR" && echo -e "${GREEN}Created new directory: $TERMINAL_SETUP_LOCAL_DIR${NC}"
+# ===> Basic Setup By System =======================================================================
+case $OS_NAME in
+"$MACOS")
+    if ! [ -x "$(command -v brew)" ]; then
+        echo "Installing Homebrew..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-ln -s "$TERMINAL_SETUP_REPO_BIN_DIR" "$TERMINAL_SETUP_LOCAL_BIN_DIR" && echo -e "${GREEN}Created a new symbolic link from $TERMINAL_SETUP_LOCAL_BIN_DIR to $TERMINAL_SETUP_REPO_BIN_DIR${NC}"
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
+    echo -e "${GREEN}homebrew is already installed${NC}"
 
-ln -s "$ZPROFILE_SOURCE" "$ZPROFILE_FILE" && echo -e "${GREEN}Created a new symbolic link from $ZPROFILE_FILE to $ZPROFILE_SOURCE${NC}"
+    # install coreutils if it's not installed
+    if ! [ -x "$(command -v greadlink)" ]; then
+        echo "Installing coreutils..."
+        brew install coreutils
+    fi
+    echo -e "${GREEN}coreutils is already installed${NC}"
 
-ln -s "$ZSHRC_SOURCE" "$ZSHRC_FILE" && echo -e "${GREEN}Created a new symbolic link from $ZSHRC_FILE to $ZSHRC_SOURCE${NC}"
+    # install jump if it's not installed
+    if ! [ -x "$(command -v jump)" ]; then
+        echo "Installing jump..."
+        brew install jump
+    fi
+    echo -e "${GREEN}jump is already installed${NC}"
 
-ln -s "$P10K_SOURCE" "$P10KZSH_FILE" && echo -e "${GREEN}Created a new symbolic link from $P10KZSH_FILE to $P10K_SOURCE${NC}"
+    # install python3 if it's not installed via homebrew
+    BREW_PYTHON_PATH=$(brew --prefix python3 2>/dev/null)
+    if ! [ -x "$(command -v python3)" ] || [ -z "$BREW_PYTHON_PATH" ]; then
+        echo "Installing python3..."
+        brew install python3
+    fi
+    echo -e "${GREEN}python3 is already installed via homebrew${NC}"
+
+    # install pipx if it's not installed
+    if ! [ -x "$(command -v pipx)" ]; then
+        echo "Installing pipx..."
+        brew install pipx
+    fi
+    echo -e "${GREEN}pipx is already installed${NC}"
+    ;;
+"$LINUX")
+    # install jump if it's not installed
+    if ! [ -x "$(command -v jump)" ]; then
+        sudo snap install jump
+    fi
+    echo -e "${GREEN}jump is already installed${NC}"
+    ;;
+*) ;;
+esac
+# ==================================================================================================
+
+# ===> Install Fonts ===============================================================================
+# download and install font if it's not installed: Meslo & Fira Code
+case $OS_NAME in
+"$MACOS")
+    if ! [ -f "/Library/Fonts/MesloLGLNerdFont-Regular.ttf" ]; then
+        echo "Installing Meslo..."
+        curl -s -L -o /tmp/Meslo.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip
+        unzip /tmp/Meslo.zip -d /tmp/Meslo
+        cp /tmp/Meslo/*.ttf /Library/Fonts
+    fi
+    echo -e "${GREEN}font \"Meslo\" is already installed${NC}"
+
+    if ! [ -f "/Library/Fonts/FiraCode-Regular.ttf" ]; then
+        curl -s -L -o /tmp/FiraCode_v6.2.zip https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip
+        unzip /tmp/FiraCode_v6.2.zip -d /tmp/FiraCode
+        cp /tmp/FiraCode/ttf/*.ttf /Library/Fonts
+    fi
+    echo -e "${GREEN}font \"Fira Code\" is already installed${NC}"
+    ;;
+"$LINUX")
+    if ! [ -f "/usr/local/share/fonts/MesloLGLNerdFont-Regular.ttf" ]; then
+        curl -s -L -o /tmp/Meslo.tar.xz https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.tar.xz
+        mkdir -p /tmp/Meslo
+        tar xvf /tmp/Meslo.tar.xz -C /tmp/Meslo
+        sudo cp /tmp/Meslo/*.ttf /usr/local/share/fonts
+    fi
+    echo -e "${GREEN}font \"Meslo\" is already installed${NC}"
+
+    if ! [ -f "/usr/local/share/fonts/FiraCode-Regular.ttf" ]; then
+        sudo apt install fonts-firacode
+        sudo fc-cache -f -v
+    fi
+    echo -e "${GREEN}font \"Fira Code\" is already installed${NC}"
+    ;;
+*) ;;
+esac
+# ==================================================================================================
+
+# ===> Install packages ============================================================================
+# Install pnpm if it's not installed
+if [ "$INSTALL_PNPM" = "y" ]; then
+    if ! [ -x "$(command -v pnpm)" ]; then
+        echo "Installing pnpm..."
+        curl -fsSL https://get.pnpm.io/install.sh | sh -
+    fi
+    echo -e "${GREEN}pnpm is already installed${NC}"
+fi
+# ==================================================================================================
+
+# ===> Install alacritty ===========================================================================
+if [ "$USE_ALACRITTY" = "y" ]; then
+    case $OS_NAME in
+    "$MACOS")
+        if ! [ -x "$(command -v alacritty)" ]; then
+            echo "Installing alacritty..."
+            brew install alacritty
+        fi
+        echo -e "${GREEN}alacritty is already installed${NC}"
+        ;;
+    "$LINUX")
+        if ! [ -x "$(command -v alacritty)" ]; then
+            sudo snap install alacritty --classic
+        fi
+        echo -e "${GREEN}alacritty is already installed${NC}"
+        ;;
+    *) ;;
+    esac
+fi
+# ==================================================================================================
+
+# ===> Setup zsh ===================================================================================
+# install zsh if it's not installed
+if ! [ -x "$(command -v zsh)" ]; then
+    case $OS_NAME in
+    "$MACOS")
+        brew install zsh
+        ;;
+    "$LINUX")
+        sudo apt update && sudo apt -y install zsh
+        ;;
+    *) ;;
+    esac
+fi
+echo -e "${GREEN}zsh is already installed${NC}"
+
+# set zsh as default shell if not
+if [ "$SHELL" != "$(which zsh)" ]; then
+    echo "Setting zsh as default shell..."
+    chsh -s "$(which zsh)"
+fi
+echo -e "${GREEN}zsh is already set as default shell${NC}"
+# ==================================================================================================
+
+# ===> Clone and setup =============================================================================
+mkdir -p "$HOME/projects/personal"
+cd "$HOME/projects/personal" || exit 1
+
+if [ -d "$HOME/projects/personal/terminal-setup" ]; then
+    echo -e "${GREEN}terminal-setup is already cloned${NC}"
+else
+    echo "Cloning terminal-setup..."
+    # check if git ssh key is setup
+    if [ -f "$HOME/.ssh/id_rsa" ] || [ -f "$HOME/.ssh/id_ed25519" ]; then
+        git clone "git@github.com:$REPO.git" || (echo -e "\nFailed to clone the repo via ssh, try https..\n" && git clone "https://github.com/$REPO.git")
+    else
+        git clone "https://github.com/$REPO.git"
+    fi
+fi
+
+cd terminal-setup || exit 1
 
 echo
 
-echo "Setup completed!"
-echo
-echo -e "${YELLOW}Please restart your terminal or run \`source \$HOME/.zshrc\` to reload .zshrc${NC}"
+if [ "$USE_ALACRITTY" = "y" ]; then
+    ./setup.sh --setup-alacritty
+else
+    ./setup.sh
+fi
