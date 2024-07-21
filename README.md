@@ -74,6 +74,14 @@ To customize your own configs, you can fork this project before the below steps.
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
+#### Install coreutils
+
+[GNU-coreutils](https://formulae.brew.sh/formula/coreutils) is required for some commands in macOS.
+
+```bash
+brew install coreutils
+```
+
 #### Install Python & Pipx
 
 ```bash

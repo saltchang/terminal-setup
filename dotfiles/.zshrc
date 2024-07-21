@@ -234,39 +234,20 @@ alias edit='code' # VSCode
 # ==================================================================================================
 
 # ===> Alias: Basic Command ========================================================================
-case $OS_NAME in
-"$MACOS")
-    alias ls='ls -hF --color=always'
-    alias ll='ls -l --time-style=long-iso --group-directories-first'
-    alias rm='rm -iv'
-    ;;
-
-"$LINUX")
-    alias ls='echo && ls -hF --color=always'
-    alias ll='ls -l --time-style=long-iso --group-directories-first'
-    alias rm='rm -I -v --preserve-root'
-    alias chown='chown --preserve-root'
-    alias chmod='chmod --preserve-root'
-    alias chgrp='chgrp --preserve-root'
-    ;;
-esac
-
+alias ls='echo && ls -hF --color=always'
+alias ll='ls -l --time-style=long-iso --group-directories-first'
 alias la='ll -a'
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias ln='ln -iv'
+alias rm='rm -I -v --preserve-root'
+alias chown='chown --preserve-root'
+alias chmod='chmod --preserve-root'
+alias chgrp='chgrp --preserve-root'
 alias mkdir='mkdir -pv'
 alias ssh='ssh -v -tt -A' # Use '-vvv' for top-level verbose
 alias ping='ping -c 5'
 alias sudo='sudo '
-# ==================================================================================================
-
-# ===> Lazy Load Function ==========================================================================
-lazy_load() {
-    local func_name="$1"
-    local load_cmd="$2"
-    eval "${func_name}() { unfunction ${func_name}; eval '${load_cmd}'; ${func_name} \$@ }"
-}
 # ==================================================================================================
 
 # ===> Functions: Shortcut =========================================================================
@@ -292,38 +273,6 @@ gop() {
 gol() {
     cl "$PROJS_BASE/libs"
     printf "\nHere are the third-party libraries :)\n\n"
-}
-
-odg() {
-    local TEMP_FILE=$(mktemp)
-    select_menu --prompt="Which project would you like to go?" --options="IXT Core,IXT Launchpad,IXT Ecosystem,IXT FE Tools,Quit" --tmp-file=$TEMP_FILE --no-output
-    local SELECTED_PROJ=$(cat "$TEMP_FILE")
-    rm -f "$tmp_file"
-
-    case $SELECTED_PROJ in
-    "IXT Launchpad")
-        cd "$PROJS_BASE/work/ixt-launchpad-web" || return
-        echo "\nOK, you are ready to work on IXT Launchpad :)"
-        ;;
-    "IXT Ecosystem")
-        cd "$PROJS_BASE/work/ixt-ecosystem-web" || return
-        echo "\nOK, you are ready to work on IXT Ecosystem :)"
-        ;;
-    "IXT Core")
-        cd "$PROJS_BASE/work/ixt-web" || return
-        echo "\nOK, you are ready to work on IXT Core :)"
-        ;;
-    "IXT FE Tools")
-        cd "$PROJS_BASE/work/ixt-frontend-tools" || return
-        echo "\nOK, you are ready to work on IXT Frontend Tools :)"
-        ;;
-    "Quit")
-        return
-        ;;
-    *)
-        echo "Invalid option: $SELECTED_PROJ"
-        ;;
-    esac
 }
 
 if [ $SYS_IS_WSL ]; then

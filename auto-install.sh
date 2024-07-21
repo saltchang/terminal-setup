@@ -52,6 +52,13 @@ case $OS_NAME in
     fi
     echo -e "${GREEN}homebrew is already installed${NC}"
 
+    # install coreutils if it's not installed
+    if ! [ -x "$(command -v greadlink)" ]; then
+        echo "Installing coreutils..."
+        brew install coreutils
+    fi
+    echo -e "${GREEN}coreutils is already installed${NC}"
+
     # install jump if it's not installed
     if ! [ -x "$(command -v jump)" ]; then
         echo "Installing jump..."
