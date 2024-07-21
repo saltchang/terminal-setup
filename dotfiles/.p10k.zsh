@@ -360,6 +360,7 @@ esac
   typeset -g POWERLEVEL9K_ASDF_BACKGROUND=7
   typeset -g POWERLEVEL9K_ASDF_SOURCES=(shell local global)
   # Tip:  Override this parameter for ${TOOL} with POWERLEVEL9K_ASDF_${TOOL}_PROMPT_ALWAYS_SHOW.
+  typeset -g POWERLEVEL9K_ASDF_NODEJS_PROMPT_ALWAYS_SHOW=true
   typeset -g POWERLEVEL9K_ASDF_PROMPT_ALWAYS_SHOW=false
   # Tip: Override this parameter for ${TOOL} with POWERLEVEL9K_ASDF_${TOOL}_SHOW_SYSTEM.
   typeset -g POWERLEVEL9K_ASDF_SHOW_SYSTEM=true
