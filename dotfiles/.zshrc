@@ -19,7 +19,7 @@ fi
 TERMINAL_SETUP_CACHE="$HOME/.terminal-setup-cache"
 # ==================================================================================================
 
-# ===> Terminal Setup Bin ========================================================================
+# ===> Terminal Setup Bin ==========================================================================
 TERMINAL_SETUP_LOCAL_BIN_DIR="$HOME/.local/terminal-setup/bin"
 # ==================================================================================================
 
@@ -30,7 +30,7 @@ BLUE="\033[34m"
 NC="\033[0m"
 # ==================================================================================================
 
-# ===> Auto Detect OS and Shell ====================================================================
+# ===> Detect OS and Shell =========================================================================
 
 MS="Microsoft"
 UBUNTU="Ubuntu"
@@ -85,6 +85,37 @@ Linux)
     esac
     ;;
 esac
+# ==================================================================================================
+
+# ===> Detect Terminal App =========================================================================
+TERMINAL_APP=""
+ITERM="iTerm.app"
+APPLE_TERMINAL="Apple_Terminal"
+ALACRITTY="alacritty"
+
+case $OS_NAME in
+"$MACOS")
+    case $TERM_PROGRAM in
+    $ITERM)
+        TERMINAL_APP=$ITERM
+        ;;
+    $APPLE_TERMINAL)
+        TERMINAL_APP=$APPLE_TERMINAL
+        ;;
+    $ALACRITTY)
+        TERMINAL_APP=$ALACRITTY
+        ;;
+    esac
+    ;;
+"$LINUX")
+    case $TERM_PROGRAM in
+    $ALACRITTY)
+        TERMINAL_APP=$ALACRITTY
+        ;;
+    esac
+    ;;
+esac
+# ==================================================================================================
 
 # ===> Language Configuration (Optional) ===========================================================
 # --------------------------------------------------------------------------------------------------
@@ -107,13 +138,20 @@ export LC_CTYPE="zh_TW.UTF-8"
 export LC_MESSAGES="en_US.UTF-8"
 # ==================================================================================================
 
-# ===> Zinit & Prezto ==============================================================================
-# See: https://github.com/zdharma-continuum/zinit
-
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
-[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
-[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
-source "${ZINIT_HOME}/zinit.zsh"
+# ===> Bind Keys ===================================================================================
+case $OS_NAME in
+"$MACOS")
+    case $TERMINAL_APP in
+    "$ALACRITTY")
+        bindkey '^[[1;9D' beginning-of-line
+        bindkey '^[[1;9C' end-of-line
+        bindkey '^B' backward-word
+        bindkey '^F' forward-word
+        ;;
+    esac
+    ;;
+"$LINUX") ;;
+esac
 
 # Bind keys for history-substring-search
 # See: https://github.com/zsh-users/zsh-history-substring-search/issues/110#issuecomment-650832313
@@ -131,6 +169,15 @@ function _bind_keys_for_history_substring_search() {
         ;;
     esac
 }
+# ==================================================================================================
+
+# ===> Zinit & Prezto ==============================================================================
+# See: https://github.com/zdharma-continuum/zinit
+
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
 
 # Load Prezto
 zi snippet PZT::modules/helper/init.zsh
