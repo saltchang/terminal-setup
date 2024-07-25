@@ -59,3 +59,24 @@ cursor = "#FFFFFF"
 [colors.selection]
 text = "#BF9729"
 background = "#265B75"
+
+[[hints.enabled]]
+regex = "(ipfs:|ipns:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
+command = "open"
+post_processing = true
+
+[hints.enabled.mouse]
+enabled = true
+mods = "Command"
+
+[[hints.enabled]]
+regex = '([a-zA-Z/\-\\._]+)'
+post_processing = true
+
+[hints.enabled.command]
+program = "/usr/local/bin/code"
+args = ["--goto"]
+
+[hints.enabled.mouse]
+enabled = true
+mods = "Command"
