@@ -29,7 +29,7 @@ fi
 # ==================================================================================================
 
 # ===> Prompt User for installing Pnpm =============================================================
-printf "\nDo you want to install pnpm(https://pnpm.io/)? (y/n, default: y): \n> "
+printf "\nDo you want to install pnpm(https://pnpm.io)? (y/n, default: y): \n> "
 read -r INSTALL_PNPM </dev/tty
 
 if [ -z "$INSTALL_PNPM" ]; then
@@ -37,12 +37,27 @@ if [ -z "$INSTALL_PNPM" ]; then
 fi
 # ==================================================================================================
 
-# ===> Prompt User for using alacritty as terminal app =============================================
-printf "\nDo you want to use Alacritty(https://alacritty.org) as terminal app? (y/n, default: y): \n> "
-read -r USE_ALACRITTY </dev/tty
+# ===> Prompt User for using iTerm2 as terminal app ================================================
+case $OS_NAME in
+"$MACOS")
+    printf "\nDo you want to use iTerm2(https://iterm2.com) as terminal app? (y/n, default: y): \n> "
+    read -r USE_ITERM2 </dev/tty
 
-if [ -z "$USE_ALACRITTY" ]; then
-    USE_ALACRITTY="y"
+    if [ -z "$USE_ITERM2" ]; then
+        USE_ITERM2="y"
+    fi
+    ;;
+esac
+# ==================================================================================================
+
+# ===> Prompt User for using alacritty as terminal app =============================================
+if [ "$USE_ITERM2" != "y" ]; then
+    printf "\nDo you want to use Alacritty(https://alacritty.org) as terminal app? (y/n, default: y): \n> "
+    read -r USE_ALACRITTY </dev/tty
+
+    if [ -z "$USE_ALACRITTY" ]; then
+        USE_ALACRITTY="y"
+    fi
 fi
 # ==================================================================================================
 
@@ -150,6 +165,22 @@ if [ "$INSTALL_PNPM" = "y" ]; then
 fi
 # ==================================================================================================
 
+# ===> Install iTerm2 ==============================================================================
+if [ "$USE_ITERM2" = "y" ]; then
+    case $OS_NAME in
+    "$MACOS")
+        ITERM2_APP_PATH=$(mdfind "kMDItemCFBundleIdentifier == com.googlecode.iterm2")
+        if [ -z "$ITERM2_APP_PATH" ]; then
+            echo "Installing iTerm2..."
+            brew install --cask iterm2
+        fi
+        echo -e "${GREEN}iTerm2 is already installed${NC}"
+        ;;
+    *) ;;
+    esac
+fi
+# ==================================================================================================
+
 # ===> Install alacritty ===========================================================================
 if [ "$USE_ALACRITTY" = "y" ]; then
     case $OS_NAME in
@@ -216,6 +247,8 @@ echo
 
 if [ "$USE_ALACRITTY" = "y" ]; then
     ./setup.sh --setup-alacritty
+elif [ "$USE_ITERM2" = "y" ]; then
+    ./setup.sh --setup-iterm2
 else
     ./setup.sh
 fi

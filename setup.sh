@@ -10,6 +10,10 @@ NC="\033[0m"
 # ===> Arugments ===================================================================================
 for i in "$@"; do
     case $i in
+    --setup-iterm2)
+        SETUP_ITERM2=true
+        shift
+        ;;
     --setup-alacritty)
         SETUP_ALACRITTY=true
         shift
@@ -79,6 +83,10 @@ ln -s "$P10K_SOURCE" "$P10KZSH_FILE" && echo -e "${GREEN}Created a new symbolic 
 
 if [ "$SETUP_ALACRITTY" = true ]; then
     ./scripts/setup-alacritty.sh
+fi
+
+if [ "$SETUP_ITERM2" = true ]; then
+    ./scripts/setup-iterm2.sh
 fi
 
 echo

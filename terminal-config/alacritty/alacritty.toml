@@ -53,8 +53,8 @@ white = "#FFFFFF"
 yellow = "#FEDAAE"
 
 [colors.cursor]
-text = "#000000"
-cursor = "#FFFFFF"
+text = "#0c131F"
+cursor = "#FF8317"
 
 [colors.selection]
 text = "#BF9729"

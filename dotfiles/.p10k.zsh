@@ -58,9 +58,9 @@ esac
 
   function prompt_in_git_worktree() {
     if git rev-parse --is-inside-work-tree &>/dev/null; then
-      p10k segment -b black -f 232 -i '' -t ''
+      p10k segment -b 000 -f 250 -i '' -t ''
     else 
-      p10k segment -b black -f 232 -i '' -t 'Not in a git repo'
+      p10k segment -b 000 -f 250 -i '' -t 'Not in a git repo'
     fi
   }
 

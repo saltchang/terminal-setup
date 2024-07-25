@@ -26,8 +26,8 @@ Terminal setup for zsh in macOS, Ubuntu/Debian, and Windows.
 - [Customizable aliases and functions](#custom-functions-and-aliases) for improved productivity
 - Automatic software updates (Homebrew, apt, etc.)
 - Terminal Integration
-  - [Alacritty](https://alacritty.org) (macOS, Linux, Windows)
   - [iTerm2](https://iterm2.com) (macOS)
+  - [Alacritty](https://alacritty.org) (macOS, Linux, Windows)
   - [Windows Terminal](https://github.com/microsoft/terminal) (Windows or WSL)
 
 ## Auto Installation (Recommended)
@@ -50,8 +50,7 @@ Terminal setup for zsh in macOS, Ubuntu/Debian, and Windows.
     6. Create a soft link from `$HOME/.p10k.zsh` to the one in this project
     7. Create a soft link from `$HOME/.local/terminal-setup/bin` to the one in this project
     8. Optionally install pnpm
-    9. Optionally install alacritty
-    10. Setup alacritty config by creating a soft link from `$HOME/.config/alacritty/alacritty.toml` to the one in this project
+    9. Optionally install and setup terminal (iTerm2 or Alacritty)
 
 3. After the installation, restart your terminal or run `source $HOME/.zshrc`, you should see the new face of the shell
 
@@ -60,6 +59,19 @@ Terminal setup for zsh in macOS, Ubuntu/Debian, and Windows.
 *For Windows, see [Windows Section](#windows)*
 
 ### Setup Your Terminal
+
+#### Install & Config iTerm (macOS)
+
+1. Install [iTerm2](https://iterm2.com/)
+
+    ```bash
+    brew install --cask iterm2
+    ```
+
+2. Download this [iTerm Profile](./terminal-config/iTerm/profiles/Salty_Nozo.json)
+3. Open your iTerm > Settings > Profiles > Other Actions > Import JSON Profiles > Choose the downloaded profile
+4. After you setup: Other Actions > Set as Default
+5. Restart iTerm
 
 #### Install Alacritty (macOS, Linux)
 
@@ -71,13 +83,6 @@ Terminal setup for zsh in macOS, Ubuntu/Debian, and Windows.
     ```
 
     It will create a symbolic link to the config from your `~/.config/alacritty/alacritty.toml`
-
-#### Install & Config iTerm (macOS)
-
-1. Install [iTerm2](https://iterm2.com/)
-2. Open your iTerm > Settings > Profiles > Other Actions > Import JSON Profiles > Choose this [iTerm Profile](./terminal-config/iTerm/Salty_iTerm_Profile.json)
-3. After you setup: Other Actions > Set as Default
-4. Restart iTerm
 
 ### Customize Your Configs
 
