@@ -214,6 +214,9 @@ zi ice depth=1
 zi light romkatv/powerlevel10k
 
 zi snippet PZT::modules/prompt
+
+# Manually load the configuration file of Prezto
+source ${ZDOTDIR:-$HOME}/.zpreztorc
 # ==================================================================================================
 
 # ===> asdf (Optional) =============================================================================

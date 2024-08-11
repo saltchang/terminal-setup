@@ -33,6 +33,9 @@ ZPROFILE_SOURCE="$(pwd)/$ZPROFILE_SOURCE_REL"
 ZSHRC_SOURCE_REL="dotfiles/.zshrc"
 ZSHRC_SOURCE="$(pwd)/$ZSHRC_SOURCE_REL"
 
+ZPREZTORC_SOURCE_REL="dotfiles/.zpreztorc"
+ZPREZTORC_SOURCE="$(pwd)/$ZPREZTORC_SOURCE_REL"
+
 P10K_SOURCE_REL="dotfiles/.p10k.zsh"
 P10K_SOURCE="$(pwd)/$P10K_SOURCE_REL"
 
@@ -42,17 +45,23 @@ P10K_SOURCE="$(pwd)/$P10K_SOURCE_REL"
 
 [ ! -e "$ZSHRC_SOURCE" ] && echo -e "${ERROR}File not found: \"./$ZSHRC_SOURCE_REL\". You may be in the wrong directory >>> Exit ${NC}" && exit 1
 
+[ ! -e "$ZPREZTORC_SOURCE" ] && echo -e "${ERROR}File not found: \"./$ZPREZTORC_SOURCE_REL\". You may be in the wrong directory >>> Exit 1${NC}" && exit 1
+
 [ ! -e "$P10K_SOURCE" ] && echo -e "${ERROR}File not found: \"./$P10K_SOURCE_REL\". You may be in the wrong directory >>> Exit 1${NC}" && exit 1
 
 chmod 600 "$ZPROFILE_SOURCE"
 
 chmod 600 "$ZSHRC_SOURCE"
 
+chmod 600 "$ZPREZTORC_SOURCE"
+
 chmod 600 "$P10K_SOURCE"
 
 ZPROFILE_FILE="$HOME/.zprofile"
 
 ZSHRC_FILE="$HOME/.zshrc"
+
+ZPRESTORC_FILE="$HOME/.zpreztorc"
 
 P10KZSH_FILE="$HOME/.p10k.zsh"
 
@@ -62,6 +71,8 @@ echo
 [ -e "$ZPROFILE_FILE" ] && rm "$ZPROFILE_FILE" 2>/dev/null && echo -e "${GREEN}Removed original .zprofile${NC}"
 
 [ -e "$ZSHRC_FILE" ] && rm "$ZSHRC_FILE" 2>/dev/null && echo -e "${GREEN}Removed original .zshrc${NC}"
+
+[ -e "$ZPRESTORC_FILE" ] && rm "$ZPRESTORC_FILE" 2>/dev/null && echo -e "${GREEN}Removed original .zpreztorc${NC}"
 
 [ -e "$P10KZSH_FILE" ] && rm "$P10KZSH_FILE" 2>/dev/null && echo -e "${GREEN}Removed original .p10k.zsh${NC}"
 
@@ -78,6 +89,8 @@ ln -s "$TERMINAL_SETUP_REPO_BIN_DIR" "$TERMINAL_SETUP_LOCAL_BIN_DIR" && echo -e 
 ln -s "$ZPROFILE_SOURCE" "$ZPROFILE_FILE" && echo -e "${GREEN}Created a new symbolic link from $ZPROFILE_FILE to $ZPROFILE_SOURCE${NC}"
 
 ln -s "$ZSHRC_SOURCE" "$ZSHRC_FILE" && echo -e "${GREEN}Created a new symbolic link from $ZSHRC_FILE to $ZSHRC_SOURCE${NC}"
+
+ln -s "$ZPREZTORC_SOURCE" "$ZPRESTORC_FILE" && echo -e "${GREEN}Created a new symbolic link from $ZPRESTORC_FILE to $ZPREZTORC_SOURCE${NC}"
 
 ln -s "$P10K_SOURCE" "$P10KZSH_FILE" && echo -e "${GREEN}Created a new symbolic link from $P10KZSH_FILE to $P10K_SOURCE${NC}"
 

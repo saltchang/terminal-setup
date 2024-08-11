@@ -1,0 +1,3 @@
+#!/bin/bash
+
+zstyle ':prezto:module:utility' correct 'no'
