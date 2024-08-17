@@ -294,7 +294,7 @@ alias rm='rm -I -v --preserve-root'
 alias mkdir='mkdir -pv'
 alias ssh='ssh -v -tt -A' # Use '-vvv' for top-level verbose
 alias ping='ping -c 5'
-alias sudo='sudo '
+alias sudo='nocorrect sudo '
 # ==================================================================================================
 
 # ===> Functions: Shortcut =========================================================================

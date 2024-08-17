@@ -206,9 +206,6 @@ fi
 # install zsh if it's not installed
 if ! [ -x "$(command -v zsh)" ]; then
     case $OS_NAME in
-    "$MACOS")
-        brew install zsh
-        ;;
     "$LINUX")
         sudo apt update && sudo apt -y install zsh
         ;;
