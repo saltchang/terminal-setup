@@ -52,11 +52,11 @@ esac
 
 # ===> Prompt User for using alacritty as terminal app =============================================
 if [ "$USE_ITERM2" != "y" ]; then
-    printf "\nDo you want to use Alacritty(https://alacritty.org) as terminal app? (y/n, default: y): \n> "
+    printf "\nDo you want to use Alacritty(https://alacritty.org) as terminal app? (y/n, default: n): \n> "
     read -r USE_ALACRITTY </dev/tty
 
     if [ -z "$USE_ALACRITTY" ]; then
-        USE_ALACRITTY="y"
+        USE_ALACRITTY="n"
     fi
 fi
 # ==================================================================================================
@@ -217,7 +217,7 @@ echo -e "${GREEN}zsh is already installed${NC}"
 # set zsh as default shell if not
 if [ "$SHELL" != "$(which zsh)" ]; then
     echo "Setting zsh as default shell..."
-    chsh -s "$(which zsh)"
+    sudo chsh -s "$(which zsh)"
 fi
 echo -e "${GREEN}zsh is already set as default shell${NC}"
 # ==================================================================================================

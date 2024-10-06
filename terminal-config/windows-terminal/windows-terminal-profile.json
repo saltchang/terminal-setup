@@ -3,19 +3,19 @@
     "$schema": "https://aka.ms/terminal-profiles-schema",
     "actions": [
         {
-            "command": "find",
-            "keys": "ctrl+shift+f"
+            "command": {
+                "action": "copy",
+                "singleLine": false
+            },
+            "keys": "ctrl+c"
         },
         {
             "command": "paste",
             "keys": "ctrl+v"
         },
         {
-            "command": {
-                "action": "copy",
-                "singleLine": false
-            },
-            "keys": "ctrl+c"
+            "command": "find",
+            "keys": "ctrl+shift+f"
         },
         {
             "command": {
@@ -26,19 +26,27 @@
             "keys": "alt+shift+d"
         }
     ],
-    "alwaysShowNotificationIcon": false,
     "copyFormatting": "none",
     "copyOnSelect": false,
-    "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
     "firstWindowPreference": "persistedWindowLayout",
     "initialRows": 40,
     "language": "en-US",
+    "defaultProfile": "{d8e96812-b789-5068-a5ae-10b2fb53e95f}",
+    "newTabMenu": [
+        {
+            "type": "remainingProfiles"
+        }
+    ],
     "profiles": {
         "defaults": {
             "antialiasingMode": "grayscale",
             "backgroundImage": null,
             "backgroundImageOpacity": 0.84999999999999998,
-            "bellStyle": ["audible", "window", "taskbar"],
+            "bellStyle": [
+                "audible",
+                "window",
+                "taskbar"
+            ],
             "closeOnExit": "never",
             "colorScheme": "Nozo",
             "cursorColor": "#FF7500",
@@ -54,10 +62,10 @@
         },
         "list": [
             {
-                "guid": "{51855cb2-8cce-5362-8f54-464b92b32386}",
+                "guid": "{d8e96812-b789-5068-a5ae-10b2fb53e95f}",
                 "hidden": false,
-                "name": "Ubuntu",
-                "source": "CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc"
+                "name": "Ubuntu 24.04.1 LTS",
+                "source": "CanonicalGroupLimited.Ubuntu24.04LTS_79rhkp1fndgsc"
             },
             {
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
@@ -69,19 +77,7 @@
                 "commandline": "%SystemRoot%\\System32\\cmd.exe",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
-                "name": "CMD"
-            },
-            {
-                "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
-                "hidden": false,
-                "name": "Azure Cloud",
-                "source": "Windows.Terminal.Azure"
-            },
-            {
-                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-                "hidden": true,
-                "name": "Ubuntu",
-                "source": "Windows.Terminal.Wsl"
+                "name": "\u547d\u4ee4\u63d0\u793a\u5b57\u5143"
             },
             {
                 "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
@@ -90,26 +86,49 @@
                 "name": "Windows PowerShell"
             },
             {
-                "guid": "{bf790ff1-a2ea-5b25-b953-2fa39426bada}",
-                "hidden": false,
-                "name": "Developer Command Prompt for VS 2022",
-                "source": "Windows.Terminal.VisualStudio"
-            },
-            {
-                "guid": "{247fee3e-9ba4-592d-92db-bf0faca1b978}",
-                "hidden": false,
-                "name": "Developer PowerShell for VS 2022",
-                "source": "Windows.Terminal.VisualStudio"
-            },
-            {
-                "guid": "{16208362-94fc-5b1f-a491-5b2624d5ab56}",
+                "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
                 "hidden": true,
-                "name": "Visual Studio Debug Console",
-                "source": "VSDebugConsole"
+                "name": "Azure Cloud Shell",
+                "source": "Windows.Terminal.Azure"
+            },
+            {
+                "guid": "{963ff2f7-6aed-5ce3-9d91-90d99571f53a}",
+                "hidden": true,
+                "name": "Ubuntu-24.04",
+                "source": "Windows.Terminal.Wsl"
+            },
+            {
+                "guid": "{51855cb2-8cce-5362-8f54-464b92b32386}",
+                "hidden": true,
+                "name": "Ubuntu",
+                "source": "CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc"
             }
         ]
     },
     "schemes": [
+        {
+            "background": "#061923",
+            "black": "#1D485F",
+            "blue": "#5FB1C2",
+            "brightBlack": "#008EAB",
+            "brightBlue": "#77DBF4",
+            "brightCyan": "#0BC7E3",
+            "brightGreen": "#69F197",
+            "brightPurple": "#B682D8",
+            "brightRed": "#FEAF3C",
+            "brightWhite": "#FFFFFF",
+            "brightYellow": "#FEDAAE",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#97B9C0",
+            "foreground": "#E5C49E",
+            "green": "#84C47E",
+            "name": "Nozo",
+            "purple": "#8756B4",
+            "red": "#DB662D",
+            "selectionBackground": "#265B75",
+            "white": "#C6E8F1",
+            "yellow": "#E1D471"
+        },
         {
             "background": "#0C0C0C",
             "black": "#0C0C0C",
@@ -157,29 +176,6 @@
             "yellow": "#C19C00"
         },
         {
-            "background": "#061923",
-            "black": "#1D485F",
-            "blue": "#5FB1C2",
-            "brightBlack": "#008EAB",
-            "brightBlue": "#77DBF4",
-            "brightCyan": "#0BC7E3",
-            "brightGreen": "#69F197",
-            "brightPurple": "#B682D8",
-            "brightRed": "#FEAF3C",
-            "brightWhite": "#FFFFFF",
-            "brightYellow": "#FEDAAE",
-            "cursorColor": "#FFFFFF",
-            "cyan": "#97B9C0",
-            "foreground": "#E5C49E",
-            "green": "#84C47E",
-            "name": "Nozo",
-            "purple": "#8756B4",
-            "red": "#DB662D",
-            "selectionBackground": "#265B75",
-            "white": "#C6E8F1",
-            "yellow": "#E1D471"
-        },
-        {
             "background": "#282C34",
             "black": "#282C34",
             "blue": "#61AFEF",
@@ -221,7 +217,7 @@
             "name": "One Half Light",
             "purple": "#A626A4",
             "red": "#E45649",
-            "selectionBackground": "#FFFFFF",
+            "selectionBackground": "#4F525D",
             "white": "#FAFAFA",
             "yellow": "#C18301"
         },
@@ -267,7 +263,7 @@
             "name": "Solarized Light",
             "purple": "#D33682",
             "red": "#DC322F",
-            "selectionBackground": "#FFFFFF",
+            "selectionBackground": "#073642",
             "white": "#EEE8D5",
             "yellow": "#B58900"
         },
@@ -313,9 +309,32 @@
             "name": "Tango Light",
             "purple": "#75507B",
             "red": "#CC0000",
-            "selectionBackground": "#FFFFFF",
+            "selectionBackground": "#555753",
             "white": "#D3D7CF",
             "yellow": "#C4A000"
+        },
+        {
+            "background": "#300A24",
+            "black": "#171421",
+            "blue": "#0037DA",
+            "brightBlack": "#767676",
+            "brightBlue": "#08458F",
+            "brightCyan": "#2C9FB3",
+            "brightGreen": "#26A269",
+            "brightPurple": "#A347BA",
+            "brightRed": "#C01C28",
+            "brightWhite": "#F2F2F2",
+            "brightYellow": "#A2734C",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#3A96DD",
+            "foreground": "#FFFFFF",
+            "green": "#26A269",
+            "name": "Ubuntu-24.04-ColorScheme",
+            "purple": "#881798",
+            "red": "#C21A23",
+            "selectionBackground": "#FFFFFF",
+            "white": "#CCCCCC",
+            "yellow": "#A2734C"
         },
         {
             "background": "#300A24",
@@ -366,5 +385,6 @@
     ],
     "showTabsInTitlebar": true,
     "startOnUserLogin": true,
-    "theme": "dark"
+    "theme": "dark",
+    "themes": []
 }

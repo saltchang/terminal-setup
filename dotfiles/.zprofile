@@ -2,6 +2,10 @@ OS_NAME=""
 LINUX="Linux"
 MACOS="macOS"
 
+# ===> Terminal Setup Bin ==========================================================================
+TERMINAL_SETUP_LOCAL_BIN_DIR="$HOME/.local/terminal-setup/bin"
+# ==================================================================================================
+
 case $(uname) in
 Darwin)
     OS_NAME=$MACOS
@@ -11,6 +15,30 @@ Linux)
     OS_NAME=$LINUX
     ;;
 esac
+
+# ===> Path ========================================================================================
+# --------> Avoid repeated PATH statements ---------------------------------------------------------
+addToPATH() {
+    case ":$PATH:" in
+    *":$1:"*) : ;;        # already there
+    *) PATH="$1:$PATH" ;; # or PATH="$PATH:$1"
+    esac
+}
+
+# --------> Load bins of terminal-setup ------------------------------------------------------------
+addToPATH "$TERMINAL_SETUP_LOCAL_BIN_DIR"
+
+# --------> Basic Binary ---------------------------------------------------------------------------
+addToPATH "$HOME/bin"
+addToPATH "$HOME/.local/bin"
+addToPATH "/usr/local/bin"
+addToPATH "/snap/bin"
+addToPATH "$HOME/snap/bin"
+
+# -------> pnpm ------------------------------------------------------------------------------------
+export PNPM_HOME="$HOME/.pnpm"
+addToPATH "$PNPM_HOME"
+# ==================================================================================================
 
 # ===> Homebrew (macOS only) =======================================================================
 case $OS_NAME in
