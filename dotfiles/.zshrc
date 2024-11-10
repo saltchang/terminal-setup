@@ -119,19 +119,19 @@ esac
 # export LC_ALL="zh_TW.UTF-8" # sudo locale-gen zh_TW.UTF-8
 
 # -------> Set All to English (United States) ------------------------------------------------------
-# export LC_ALL="en_US.UTF-8"
+# export LC_ALL="en_US.UTF-8" # sudo locale-gen en_US.UTF-8
 
 # -------> Set By Details --------------------------------------------------------------------------
-export LANG="zh_TW.UTF-8"
-# export LANG="en_US.UTF-8"
-
 # Run `locale` to see the details of language configs
 
-export LC_CTYPE="zh_TW.UTF-8"
-# export LC_CTYPE="en_US.UTF-8"
-
-# export LC_MESSAGES="zh_TW.UTF-8"
+export LANGUAGE="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+export LANG="en_US.UTF-8"
+# export LANG="zh_TW.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+# export LC_CTYPE="zh_TW.UTF-8"
 export LC_MESSAGES="en_US.UTF-8"
+# export LC_MESSAGES="zh_TW.UTF-8"
 # ==================================================================================================
 
 # ===> Bind Keys ===================================================================================
