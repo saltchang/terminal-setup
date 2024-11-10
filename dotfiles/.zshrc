@@ -192,9 +192,24 @@ zi snippet PZT::modules/gnu-utility
 zi ice wait'!'
 zi snippet PZT::modules/utility
 
+zi ice wait'!'
+zi snippet PZT::modules/python
+
 zi ice wait'!' lucid \
     atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay"
 zi load zdharma-continuum/fast-syntax-highlighting
+
+# Poetry completion setup
+# only runs when poetry is installed
+if command -v poetry &>/dev/null; then
+    zi ice wait'!' lucid as"completion" id-as"poetry-completion" \
+        atclone"poetry completions zsh > _poetry" \
+        atpull"%atclone" \
+        run-atpull \
+        pick"_poetry" \
+        nocompile
+    zi light zdharma-continuum/null
+fi
 
 zi ice wait'!' lucid blockf
 zi load zsh-users/zsh-completions
@@ -404,18 +419,18 @@ case $OS_NAME in
 esac
 # ==================================================================================================
 
-# ===> Python (Optional) ===========================================================================
-case $OS_NAME in
-"$MACOS")
-    alias python='python3'
-    alias pip='pip3'
-    addToPATH "$(brew --prefix)/opt/python@3.12/libexec/bin"
-    ;;
-"$LINUX")
-    alias python='python3'
-    alias pip='pip3'
-    ;;
-esac
+# ===> Python ======================================================================================
+# --------> pyenv ----------------------------------------------------------------------------------
+# to install pyenv run the following command
+# curl https://pyenv.run | bash
+export PYENV_ROOT="$HOME/.pyenv"
+addToPATH "$PYENV_ROOT/bin"
+
+# init pyenv if pyenv is installed
+if [ -d "$PYENV_ROOT/bin" ]; then
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
 # ==================================================================================================
 
 # ===> Docker (Optional) ===========================================================================
