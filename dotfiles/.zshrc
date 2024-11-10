@@ -431,6 +431,9 @@ if [ -d "$PYENV_ROOT/bin" ]; then
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
 fi
+
+# Please remember to check the suggested build environment before installing Python versions with pyenv
+# See: https://github.com/pyenv/pyenv/wiki#suggested-build-environment
 # ==================================================================================================
 
 # ===> Docker (Optional) ===========================================================================
