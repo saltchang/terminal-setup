@@ -7,6 +7,10 @@
 
 # ==================================================================================================
 
+# ===> Add deno completions to search path =========================================================
+if [[ ":$FPATH:" != *":/home/saltchang/.zsh/completions:"* ]]; then export FPATH="/home/saltchang/.zsh/completions:$FPATH"; fi
+# ==================================================================================================
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -315,6 +319,25 @@ gol() {
     printf "\nHere are the third-party libraries :)\n\n"
 }
 
+# open with cursor
+co() {
+    if [ $SYS_IS_WSL ]; then
+        if [ $# -gt 1 ]; then
+            echo "Usage: \`co <path>\` or \`co\`"
+        elif [ $# -eq 1 ]; then
+            cursor --folder-uri "vscode-remote://wsl+${WSL_DISTRO_NAME}$1"
+        else
+            cursor --folder-uri "vscode-remote://wsl+${WSL_DISTRO_NAME}${PWD}"
+        fi
+    else
+        if [ $# -gt 0 ]; then
+            cursor "$@"
+        else
+            cursor .
+        fi
+    fi
+}
+
 if [ $SYS_IS_WSL ]; then
     # go to Windows Disk C
     win() {
@@ -598,6 +621,17 @@ load-node-version() {
 add-zsh-hook chpwd load-node-version
 load-node-version
 # --------------------------------------------------------------------------------------------------
+# ==================================================================================================
+
+# ===> Go ==========================================================================================
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+addToPATH $GOPATH/bin
+addToPATH $GOROOT/bin:$PATH
+# ==================================================================================================
+
+# ===> Deno ========================================================================================
+. "$HOME/.deno/env"
 # ==================================================================================================
 
 # ===> Path Configuration ==========================================================================
