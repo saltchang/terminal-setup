@@ -7,10 +7,6 @@
 
 # ==================================================================================================
 
-# ===> Add deno completions to search path =========================================================
-if [[ ":$FPATH:" != *":/home/saltchang/.zsh/completions:"* ]]; then export FPATH="/home/saltchang/.zsh/completions:$FPATH"; fi
-# ==================================================================================================
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -169,6 +165,66 @@ function _bind_keys_for_history_substring_search() {
         ;;
     esac
 }
+# ==================================================================================================
+
+# ===> Proto (Optional) ============================================================================
+export PROTO_HOME="$HOME/.proto"
+addToPATH "$PROTO_HOME/shims"
+addToPATH "$PROTO_HOME/bin"
+# ==================================================================================================
+
+# ===> Go ==========================================================================================
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+addToPATH $GOPATH/bin
+addToPATH $GOROOT/bin:$PATH
+# ==================================================================================================
+
+# ===> Python ======================================================================================
+# --------> pyenv ----------------------------------------------------------------------------------
+# to install pyenv run the following command
+# curl https://pyenv.run | bash
+export PYENV_ROOT="$HOME/.pyenv"
+addToPATH "$PYENV_ROOT/bin"
+
+# init pyenv if pyenv is installed
+if [ -d "$PYENV_ROOT/bin" ]; then
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
+# ==================================================================================================
+
+# ===> Deno (Optional) =============================================================================
+# if [ -f "$HOME/.deno/env" ]; then
+#     . "$HOME/.deno/env"
+# fi
+# ==================================================================================================
+
+# ===> Add custom completions to FPATH and Generate Scripts ========================================
+ZSH_COMPLETIONS_DIR="${HOME}/.zsh/completions"
+if [[ ! -d "$ZSH_COMPLETIONS_DIR" ]]; then
+    mkdir -p "$ZSH_COMPLETIONS_DIR"
+fi
+
+if [[ ":$FPATH:" != *":${ZSH_COMPLETIONS_DIR}:"* ]]; then
+    export FPATH="${ZSH_COMPLETIONS_DIR}:$FPATH"
+fi
+
+if command -v uv &>/dev/null && [[ ! -f "${ZSH_COMPLETIONS_DIR}/_uv" ]]; then
+    uv generate-shell-completion zsh >"${ZSH_COMPLETIONS_DIR}/_uv"
+fi
+
+if command -v uvx &>/dev/null && [[ ! -f "${ZSH_COMPLETIONS_DIR}/_uvx" ]]; then
+    uvx --generate-shell-completion zsh >"${ZSH_COMPLETIONS_DIR}/_uvx"
+fi
+
+if command -v proto &>/dev/null && [[ ! -f "${ZSH_COMPLETIONS_DIR}/_proto" ]]; then
+    proto completions >"${ZSH_COMPLETIONS_DIR}/_proto"
+fi
+
+if command -v moon &>/dev/null && [[ ! -f "${ZSH_COMPLETIONS_DIR}/_moon" ]]; then
+    moon completions >"${ZSH_COMPLETIONS_DIR}/_moon"
+fi
 # ==================================================================================================
 
 # ===> Zinit & Prezto ==============================================================================
@@ -435,29 +491,6 @@ case $OS_NAME in
 esac
 # ==================================================================================================
 
-# ===> Python ======================================================================================
-# --------> pyenv ----------------------------------------------------------------------------------
-# to install pyenv run the following command
-# curl https://pyenv.run | bash
-export PYENV_ROOT="$HOME/.pyenv"
-addToPATH "$PYENV_ROOT/bin"
-
-# init pyenv if pyenv is installed
-if [ -d "$PYENV_ROOT/bin" ]; then
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
-fi
-
-# Please remember to check the suggested build environment before installing Python versions with pyenv
-# See: https://github.com/pyenv/pyenv/wiki#suggested-build-environment
-# ==================================================================================================
-
-# ===> Proto (Optional) ============================================================================
-export PROTO_HOME="$HOME/.proto"
-addToPATH "$PROTO_HOME/shims"
-addToPATH "$PROTO_HOME/bin"
-# ==================================================================================================
-
 # ===> Docker (Optional) ===========================================================================
 alias docker-all='docker ps -a --format "{{.Names}} ({{.ID}}): {{.Image}} ({{.Ports}})"'
 alias docker-ls='docker ps --format "{{.Names}} ({{.ID}}): {{.Image}} ({{.Ports}})"'
@@ -628,19 +661,6 @@ load-node-version() {
 add-zsh-hook chpwd load-node-version
 load-node-version
 # --------------------------------------------------------------------------------------------------
-# ==================================================================================================
-
-# ===> Go ==========================================================================================
-export GOROOT=/usr/local/go
-export GOPATH=$HOME/go
-addToPATH $GOPATH/bin
-addToPATH $GOROOT/bin:$PATH
-# ==================================================================================================
-
-# ===> Deno (Optional) =============================================================================
-# if [ -f "$HOME/.deno/env" ]; then
-#     . "$HOME/.deno/env"
-# fi
 # ==================================================================================================
 
 # ===> Path Configuration ==========================================================================
