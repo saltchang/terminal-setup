@@ -459,6 +459,12 @@ fi
 # See: https://github.com/pyenv/pyenv/wiki#suggested-build-environment
 # ==================================================================================================
 
+# ===> Proto (Optional) ============================================================================
+export PROTO_HOME="$HOME/.proto"
+addToPATH "$PROTO_HOME/shims"
+addToPATH "$PROTO_HOME/bin"
+# ==================================================================================================
+
 # ===> Docker (Optional) ===========================================================================
 alias docker-all='docker ps -a --format "{{.Names}} ({{.ID}}): {{.Image}} ({{.Ports}})"'
 alias docker-ls='docker ps --format "{{.Names}} ({{.ID}}): {{.Image}} ({{.Ports}})"'
@@ -495,6 +501,14 @@ git config --global core.editor "$GIT_EDITOR" # set default editor
 #         fi
 #     fi
 # fi
+# ==================================================================================================
+
+# ===> Google Cloud (Optional) =====================================================================
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
 # ==================================================================================================
 
 # ===> Check Git Version ===========================================================================

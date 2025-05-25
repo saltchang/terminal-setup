@@ -64,3 +64,11 @@ if ! [ "$(eval 'ps ax | grep "[s]sh-agent" | wc -l' 2>/dev/null)" -gt 0 ]; then
     # trap "ssh-agent -k" EXIT
 fi
 # ==================================================================================================
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+case $OS_NAME in
+"$MACOS")
+    source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+    ;;
+esac
