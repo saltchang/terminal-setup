@@ -319,22 +319,13 @@ gol() {
     printf "\nHere are the third-party libraries :)\n\n"
 }
 
-# open with cursor
-co() {
-    if [ $SYS_IS_WSL ]; then
-        if [ $# -gt 1 ]; then
-            echo "Usage: \`co <path>\` or \`co\`"
-        elif [ $# -eq 1 ]; then
-            cursor --folder-uri "vscode-remote://wsl+${WSL_DISTRO_NAME}$1"
-        else
-            cursor --folder-uri "vscode-remote://wsl+${WSL_DISTRO_NAME}${PWD}"
-        fi
+code-wsl() {
+    if [ $# -eq 0 ]; then
+        code --folder-uri "vscode-remote://wsl+${WSL_DISTRO_NAME}${PWD}"
+    elif [ $# -eq 1 ] && [ "$1" = "." ]; then
+        code --folder-uri "vscode-remote://wsl+${WSL_DISTRO_NAME}${PWD}"
     else
-        if [ $# -gt 0 ]; then
-            cursor "$@"
-        else
-            cursor .
-        fi
+        code "$@"
     fi
 }
 
@@ -348,6 +339,8 @@ if [ $SYS_IS_WSL ]; then
     open() {
         explorer.exe "$1"
     }
+    alias code=code-wsl
+    alias cursor=code-wsl
 fi
 
 # ==================================================================================================
@@ -644,11 +637,10 @@ addToPATH $GOPATH/bin
 addToPATH $GOROOT/bin:$PATH
 # ==================================================================================================
 
-# ===> Deno ========================================================================================
-if [ -f "$HOME/.deno/env" ]; then
-    . "$HOME/.deno/env"
-fi
-
+# ===> Deno (Optional) =============================================================================
+# if [ -f "$HOME/.deno/env" ]; then
+#     . "$HOME/.deno/env"
+# fi
 # ==================================================================================================
 
 # ===> Path Configuration ==========================================================================
