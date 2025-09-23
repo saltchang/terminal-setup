@@ -429,6 +429,7 @@ alias edit-ssh='edit $HOME/.ssh/config'
 alias source-rc='source $HOME/.zshrc'
 alias paths='echo && echo -e ${PATH//:/\\n} | sort -n'
 alias weather='curl wttr.in && echo && curl v2.wttr.in'
+alias ai="aichat -e" # https://github.com/sigoden/aichat
 
 # --------> Git shortcuts --------------------------------------------------------------------------
 # https://kapeli.com/cheat_sheets/Oh-My-Zsh_Git.docset/Contents/Resources/Documents/index
@@ -668,19 +669,28 @@ export PATH
 typeset -U path # remove duplicates in $PATH
 # ==================================================================================================
 
+# ===> Run commands before the prompt is displayed =================================================
+
+# ---> Change directory to $HOME -------------------------------------------------------------------
 if [ "$0" = "$ZSH_SHELL_NAME" ]; then # don't run when source .zshrc
-    # change directory to $HOME
     cd "$HOME" || exit
 fi
 
+# ---> Load p10k configuration ---------------------------------------------------------------------
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# ---> Finalize p10k -------------------------------------------------------------------------------
 # original code is `(( ! ${+functions[p10k]} )) || p10k finalize`,
 # but the shell-format doesn't support the syntax of zsh
 if type p10k >/dev/null 2>&1; then
     p10k finalize
 fi
+
+# ---> Load thefuck --------------------------------------------------------------------------------
+eval $(thefuck --alias)
+
+# ==================================================================================================
 
 # ==================================================================================================
 # End of File
