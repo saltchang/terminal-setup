@@ -39,6 +39,9 @@ ZPREZTORC_SOURCE="$(pwd)/$ZPREZTORC_SOURCE_REL"
 P10K_SOURCE_REL="dotfiles/.p10k.zsh"
 P10K_SOURCE="$(pwd)/$P10K_SOURCE_REL"
 
+PROTOTOOLS_SOURCE_REL="dotfiles/.prototools"
+PROTOTOOLS_SOURCE="$(pwd)/$PROTOTOOLS_SOURCE_REL"
+
 [ ! -d "$TERMINAL_SETUP_REPO_BIN_DIR" ] && echo -e "${ERROR}Directory not found: \"$TERMINAL_SETUP_REPO_BIN_DIR\". You may be in the wrong directory >>> Exit 1${NC}" && exit 1
 
 [ ! -e "$ZPROFILE_SOURCE" ] && echo -e "${ERROR}File not found: \"./$ZPROFILE_SOURCE_REL\". You may be in the wrong directory >>> Exit 1${NC}" && exit 1
@@ -49,6 +52,8 @@ P10K_SOURCE="$(pwd)/$P10K_SOURCE_REL"
 
 [ ! -e "$P10K_SOURCE" ] && echo -e "${ERROR}File not found: \"./$P10K_SOURCE_REL\". You may be in the wrong directory >>> Exit 1${NC}" && exit 1
 
+[ ! -e "$PROTOTOOLS_SOURCE" ] && echo -e "${ERROR}File not found: \"./$PROTOTOOLS_SOURCE_REL\". You may be in the wrong directory >>> Exit 1${NC}" && exit 1
+
 chmod 600 "$ZPROFILE_SOURCE"
 
 chmod 600 "$ZSHRC_SOURCE"
@@ -57,6 +62,8 @@ chmod 600 "$ZPREZTORC_SOURCE"
 
 chmod 600 "$P10K_SOURCE"
 
+chmod 600 "$PROTOTOOLS_SOURCE"
+
 ZPROFILE_FILE="$HOME/.zprofile"
 
 ZSHRC_FILE="$HOME/.zshrc"
@@ -64,6 +71,8 @@ ZSHRC_FILE="$HOME/.zshrc"
 ZPRESTORC_FILE="$HOME/.zpreztorc"
 
 P10KZSH_FILE="$HOME/.p10k.zsh"
+
+PROTOTOOLS_FILE="$HOME/.prototools"
 
 echo "Check and remove original files and directories..."
 echo
@@ -75,6 +84,8 @@ echo
 [ -e "$ZPRESTORC_FILE" ] && rm "$ZPRESTORC_FILE" 2>/dev/null && echo -e "${GREEN}Removed original .zpreztorc${NC}"
 
 [ -e "$P10KZSH_FILE" ] && rm "$P10KZSH_FILE" 2>/dev/null && echo -e "${GREEN}Removed original .p10k.zsh${NC}"
+
+[ -e "$PROTOTOOLS_FILE" ] && rm "$PROTOTOOLS_FILE" 2>/dev/null && echo -e "${GREEN}Removed original .prototools${NC}"
 
 [ -d "$TERMINAL_SETUP_LOCAL_BIN_DIR" ] && rm -rf "$TERMINAL_SETUP_LOCAL_BIN_DIR" 2>/dev/null && echo -e "${GREEN}Removed original directory: $TERMINAL_SETUP_LOCAL_BIN_DIR${NC}"
 
@@ -93,6 +104,8 @@ ln -s "$ZSHRC_SOURCE" "$ZSHRC_FILE" && echo -e "${GREEN}Created a new symbolic l
 ln -s "$ZPREZTORC_SOURCE" "$ZPRESTORC_FILE" && echo -e "${GREEN}Created a new symbolic link from $ZPRESTORC_FILE to $ZPREZTORC_SOURCE${NC}"
 
 ln -s "$P10K_SOURCE" "$P10KZSH_FILE" && echo -e "${GREEN}Created a new symbolic link from $P10KZSH_FILE to $P10K_SOURCE${NC}"
+
+ln -s "$PROTOTOOLS_SOURCE" "$PROTOTOOLS_FILE" && echo -e "${GREEN}Created a new symbolic link from $PROTOTOOLS_FILE to $PROTOTOOLS_SOURCE${NC}"
 
 if [ "$SETUP_ALACRITTY" = true ]; then
     ./scripts/setup-alacritty.sh

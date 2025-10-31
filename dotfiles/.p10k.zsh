@@ -83,7 +83,10 @@ esac
 
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
-    asdf
+    node_version
+    go_version
+    rust_version
+    pyenv
     # =========================[ Line #2 ]=========================
     newline
     status
@@ -192,6 +195,7 @@ esac
     .java-version
     .perl-version
     .php-version
+    .prototools
     .tool-versions
     .shorten_folder_marker
     .svn
@@ -360,10 +364,10 @@ esac
   typeset -g POWERLEVEL9K_ASDF_BACKGROUND=7
   typeset -g POWERLEVEL9K_ASDF_SOURCES=(shell local global)
   # Tip:  Override this parameter for ${TOOL} with POWERLEVEL9K_ASDF_${TOOL}_PROMPT_ALWAYS_SHOW.
-  typeset -g POWERLEVEL9K_ASDF_NODEJS_PROMPT_ALWAYS_SHOW=true
+  typeset -g POWERLEVEL9K_ASDF_NODEJS_PROMPT_ALWAYS_SHOW=false
   typeset -g POWERLEVEL9K_ASDF_PROMPT_ALWAYS_SHOW=false
   # Tip: Override this parameter for ${TOOL} with POWERLEVEL9K_ASDF_${TOOL}_SHOW_SYSTEM.
-  typeset -g POWERLEVEL9K_ASDF_SHOW_SYSTEM=true
+  typeset -g POWERLEVEL9K_ASDF_SHOW_SYSTEM=false
   typeset -g POWERLEVEL9K_ASDF_SHOW_ON_UPGLOB=
   typeset -g POWERLEVEL9K_ASDF_RUBY_FOREGROUND=0
   typeset -g POWERLEVEL9K_ASDF_RUBY_BACKGROUND=1
@@ -524,7 +528,7 @@ esac
   ###[ virtualenv: python virtual environment (https://docs.python.org/3/library/venv.html) ]###
   typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND=0
   typeset -g POWERLEVEL9K_VIRTUALENV_BACKGROUND=4
-  typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_PYTHON_VERSION=false
+  typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_PYTHON_VERSION=true
   typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_WITH_PYENV=false
   typeset -g POWERLEVEL9K_VIRTUALENV_{LEFT,RIGHT}_DELIMITER=
 
@@ -570,7 +574,7 @@ esac
   ##############################[ node_version: node.js version ]###############################
   typeset -g POWERLEVEL9K_NODE_VERSION_FOREGROUND=7
   typeset -g POWERLEVEL9K_NODE_VERSION_BACKGROUND=2
-  typeset -g POWERLEVEL9K_NODE_VERSION_PROJECT_ONLY=true
+  typeset -g POWERLEVEL9K_NODE_VERSION_PROJECT_ONLY=false
 
   #######################[ go_version: go version (https://golang.org) ]########################
   typeset -g POWERLEVEL9K_GO_VERSION_FOREGROUND=255

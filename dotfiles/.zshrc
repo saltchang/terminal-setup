@@ -167,10 +167,6 @@ function _bind_keys_for_history_substring_search() {
 }
 # ==================================================================================================
 
-# ===> Proto (Optional) ============================================================================
-export PROTO_HOME="$HOME/.proto"
-addToPATH "$PROTO_HOME/shims"
-addToPATH "$PROTO_HOME/bin"
 # ==================================================================================================
 
 # ===> Go ==========================================================================================
@@ -290,32 +286,26 @@ zi snippet PZT::modules/prompt
 source ${ZDOTDIR:-$HOME}/.zpreztorc
 # ==================================================================================================
 
-# ===> asdf (Optional) =============================================================================
-if [ ! -d "$HOME/.asdf" ] || [ -z "$HOME/.asdf/asdf.sh" ]; then
-    echo "Installing asdf..."
-    rm -rf "$HOME/.asdf"
-    git clone https://github.com/asdf-vm/asdf.git $HOME/.asdf
+# ===> Proto =======================================================================================
+# Proto is a pluggable multi-language version manager
+# See: https://moonrepo.dev/docs/proto
+
+export PROTO_HOME="$HOME/.proto"
+
+# Install proto if not already installed
+if [ ! -d "$PROTO_HOME" ]; then
+    echo "Installing proto..."
+    bash <(curl -fsSL https://moonrepo.dev/install/proto.sh) --yes
 fi
 
-. "$HOME/.asdf/asdf.sh"
+# Add proto to PATH
+addToPATH "$PROTO_HOME/shims:$PROTO_HOME/bin"
 
-# append completions to fpath
-fpath=(${ASDF_DIR}/completions $fpath)
-# initialise completions with ZSH's compinit
-autoload -Uz compinit && compinit
-
-# check if asdf-nodejs plugin is installed
-if ! asdf plugin list | grep -q "nodejs"; then
-    asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-fi
-
-# append "legacy_version_file = yes" to ~/.asdfrc to enable legacy version file if needed
-if [ -f "$HOME/.asdfrc" ]; then
-    if ! grep -q "legacy_version_file = yes" "$HOME/.asdfrc"; then
-        echo "legacy_version_file = yes" >>"$HOME/.asdfrc"
-    fi
-else
-    echo "legacy_version_file = yes" >"$HOME/.asdfrc"
+# Load proto completions if available
+if command -v proto &>/dev/null; then
+    # Proto uses WASM plugins and supports legacy version files (.nvmrc, .tool-versions)
+    # by default, so no additional configuration is needed
+    :
 fi
 # ==================================================================================================
 
@@ -539,7 +529,7 @@ if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-clou
 # ==================================================================================================
 
 # ===> Check Git Version ===========================================================================
-function git() {
+function check_git_version() {
     local LAST_CHECK_TIME=0
     local LAST_CHECK_FILE="${TERMINAL_SETUP_CACHE}/.git_last_check"
 
@@ -571,11 +561,9 @@ function git() {
         fi
 
         echo
+        
+        echo ${CURRENT_TIME} >${LAST_CHECK_FILE}
     fi
-
-    echo ${CURRENT_TIME} >${LAST_CHECK_FILE}
-
-    command git "$@"
 }
 # ==================================================================================================
 
@@ -633,34 +621,19 @@ function set-title() {
 add-zsh-hook precmd set-title
 # --------------------------------------------------------------------------------------------------
 
-# ---> Automatically use the correct node version if exists ----------------------------------------
+# ---> Automatically activate proto environment ----------------------------------------------------
 autoload -U add-zsh-hook
-load-node-version() {
-    local asdf_node_version="$(asdf current nodejs 2>/dev/null | awk '{print $2}')"
-    local directory_node_version=""
-    local legacy_nvmrc_node_version=""
-
-    if [ -f ".tool-versions" ]; then
-        directory_node_version="$(cat .tool-versions | grep nodejs | awk '{print $2}')"
-    elif [ -f ".nvmrc" ]; then
-        # with legacy .nvmrc support
-        legacy_nvmrc_node_version="$(cat .nvmrc)"
+load-activate-proto() {
+    if ! command -v proto &>/dev/null; then
+        return
     fi
 
-    local target_version="${directory_node_version:-$legacy_nvmrc_node_version}"
-
-    if [ -n "$target_version" ]; then
-        if [ "$asdf_node_version" != "$target_version" ]; then
-            if ! asdf list nodejs | grep -q "$target_version"; then
-                echo "Node version $target_version not installed. Installing..."
-                asdf install nodejs "$target_version"
-            fi
-            asdf local nodejs "$target_version"
-        fi
+    if [ -f ".prototools" ] || [ -f ".nvmrc" ]; then
+        eval "$(proto activate zsh)"
     fi
 }
-add-zsh-hook chpwd load-node-version
-load-node-version
+add-zsh-hook chpwd load-activate-proto
+load-activate-proto
 # --------------------------------------------------------------------------------------------------
 # ==================================================================================================
 
@@ -674,6 +647,11 @@ typeset -U path # remove duplicates in $PATH
 # ---> Change directory to $HOME -------------------------------------------------------------------
 if [ "$0" = "$ZSH_SHELL_NAME" ]; then # don't run when source .zshrc
     cd "$HOME" || exit
+fi
+
+# ---> Check for Git updates -----------------------------------------------------------------------
+if [ "$0" = "$ZSH_SHELL_NAME" ]; then # don't run when source .zshrc
+    check_git_version
 fi
 
 # ---> Load p10k configuration ---------------------------------------------------------------------

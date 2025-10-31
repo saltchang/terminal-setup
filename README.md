@@ -19,7 +19,7 @@ Terminal setup for zsh in macOS, Ubuntu/Debian, and Windows.
     - [git](https://github.com/sorin-ionescu/prezto/tree/master/modules/git): Enhances the Git distributed version control system
     - [gnu-utility](https://github.com/sorin-ionescu/prezto/tree/master/modules/gnu-utility): Provides for the interactive use of GNU utilities on non-GNU systems
     - [utility](https://github.com/sorin-ionescu/prezto/tree/master/modules/utility): Provides general aliases and functions
-- Auto-switching Node.js versions using [asdf](https://github.com/asdf-vm/asdf)
+- Auto-switching Node.js versions using [proto](https://moonrepo.dev/docs/proto)
 - Quickly jump to different directories with [jump](https://github.com/gsamokovarov/jump)
 - Git helpers and automatic version checking
 - Rust version checking
@@ -223,7 +223,6 @@ This setup includes several custom functions and aliases to improve your product
 - `select_menu`: Interactive menu to select an option from a list
 - `update_git`: Check for and update Git to the latest version
 - `update_terminal_setup`: Update the terminal setup itself
-- `load-node-version`: Automatically use the correct Node.js version based on .tool-versions or .nvmrc files
 
 ### Custom Aliases
 
@@ -281,9 +280,9 @@ If you're seeing boxes or question marks instead of special characters in your p
 
 If automatic Node.js version switching isn't working:
 
-1. Make sure asdf is properly installed and configured.
-2. Check if you have a `.tool-versions` or `.nvmrc` file in your project directory.
-3. Try running `asdf reshim nodejs` after installing a new Node.js version.
+1. Make sure proto is properly installed and configured.
+2. Check if you have a `.prototools` or `.nvmrc` file in your project directory.
+3. Try activating the correct Node.js version by `proto activate zsh`.
 
 For any other issues, please open an issue on the GitHub repository.
 
