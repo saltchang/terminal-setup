@@ -103,9 +103,37 @@ if [ "$SETUP_KITTY" = true ]; then
     case $OS_NAME in
     "$MACOS")
         cp ./.config/kitty/local.mac.conf ./.config/kitty/local.conf
+
+        KITTY_SESSION_DIR="$HOME/Library/Application Support/kitty"
+        KITTY_SESSION_FILE="$KITTY_SESSION_DIR/session.kitty-session"
+        KITTY_SESSION_AGENT_LABEL="kitty-session-autosave"
+        KITTY_SESSION_AGENT="$HOME/Library/LaunchAgents/$KITTY_SESSION_AGENT_LABEL.plist"
+
+        mkdir -p "$KITTY_SESSION_DIR" "$HOME/Library/LaunchAgents"
+        [ -e "$KITTY_SESSION_FILE" ] || printf 'launch\n' >"$KITTY_SESSION_FILE"
+        cp "./.config/kitty/$KITTY_SESSION_AGENT_LABEL.plist" "$KITTY_SESSION_AGENT"
+        plutil -replace ProgramArguments.3 -string "$(command -v kitty)" "$KITTY_SESSION_AGENT"
+        launchctl bootout "gui/$(id -u)/$KITTY_SESSION_AGENT_LABEL" 2>/dev/null || true
+        launchctl bootstrap "gui/$(id -u)" "$KITTY_SESSION_AGENT"
         ;;
     "$LINUX")
         cp ./.config/kitty/local.arch.conf ./.config/kitty/local.conf
+
+        KITTY_SESSION_DIR="$HOME/.local/state/kitty"
+        KITTY_SYSTEMD_USER_DIR="$HOME/.config/systemd/user"
+        KITTY_SESSION_SERVICE="kitty-session-autosave.service"
+        KITTY_SESSION_TIMER="kitty-session-autosave.timer"
+
+        mkdir -p "$KITTY_SESSION_DIR" "$KITTY_SYSTEMD_USER_DIR"
+        [ -e "$KITTY_SESSION_DIR/session.kitty-session" ] || printf 'launch\n' >"$KITTY_SESSION_DIR/session.kitty-session"
+        cp "./.config/kitty/$KITTY_SESSION_SERVICE" "./.config/kitty/$KITTY_SESSION_TIMER" "$KITTY_SYSTEMD_USER_DIR"
+
+        if command -v systemctl &>/dev/null && systemctl --user daemon-reload; then
+            systemctl --user enable "$KITTY_SESSION_TIMER"
+            systemctl --user restart "$KITTY_SESSION_TIMER"
+        else
+            printf '%b%s%b\n' "$WARNING" "systemd user session is unavailable; skipped automatic kitty session saving." "$NC"
+        fi
         ;;
     *) ;;
     esac

@@ -1,0 +1,6 @@
+[Unit]
+Description=Save kitty session
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'for socket in /tmp/kitty-[0-9]*; do [ -S "$$socket" ] && [ -O "$$socket" ] || continue; kitty @ --to "unix:$$socket" action save_as_session "--save-only --base-dir \"~/.local/state/kitty\" session.kitty-session" && exit 0; done; exit 0'
