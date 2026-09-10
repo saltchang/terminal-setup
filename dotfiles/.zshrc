@@ -478,7 +478,7 @@ fi
 case $OS_NAME in
     "$MACOS")
         unu() {
-            brew update -v && brew upgrade -v
+            brew update -v && brew upgrade -v -y
         }
         ;;
     "$LINUX")
